@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SearchFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/search_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/search_message"
+                android:text="" />
+
+            <EditText
+                android:id="@+id/departure_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:autofillHints="no"
+                android:hint="@string/departure_point"
+                android:inputType="text"
+                android:text="" />
+
+            <EditText
+                android:id="@+id/arrival_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:autofillHints="no"
+                android:hint="@string/arrival_point"
+                android:inputType="text"
+                android:text="" />
+
+            <EditText
+                android:id="@+id/departure_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:autofillHints="no"
+                android:ems="10"
+                android:hint="@string/departure_date"
+                android:inputType="date" />
+
+            <EditText
+                android:id="@+id/departure_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:autofillHints="no"
+                android:ems="10"
+                android:hint="@string/departure_time"
+                android:inputType="time" />
+
+            <EditText
+                android:id="@+id/passengers_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:autofillHints="no"
+                android:ems="10"
+                android:hint="@string/passengers_number"
+                android:inputType="number" />
+
+            <Button
+                android:id="@+id/search_travel_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/search_travel_button"
+                android:onClick="showResultList"
+                android:text="" />
+
+            <LinearLayout
+                android:id="@+id/search_result_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>
+
+
+    <!-- TODO: Limitar días, que no sea antes de la fecha -->
+    <!-- TODO: Limitar horas, que no sea antes de la hora si es hoy -->
+    <!-- TODO: Números del 1 al 8 -->

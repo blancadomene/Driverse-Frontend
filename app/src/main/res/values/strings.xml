@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">TFG</string>
+    <!-- LoginScreenActivity -->
+    <string name="log_in_button">Log In</string>
+    <!-- DisplayMessageActivity -->
+    <string name="search_button">Search</string>
+    <string name="notifications_button">Notifications</string>
+    <string name="publish_button">Publish</string>
+    <string name="profile_button">Profile</string>
+    <!-- SearchFragment -->
+
+    <!-- ProfileFragment -->
+    <string name="search_message">Looking for a ride?</string>
+    <string name="departure_point">Departure Point</string>
+    <string name="arrival_point">Arrival Point</string>
+    <string name="departure_date">Departure Date</string>
+    <string name="departure_time">Departure Time</string>
+    <string name="passengers_number">Number of passengers</string>
+    <string name="search_travel_button">SEARCH</string>
+
+
+    <string name="arrival_date">Departure Date</string> <!-- TODO: Unused, rides required -->
+    <string name="arrival_time">Departure Time</string> <!-- TODO: Unused, rides required -->
+
+
+    <string name="details">Details</string> <!-- TODO: Unused, for travel cards -->
+</resources>
