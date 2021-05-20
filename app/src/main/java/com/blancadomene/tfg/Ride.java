@@ -132,6 +132,8 @@ public class Ride {
         verticalLayout.addView(horizontalBotLayout);
         card.addView(verticalLayout);
         return card;
+
+        // hola que tal
     }
 
     private CardView createBlankRideCard(Activity context) {
