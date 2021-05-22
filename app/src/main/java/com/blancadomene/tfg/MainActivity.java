@@ -6,13 +6,13 @@ import androidx.fragment.app.FragmentManager;
 import android.os.Bundle;
 import android.view.View;
 
-public class DisplayMessageActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
     FragmentManager fragmentManager = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_display_message);
+        setContentView(R.layout.activity_main);
 
         fragmentManager = getSupportFragmentManager();
     }
@@ -29,7 +29,7 @@ public class DisplayMessageActivity extends AppCompatActivity {
         fragmentManager.beginTransaction()
                 .replace(R.id.fragmentContainerView, PublishFragment.class, null)
                 .setReorderingAllowed(true)
-                .addToBackStack("publishView") // name can be null
+                .addToBackStack("publishView")
                 .commit();
     }
 

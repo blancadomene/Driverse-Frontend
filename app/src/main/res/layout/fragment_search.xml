@@ -54,16 +54,6 @@
                 android:inputType="date" />
 
             <EditText
-                android:id="@+id/departure_time"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:autofillHints="no"
-                android:ems="10"
-                android:hint="@string/departure_time"
-                android:inputType="time" />
-
-            <EditText
                 android:id="@+id/passengers_number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -79,7 +69,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="@string/search_travel_button"
-                android:onClick="showResultList"
                 android:text="" />
 
             <LinearLayout

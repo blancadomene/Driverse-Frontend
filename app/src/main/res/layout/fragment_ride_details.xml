@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RideDetailsFragment">
+
+    <LinearLayout
+        android:id="@+id/mainRideDetailsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+      <com.blancadomene.tfg.availableDaysOfWeek
+            android:id="@+id/DaysOfWeekView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+</FrameLayout>
+
+
+
+    <!--
+    this.rideID = UUID.randomUUID();
+    this.departurePoint = depPoint;
+    this.departureDate = depDate;
+    this.arrivalPoint = arrPoint;
+    this.arrivalDate = arrDate;
+    this.availableSeats = avaSeats;
+    // TODO: Driver and passengers assigned
+    this.pricePerSeat = price; -->

@@ -1,7 +1,11 @@
 package com.blancadomene.tfg;
 
 import android.app.Activity;
+import android.content.Context;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -9,22 +13,26 @@ import androidx.cardview.widget.CardView;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
+import java.lang.String;
+import java.util.UUID;
 
 public class Ride {
-    private String rideID;
+    private UUID rideID;
     private String departurePoint;
-    private Calendar departureDate;
+    private Calendar departureDate; // startdate
     private String arrivalPoint;
-    private Calendar arrivalDate;
+    private Calendar arrivalDate;   // enddate
     private int availableSeats;
+    private Calendar departureHour;
+    private Calendar arrivalHour;
     private String driver;
     //private User driver;
     //ArrayList<User> passengers;
     private BigDecimal pricePerSeat =  BigDecimal.ZERO;
 
-    public Ride(String id, String depPoint, Calendar depDate, String arrPoint, Calendar arrDate, int avaSeats, BigDecimal price) {
+    public Ride(String depPoint, Calendar depDate, String arrPoint, Calendar arrDate, int avaSeats, BigDecimal price) {
         // TODO: check nulls
-        this.rideID = id;
+        this.rideID = UUID.randomUUID();
         this.departurePoint = depPoint;
         this.departureDate = depDate;
         this.arrivalPoint = arrPoint;
@@ -33,11 +41,11 @@ public class Ride {
         // TODO: Driver and passengers assigned
         this.pricePerSeat = price;
     }
-    public String getRideID() {
+    public UUID getRideID() {
         return rideID;
     }
 
-    public void setRideID(String rideID) {
+    public void setRideID(UUID rideID) {
         this.rideID = rideID;
     }
 
@@ -89,74 +97,10 @@ public class Ride {
         this.driver = driver;
     }
 
-    public CardView getRideCardView(Activity context) { // TODO: completar resto de campos de la card
-        CardView card = createBlankRideCard(context);
-        TextView departureDateTV = new TextView(context);
-        TextView departurePointTV = new TextView(context);
-        TextView arrivalDateTV = new TextView(context);
-        TextView arrivalPointTV = new TextView(context);
+    public View getRideCardView(Activity context) {
+        LayoutInflater inflater = (LayoutInflater)
+                context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        // Main vertical layout
-        LinearLayout verticalLayout = new LinearLayout(context);
-        verticalLayout.setOrientation(LinearLayout.VERTICAL);
-        verticalLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
-
-        // Top horizontal layout
-        LinearLayout horizontalTopLayout = new LinearLayout(context);
-        horizontalTopLayout.setOrientation(LinearLayout.HORIZONTAL);
-
-        //LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        //departureDateTV.setLayoutParams(lparams);
-        departureDateTV.setTextSize(20);
-        departureDateTV.setText(departureDate.HOUR_OF_DAY + ":" + departureDate.MINUTE);
-        horizontalTopLayout.addView(departureDateTV);
-
-        departurePointTV.setTextSize(20);
-        departurePointTV.setText(departurePoint);
-        horizontalTopLayout.addView(departurePointTV);
-
-
-        // Bottom horizontal layout
-        LinearLayout horizontalBotLayout = new LinearLayout(context);
-        horizontalBotLayout.setOrientation(LinearLayout.HORIZONTAL);
-
-        arrivalDateTV.setTextSize(20);
-        arrivalDateTV.setText(arrivalDate.HOUR_OF_DAY + ":" + arrivalDate.MINUTE);
-        horizontalBotLayout.addView(arrivalDateTV);
-
-        arrivalPointTV.setTextSize(20);
-        arrivalPointTV.setText(arrivalPoint);
-        horizontalBotLayout.addView(arrivalPointTV);
-
-        verticalLayout.addView(horizontalTopLayout);
-        verticalLayout.addView(horizontalBotLayout);
-        card.addView(verticalLayout);
-        return card;
-
-        // hola que tal
-    }
-
-    private CardView createBlankRideCard(Activity context) {
-        CardView card = new CardView(context);
-
-        LinearLayout.LayoutParams layoutparams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-        );
-        int margin = dpToPx(context, 8);
-        layoutparams.setMargins(margin, margin, margin, margin);
-        card.setLayoutParams(layoutparams);
-        card.setRadius(15);
-        card.setPadding(25, 25, 25, 25);
-        card.setContentPadding(25, 25, 25, 25);
-
-        card.setCardElevation(20);
-
-        return card;
-    }
-
-    private int dpToPx(Activity context, int dp) {
-        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-        return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+        return inflater.inflate(R.layout.layout_ride_card, null);
     }
 }

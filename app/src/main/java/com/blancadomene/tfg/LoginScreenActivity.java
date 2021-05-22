@@ -19,12 +19,11 @@ public class LoginScreenActivity extends AppCompatActivity {
     /** TODO: Cambiar esto **/
     public void sendMessage(View view) {
         // Starts new activity
-        Intent intent = new Intent(this, DisplayMessageActivity.class);
-        EditText editText = (EditText) findViewById(R.id.editText);
+        Intent intent = new Intent(this, MainActivity.class);
+        EditText editText = findViewById(R.id.editText);
         String message = editText.getText().toString();
         intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
-
     }
 
 

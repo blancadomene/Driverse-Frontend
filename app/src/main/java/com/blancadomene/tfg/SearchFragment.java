@@ -2,7 +2,9 @@ package com.blancadomene.tfg;
 
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -73,63 +75,44 @@ public class SearchFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_search, container, false);
         linearLayout = view.findViewById(R.id.search_result_container);     // Inflate the layout for this fragment
 
-        button = (Button) view.findViewById(R.id.search_travel_button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showResultList(v);
-            }
-        });
+        button = view.findViewById(R.id.search_travel_button);
+        button.setOnClickListener(v -> showResultList(v));
         return view;
     }
 
     public void showResultList(View view) {
         searches.clear(); //TODO: delete examples
         Calendar date = new GregorianCalendar(2021,1,2, 13, 24, 53);
-        Ride ride = new Ride("1", "Almería", date, "Granada", date, 3, new BigDecimal(123));
-        searches.add(ride);
-        linearLayout.removeAllViews();
-        for (int i = 0; i < searches.size(); i++) {
-            linearLayout.addView(searches.get(i).getRideCardView(getActivity()));
-        }
-    }
 
-/* 
-    public void showResultList(View view) {
+        searches.add(new Ride("Almería", date, "Granada", date, 3, new BigDecimal(123)));
+        searches.add(new Ride("Valencia", date, "Madriz", date, 3, new BigDecimal(123)));
+        searches.add(new Ride("Barcelona", date, "Badajoz", date, 3, new BigDecimal(123)));
+        searches.add(new Ride("Alfacar", date, "Viznar", date, 3, new BigDecimal(123)));
+
         linearLayout.removeAllViews();
-        CardView card = null;
-        TextView textView = null;
         for (int i = 0; i < searches.size(); i++) {
-            card = createBlankSearchCard();
-            textView = new TextView(getActivity());
-            textView.setText(searchesExample.get(i));
-            card.addView(textView);
+            Ride ride = searches.get(i);
+            View card = getInstrumentRideCard(ride);
             linearLayout.addView(card);
         }
     }
 
-    private CardView createBlankSearchCard() {
-        CardView card = new CardView(getActivity());
+    private View getInstrumentRideCard(Ride ride) {
+        View view = ride.getRideCardView(getActivity());
+        view.setOnClickListener(v -> switchToDetailedRideView(ride));
 
-        LinearLayout.LayoutParams layoutparams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-        );
-        int margin = dpToPx(8);
-        layoutparams.setMargins(margin, margin, margin, margin);
-
-        card.setLayoutParams(layoutparams);
-        card.setRadius(15);
-        card.setPadding(25, 25, 25, 25);
-        card.setCardElevation(20);
-
-        return card;
+        return view;
     }
 
-    private int dpToPx(int dp) {
-        DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
-        return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
-    }*/
+    private void switchToDetailedRideView(Ride ride) {
+        RideDetailsFragment rdf = new RideDetailsFragment(ride);
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainerView, rdf, null)
+                .setReorderingAllowed(true)
+                .addToBackStack("searchView")
+                .commit();
+    }
 }
 
 
