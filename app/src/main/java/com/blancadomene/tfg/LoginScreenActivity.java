@@ -1,6 +1,7 @@
 package com.blancadomene.tfg;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -16,7 +17,9 @@ public class LoginScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login_screen);
     }
 
-    /** TODO: Cambiar esto **/
+    /**
+     * TODO: Cambiar esto
+     **/
     public void sendMessage(View view) {
         // Starts new activity
         Intent intent = new Intent(this, MainActivity.class);

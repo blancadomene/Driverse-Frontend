@@ -9,9 +9,9 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardUseCompatPadding="true"
         app:cardCornerRadius="15dp"
         app:cardElevation="5dp"
+        app:cardUseCompatPadding="true"
         app:contentPadding="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,14 +28,30 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="256px"
-                    android:layout_height="256px"
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="0"
-                    android:scaleX="0.5"
-                    android:scaleY="0.5"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/layout_ride_card_image"
+                        android:layout_width="256px"
+                        android:layout_height="256px"
+                        android:layout_weight="0"
+                        android:scaleX="0.5"
+                        android:scaleY="0.5"
+                        tools:srcCompat="@tools:sample/avatars" />
+
+                    <TextView
+                        android:id="@+id/layout_ride_card_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:gravity="center"
+                        android:hint="@string/name"
+                        android:text="" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -43,18 +59,20 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/textView9"
+                        android:id="@+id/layout_ride_card_departure_hour"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Hora" />
+                        android:hint="@string/departure_hour"
+                        android:text="" />
 
                     <TextView
-                        android:id="@+id/textView8"
+                        android:id="@+id/layout_ride_card_arrival_hour"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Hora 2" />
+                        android:hint="@string/arrival_hour"
+                        android:text="" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -64,18 +82,20 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/textView10"
+                        android:id="@+id/layout_ride_card_departure_point"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Calle origen" />
+                        android:hint="@string/departure_point"
+                        android:text="" />
 
                     <TextView
-                        android:id="@+id/textView5"
+                        android:id="@+id/layout_ride_card_arrival_point"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="calle destino" />
+                        android:hint="@string/arrival_point"
+                        android:text="" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -85,18 +105,20 @@
                 android:orientation="horizontal">
 
                 <com.blancadomene.tfg.availableDaysOfWeek
+                    android:id="@+id/layout_ride_card_available_days_of_week"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                </com.blancadomene.tfg.availableDaysOfWeek>
+                    android:layout_height="wrap_content" />
 
                 <TextView
-                    android:id="@+id/textView12"
+                    android:id="@+id/layout_ride_card_price_per_seat"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center|right"
-                    android:text="Precio" />
+                    android:hint="@string/price_per_seat"
+                    android:paddingRight="25dp"
+                    android:text="" />
+
 
             </LinearLayout>
         </LinearLayout>

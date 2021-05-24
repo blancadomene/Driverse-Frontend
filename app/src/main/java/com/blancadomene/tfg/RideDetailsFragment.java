@@ -7,6 +7,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import java.util.Calendar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,13 +26,14 @@ public class RideDetailsFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private Ride ride;
 
     public RideDetailsFragment() {
         // Required empty public constructor
     }
 
-    public RideDetailsFragment(Ride ride) {
-        System.out.println(ride.getArrivalPoint());
+    public RideDetailsFragment(Ride pRide) {
+        this.ride = pRide;
     }
 
     /**
@@ -63,8 +67,27 @@ public class RideDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_ride_details, container, false);
-        availableDaysOfWeek daysOfWeekView = view.findViewById(R.id.DaysOfWeekView);
-        daysOfWeekView.ShowNum();
+
+        // Get view items and set text
+        TextView text;
+        text = view.findViewById(R.id.fragment_ride_details_departure_hour);
+        text.setText(ride.getDepartureHour().get(Calendar.HOUR_OF_DAY) + ":" + ride.getDepartureHour().get(Calendar.MINUTE));
+        text = view.findViewById(R.id.fragment_ride_details_departure_point);
+        text.setText(ride.getDeparturePoint());
+        text = view.findViewById(R.id.fragment_ride_details_arrival_hour);
+        text.setText(ride.getArrivalHour().get(Calendar.HOUR_OF_DAY) + ":" + ride.getArrivalHour().get(Calendar.MINUTE)); //TODO: change (same as in Ride)
+        text = view.findViewById(R.id.fragment_ride_details_arrival_point);
+        text.setText(ride.getArrivalPoint());
+        text = view.findViewById(R.id.fragment_ride_details_price_per_seat);
+        text.setText(ride.getPricePerSeat().toString() + "€");
+
+        // TODO: set daysOfWeek
+        availableDaysOfWeek daysOfWeekView = view.findViewById(R.id.fragment_ride_details_days_of_week_view);
+
+
+        // TODO: set photo (add name? rating?)
+
+        // TODO: set name
 
         return view;
     }

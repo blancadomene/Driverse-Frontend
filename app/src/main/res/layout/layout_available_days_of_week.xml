@@ -16,65 +16,85 @@
 
         <com.google.android.material.chip.Chip
             android:id="@+id/monday_chip"
+            style="@style/CustomChipChoice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
             android:text="M"
             android:textSize="10sp"
             app:chipMinTouchTargetSize="35dp" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/tuesday_chip"
+            style="@style/CustomChipChoice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            app:chipMinTouchTargetSize="35dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="T"
             android:textSize="10sp"
-            android:text="T" />
+            app:chipMinTouchTargetSize="35dp" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/wednesday_chip"
+            style="@style/CustomChipChoice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            app:chipMinTouchTargetSize="35dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="W"
             android:textSize="10sp"
-            android:text="W" />
+            app:chipMinTouchTargetSize="35dp" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/thursday_chip"
+            style="@style/CustomChipChoice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            app:chipMinTouchTargetSize="35dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="T"
             android:textSize="10sp"
-            android:text="T" />
+            app:chipMinTouchTargetSize="35dp" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/friday_chip"
+            style="@style/CustomChipChoice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            app:chipMinTouchTargetSize="35dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="F"
             android:textSize="10sp"
-            android:text="F" />
+            app:chipMinTouchTargetSize="35dp" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/saturday_chip"
+            style="@style/CustomChipChoice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            app:chipMinTouchTargetSize="35dp"
+            android:clickable="true"
             android:text="S"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            app:chipMinTouchTargetSize="35dp" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/sunday_chip"
+            style="@style/CustomChipChoice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            app:chipMinTouchTargetSize="35dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="S"
             android:textSize="10sp"
-            android:text="S" />
+            app:chipMinTouchTargetSize="35dp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

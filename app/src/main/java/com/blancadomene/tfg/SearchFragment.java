@@ -2,7 +2,6 @@ package com.blancadomene.tfg;
 
 import android.os.Bundle;
 
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -36,8 +35,9 @@ public class SearchFragment extends Fragment {
     private LinearLayout linearLayout = null;
     private View view = null;
     private Button button = null;
-    //TODO : ArrayList<String> searchesExample = new ArrayList<>(Arrays.asList("me", "quiero", "morir", "dsakjhdakhgdjahgsdjagsdjgasjdgajshdgcsfadasdadadga", "dsa","dasd","dsad","dasd","das","sdada","dasda","dsadad","dsada","dsada","dsada","daskjhd","11111"));
-    ArrayList<Ride> searches = new ArrayList<>();
+    private ArrayList<Ride> searches = new ArrayList<>();
+    private boolean[] week = new boolean[7];
+
 
     public SearchFragment() {
         // Required empty public constructor
@@ -73,7 +73,7 @@ public class SearchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_search, container, false);
-        linearLayout = view.findViewById(R.id.search_result_container);     // Inflate the layout for this fragment
+        linearLayout = view.findViewById(R.id.search_result_container);
 
         button = view.findViewById(R.id.search_travel_button);
         button.setOnClickListener(v -> showResultList(v));
@@ -81,15 +81,30 @@ public class SearchFragment extends Fragment {
     }
 
     public void showResultList(View view) {
-        searches.clear(); //TODO: delete examples
-        Calendar date = new GregorianCalendar(2021,1,2, 13, 24, 53);
+        // TODO: coger datos escritos
+        // TODO: Pasar datos a búsqueda
+        // TODO: Añadir las busquedas al array searches
+        // TODO: Eliminar ejemplos e iterar sobre dichos searches
 
-        searches.add(new Ride("Almería", date, "Granada", date, 3, new BigDecimal(123)));
-        searches.add(new Ride("Valencia", date, "Madriz", date, 3, new BigDecimal(123)));
-        searches.add(new Ride("Barcelona", date, "Badajoz", date, 3, new BigDecimal(123)));
-        searches.add(new Ride("Alfacar", date, "Viznar", date, 3, new BigDecimal(123)));
+
+
+
+        searches.clear(); //TODO: delete examples
+        Calendar exStartDate = new GregorianCalendar(2001,1,1);
+        Calendar exEndDate = new GregorianCalendar(2002,2,2);
+        Calendar exDepHour = new GregorianCalendar(1999,9,9, 13,01);
+        Calendar exArrHour = new GregorianCalendar(1999,9,9, 17, 14);
+        User exUser = new User("Eren", "Yaeger", "erenthetitan@gmail.com", "111111111");
+
+
+        searches.add(new Ride(exStartDate, exEndDate,"Almería", exDepHour, "Granada", exArrHour, 3, new BigDecimal("1.11"), exUser));
+        searches.add(new Ride(exStartDate, exEndDate,"Valencia", exDepHour, "Madriz", exArrHour, 3, new BigDecimal("2.22"), exUser));
+        searches.add(new Ride(exStartDate, exEndDate,"Barcelona", exDepHour, "Badajoz", exArrHour, 3, new BigDecimal("3.33"), exUser));
+        searches.add(new Ride(exStartDate, exEndDate,"Alfacar", exDepHour, "Viznar", exArrHour, 3, new BigDecimal("4.44"), exUser));
+        searches.add(new Ride(exStartDate, exEndDate,"Toledo", exDepHour, "Lugo", exArrHour, 3, new BigDecimal("5.55"), exUser));
 
         linearLayout.removeAllViews();
+
         for (int i = 0; i < searches.size(); i++) {
             Ride ride = searches.get(i);
             View card = getInstrumentRideCard(ride);
