@@ -1,5 +1,6 @@
 package com.blancadomene.tfg;
 
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
@@ -32,6 +34,8 @@ public class SearchFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private TimePickerDialog picker;
+    private EditText eText;
     private LinearLayout linearLayout = null;
     private View view = null;
     private Button button = null;
@@ -73,35 +77,52 @@ public class SearchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_search, container, false);
-        linearLayout = view.findViewById(R.id.search_result_container);
-
-        button = view.findViewById(R.id.search_travel_button);
+        linearLayout = view.findViewById(R.id.fragment_search_result_container);
+        button = view.findViewById(R.id.fragment_search_travel_button);
         button.setOnClickListener(v -> showResultList(v));
+
+        eText = view.findViewById(R.id.fragment_search_departure_hour);
+        eText.setOnClickListener(v -> showTimePickerDialog(v));
+
         return view;
     }
 
     public void showResultList(View view) {
-        // TODO: coger datos escritos
-        // TODO: Pasar datos a búsqueda
-        // TODO: Añadir las busquedas al array searches
-        // TODO: Eliminar ejemplos e iterar sobre dichos searches
+        // TODO: Take data from editTexts
+        // TODO: not null
+        EditText edText;
+        edText = (EditText) getActivity().findViewById(R.id.fragment_search_departure_point);
+        String fsDeparturePoint = eText.getText().toString();
+        edText = (EditText) getActivity().findViewById(R.id.fragment_search_departure_point_radius);
+        String fsDeparturePointRadius = eText.getText().toString();
+        edText = (EditText) getActivity().findViewById(R.id.fragment_search_arrival_point);
+        String fsArrivalPoint = eText.getText().toString();
+        edText = (EditText) getActivity().findViewById(R.id.fragment_search_arrival_point_radius);
+        String fsArrivalPointRadius = eText.getText().toString();
+        edText = (EditText) getActivity().findViewById(R.id.fragment_search_departure_hour);
+        String fsDepartureHour = eText.getText().toString();
+        edText = (EditText) getActivity().findViewById(R.id.fragment_search_passengers_number);
+        String fsPassengersNumber = eText.getText().toString();
+        availableDaysOfWeek viewAv = (availableDaysOfWeek) getActivity().findViewById(R.id.fragment_search_days_of_week_view);
+        boolean[] fsAvailableDaysOfWeek = viewAv.getSelectedDaysOfWeek();
 
 
-
-
-        searches.clear(); //TODO: delete examples
-        Calendar exStartDate = new GregorianCalendar(2001,1,1);
-        Calendar exEndDate = new GregorianCalendar(2002,2,2);
-        Calendar exDepHour = new GregorianCalendar(1999,9,9, 13,01);
-        Calendar exArrHour = new GregorianCalendar(1999,9,9, 17, 14);
+        // TODO: Search with editTexts parameters and add searches to array (same name)
+        // TODO: delete examples and iterate searches array
+        searches.clear();
+        Calendar exStartDate = new GregorianCalendar(2001, 1, 1);
+        Calendar exEndDate = new GregorianCalendar(2002, 2, 2);
+        Calendar exDepHour = new GregorianCalendar(1999, 9, 9, 13, 01);
+        Calendar exArrHour = new GregorianCalendar(1999, 9, 9, 17, 14);
         User exUser = new User("Eren", "Yaeger", "erenthetitan@gmail.com", "111111111");
 
 
-        searches.add(new Ride(exStartDate, exEndDate,"Almería", exDepHour, "Granada", exArrHour, 3, new BigDecimal("1.11"), exUser));
-        searches.add(new Ride(exStartDate, exEndDate,"Valencia", exDepHour, "Madriz", exArrHour, 3, new BigDecimal("2.22"), exUser));
-        searches.add(new Ride(exStartDate, exEndDate,"Barcelona", exDepHour, "Badajoz", exArrHour, 3, new BigDecimal("3.33"), exUser));
-        searches.add(new Ride(exStartDate, exEndDate,"Alfacar", exDepHour, "Viznar", exArrHour, 3, new BigDecimal("4.44"), exUser));
-        searches.add(new Ride(exStartDate, exEndDate,"Toledo", exDepHour, "Lugo", exArrHour, 3, new BigDecimal("5.55"), exUser));
+        searches.add(new Ride(exStartDate, exEndDate, "Almería", exDepHour, "Granada", exArrHour, 3, new BigDecimal("1.11"), exUser));
+        searches.add(new Ride(exStartDate, exEndDate, "Valencia", exDepHour, "Madriz", exArrHour, 3, new BigDecimal("2.22"), exUser));
+        searches.add(new Ride(exStartDate, exEndDate, "Barcelona", exDepHour, "Badajoz", exArrHour, 3, new BigDecimal("3.33"), exUser));
+        searches.add(new Ride(exStartDate, exEndDate, "Alfacar", exDepHour, "Viznar", exArrHour, 3, new BigDecimal("4.44"), exUser));
+        searches.add(new Ride(exStartDate, exEndDate, "Toledo", exDepHour, "Lugo", exArrHour, 3, new BigDecimal("5.55"), exUser));
+        //TODO: delete examples and iterate searches array
 
         linearLayout.removeAllViews();
 
@@ -127,6 +148,16 @@ public class SearchFragment extends Fragment {
                 .setReorderingAllowed(true)
                 .addToBackStack("searchView")
                 .commit();
+    }
+
+    private void showTimePickerDialog(View view) {
+        final Calendar cldr = Calendar.getInstance();
+        int hour = cldr.get(Calendar.HOUR_OF_DAY);
+        int minutes = cldr.get(Calendar.MINUTE);
+        // TimePicker dialog, starts with actual hour
+        picker = new TimePickerDialog(getActivity(),
+                (tp, tpHour, tpMinute) -> eText.setText(tpHour + ":" + tpMinute), hour, minutes, true);
+        picker.show();
     }
 }
 

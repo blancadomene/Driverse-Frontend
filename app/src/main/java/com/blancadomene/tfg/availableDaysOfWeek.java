@@ -43,7 +43,7 @@ public class availableDaysOfWeek extends LinearLayout {
         sunday.setOnClickListener(v -> v.setActivated(!v.isActivated()));
     }
 
-    public void setEnabled(boolean[] week) {
+    public void setEnabledDaysOfWeek(boolean[] week) {
         monday.setEnabled(week[0]);
         tuesday.setEnabled(week[1]);
         wednesday.setEnabled(week[2]);
@@ -51,5 +51,17 @@ public class availableDaysOfWeek extends LinearLayout {
         friday.setEnabled(week[4]);
         saturday.setEnabled(week[5]);
         sunday.setEnabled(week[6]);
+    }
+
+    public boolean[] getSelectedDaysOfWeek() {
+        boolean[] weekDays = new boolean[7];
+        weekDays[0] = monday.isSelected();
+        weekDays[1] = tuesday.isSelected();
+        weekDays[2] = wednesday.isSelected();
+        weekDays[3] = thursday.isSelected();
+        weekDays[4] = friday.isSelected();
+        weekDays[5] = saturday.isSelected();
+        weekDays[6] = sunday.isSelected();
+        return weekDays;
     }
 }
