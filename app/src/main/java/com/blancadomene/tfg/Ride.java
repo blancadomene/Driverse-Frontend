@@ -1,5 +1,6 @@
 package com.blancadomene.tfg;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.util.DisplayMetrics;
@@ -30,8 +31,7 @@ public class Ride {
     private int availableSeats;
     private BigDecimal pricePerSeat;
     private User driver;
-    // private ArrayList<User> passengersArray; // TODO: add passengers & passengers < availableSeats & deletePassenger if cancelled ride
-    private boolean[] week;
+    private boolean[] availableDaysOfWeek;
 
     public Ride(Calendar start, Calendar end, String depPoint, Calendar depHour, String arrPoint, Calendar arrHour, int avaSeats, BigDecimal price, User userDriver) {
         // TODO: check nulls
@@ -48,8 +48,7 @@ public class Ride {
         this.availableSeats = avaSeats;
         this.pricePerSeat = price;
         this.driver = userDriver;
-        //passengersArray = new ArrayList<>();
-        week = new boolean[7];
+        availableDaysOfWeek = new boolean[7];
     }
 
     public UUID getRideID() {
@@ -132,22 +131,15 @@ public class Ride {
         this.driver = driver;
     }
 
-/*    public ArrayList<User> getPassengersArray() { TODO
-        return passengersArray;
+    public boolean[] getAvailableDaysOfWeek() {
+        return availableDaysOfWeek;
     }
 
-    public void setPassengersArray(ArrayList<User> passengersArray) {
-        this.passengersArray = passengersArray;
-    }*/
-
-    public boolean[] getWeek() {
-        return week;
+    public void setAvailableDaysOfWeek(boolean[] week) {
+        this.availableDaysOfWeek = week;
     }
 
-    public void setWeek(boolean[] week) {
-        this.week = week;
-    }
-
+    @SuppressLint({"DefaultLocale", "SetTextI18n"})
     public View getRideCardView(Activity context) {
         LayoutInflater inflater = (LayoutInflater)
                 context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -172,6 +164,8 @@ public class Ride {
         text.setText(getArrivalPoint());
         text = view.findViewById(R.id.layout_ride_card_price_per_seat);
         text.setText(getPricePerSeat().toString() + "€");
+
+        new DownloadImageTask(view.findViewById(R.id.layout_ride_card_driver_image)).execute("https://www.gravatar.com/avatar/205e460b479e2e5b48aeg07710c08d50?s=450&r=pg&d=retro");
 
         // TODO: set daysOfWeek
         // TODO: set photo (add name? rating?)

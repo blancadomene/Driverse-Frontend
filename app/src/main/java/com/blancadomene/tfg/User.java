@@ -13,6 +13,8 @@ public class User {
     private Image photo;
     private String car;
 
+    private String preferences;
+
     public User(String name, String surName, String email, String phone) {
         this.userID = UUID.randomUUID();
         this.name = name;
@@ -20,6 +22,7 @@ public class User {
         this.email = email;
         this.mobilePhone = phone;
         // TODO: Default photo
+        this.preferences = "No preferences added.";
         this.car = "No car added.";
     }
 
@@ -79,5 +82,12 @@ public class User {
         this.car = car;
     }
 
+    public String getPreferences() {
+        return preferences;
+    }
+
+    public void setPreferences(String preferences) {
+        this.preferences = preferences;
+    }
 
 }

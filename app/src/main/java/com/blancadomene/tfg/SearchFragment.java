@@ -1,5 +1,6 @@
 package com.blancadomene.tfg;
 
+import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 
@@ -34,8 +35,11 @@ public class SearchFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private TimePickerDialog picker;
-    private EditText eText;
+    private TimePickerDialog timePicker;
+    private DatePickerDialog datePicker;
+    private EditText eTextTP;
+    private EditText eTexDPStart;
+    private EditText eTexDPEnd;
     private LinearLayout linearLayout = null;
     private View view = null;
     private Button button = null;
@@ -81,8 +85,14 @@ public class SearchFragment extends Fragment {
         button = view.findViewById(R.id.fragment_search_travel_button);
         button.setOnClickListener(v -> showResultList(v));
 
-        eText = view.findViewById(R.id.fragment_search_departure_hour);
-        eText.setOnClickListener(v -> showTimePickerDialog(v));
+        eTextTP = view.findViewById(R.id.fragment_search_departure_hour);
+        eTextTP.setOnClickListener(v -> showTimePickerDialog(v));
+
+        eTexDPStart = view.findViewById(R.id.fragment_search_start_date);
+        eTexDPStart.setOnClickListener(v -> showDatePickerDialog(eTexDPStart));
+
+        eTexDPEnd = view.findViewById(R.id.fragment_search_end_date);
+        eTexDPEnd.setOnClickListener(v -> showDatePickerDialog(eTexDPEnd));
 
         return view;
     }
@@ -91,18 +101,22 @@ public class SearchFragment extends Fragment {
         // TODO: Take data from editTexts
         // TODO: not null
         EditText edText;
+        edText = (EditText) getActivity().findViewById(R.id.fragment_search_start_date);
+        String fsStartDate = edText.getText().toString();
+        edText = (EditText) getActivity().findViewById(R.id.fragment_search_end_date);
+        String fsEndDate = edText.getText().toString();
         edText = (EditText) getActivity().findViewById(R.id.fragment_search_departure_point);
-        String fsDeparturePoint = eText.getText().toString();
+        String fsDeparturePoint = edText.getText().toString();
         edText = (EditText) getActivity().findViewById(R.id.fragment_search_departure_point_radius);
-        String fsDeparturePointRadius = eText.getText().toString();
+        String fsDeparturePointRadius = edText.getText().toString();
         edText = (EditText) getActivity().findViewById(R.id.fragment_search_arrival_point);
-        String fsArrivalPoint = eText.getText().toString();
+        String fsArrivalPoint = edText.getText().toString();
         edText = (EditText) getActivity().findViewById(R.id.fragment_search_arrival_point_radius);
-        String fsArrivalPointRadius = eText.getText().toString();
+        String fsArrivalPointRadius = edText.getText().toString();
         edText = (EditText) getActivity().findViewById(R.id.fragment_search_departure_hour);
-        String fsDepartureHour = eText.getText().toString();
+        String fsDepartureHour = edText.getText().toString();
         edText = (EditText) getActivity().findViewById(R.id.fragment_search_passengers_number);
-        String fsPassengersNumber = eText.getText().toString();
+        String fsPassengersNumber = edText.getText().toString();
         availableDaysOfWeek viewAv = (availableDaysOfWeek) getActivity().findViewById(R.id.fragment_search_days_of_week_view);
         boolean[] fsAvailableDaysOfWeek = viewAv.getSelectedDaysOfWeek();
 
@@ -154,11 +168,21 @@ public class SearchFragment extends Fragment {
         final Calendar cldr = Calendar.getInstance();
         int hour = cldr.get(Calendar.HOUR_OF_DAY);
         int minutes = cldr.get(Calendar.MINUTE);
-        // TimePicker dialog, starts with actual hour
-        picker = new TimePickerDialog(getActivity(),
-                (tp, tpHour, tpMinute) -> eText.setText(tpHour + ":" + tpMinute), hour, minutes, true);
-        picker.show();
+
+        timePicker = new TimePickerDialog(getActivity(),
+                (tp, tpHour, tpMinutes) -> eTextTP.setText(String.format("%02d:%02d", tpHour, tpMinutes)), hour, minutes, true);
+        timePicker.show();
+    }
+
+    private void showDatePickerDialog(EditText edText) {
+        final Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+
+        datePicker = new DatePickerDialog(getActivity(),
+                (dp, dpYear, dpMonth, dpDay) -> edText.setText(String.format("%02d/%02d/%02d", dpDay, dpMonth, dpYear)), year, month, day);
+        datePicker.show();
     }
 }
-
 

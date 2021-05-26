@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">TFG</string>
     <string name="colon">%1$s:%2s</string>      <!-- TODO: not used, show hour in Ride and RideDetails-->
-    <string name="slash">%1$s:%2s</string>      <!-- TODO: not used, show date in RideDetails-->
+    <string name="slash">/</string>      <!-- TODO: not used, show date in RideDetails-->
+    <string name="dash">-</string>
     <!-- LoginScreenActivity -->
     <string name="log_in_button">Log In</string>
     <!-- MainActivity -->
@@ -22,8 +23,14 @@
     <string name="passengers_number">Number of passengers</string>
     <string name="available_seats">Available seats</string>
     <string name="price_per_seat">Price per seat</string>
-    <string name="driver">Driver</string>
+    <string name="driver_name">Driver name</string> <!-- driver name, image, preferences and car repeated? -->
+    <string name="trip_drivers_image">Trip driver\'s image</string>
+    <string name="driver_preferences">Driver preferences</string>
+    <string name="driver_car">Driver car</string>
     <string name="search_travel_button">SEARCH</string>
+    <string name="ride_details_message">Ride details</string>
+    <string name="book_ride_button">BOOK</string>
+
 
     <!-- TODO: all of AvailableDaysOfWeek -->
     <string name="monday">M</string>
