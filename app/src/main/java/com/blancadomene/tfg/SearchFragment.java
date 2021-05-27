@@ -3,10 +3,6 @@ package com.blancadomene.tfg;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +10,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
-import java.util.ArrayList;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -117,7 +116,7 @@ public class SearchFragment extends Fragment {
         String fsDepartureHour = edText.getText().toString();
         edText = (EditText) getActivity().findViewById(R.id.fragment_search_passengers_number);
         String fsPassengersNumber = edText.getText().toString();
-        availableDaysOfWeek viewAv = (availableDaysOfWeek) getActivity().findViewById(R.id.fragment_search_days_of_week_view);
+        AvailableDaysOfWeek viewAv = (AvailableDaysOfWeek) getActivity().findViewById(R.id.fragment_search_days_of_week_view);
         boolean[] fsAvailableDaysOfWeek = viewAv.getSelectedDaysOfWeek();
 
 
@@ -158,7 +157,7 @@ public class SearchFragment extends Fragment {
         RideDetailsFragment rdf = new RideDetailsFragment(ride);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainerView, rdf, null)
+                .replace(R.id.activity_main_fragment_container_view, rdf, null)
                 .setReorderingAllowed(true)
                 .addToBackStack("searchView")
                 .commit();

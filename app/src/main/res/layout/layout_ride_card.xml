@@ -39,8 +39,8 @@
                         android:layout_width="256px"
                         android:layout_height="256px"
                         android:layout_weight="0"
-                        android:scaleX="0.5"
-                        android:scaleY="0.5"
+                        android:scaleX="0.7"
+                        android:scaleY="0.7"
                         tools:srcCompat="@tools:sample/avatars" />
 
                     <TextView
@@ -49,7 +49,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
                         android:gravity="center"
-                        android:hint="@string/name"
+                        android:hint="@string/driver_name"
                         android:text="" />
                 </LinearLayout>
 
@@ -104,19 +104,19 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <com.blancadomene.tfg.availableDaysOfWeek
+                <com.blancadomene.tfg.AvailableDaysOfWeek
                     android:id="@+id/layout_ride_card_available_days_of_week"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <TextView
                     android:id="@+id/layout_ride_card_price_per_seat"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:gravity="center|right"
+                    android:gravity="center|end"
                     android:hint="@string/price_per_seat"
-                    android:paddingRight="25dp"
+                    android:paddingEnd="25dp"
                     android:text="" />
 
 

@@ -109,7 +109,7 @@ public class RideDetailsFragment extends Fragment {
                 ride.getEndDate().get(Calendar.DAY_OF_MONTH),
                 ride.getEndDate().get(Calendar.MONTH),
                 ride.getEndDate().get(Calendar.YEAR)));
-        //availableDaysOfWeek viewAv = (availableDaysOfWeek) getActivity().findViewById(R.id.fragment_ride_details_days_of_week_view);
+        //AvailableDaysOfWeek viewAv = (AvailableDaysOfWeek) getActivity().findViewById(R.id.fragment_ride_details_days_of_week_view);
         //boolean[] rdfAvailableDaysOfWeek = ride.getAvailableDaysOfWeek();
         //boolean[] rdfAvailableDaysOfWeek = new boolean[7];
         //viewAv.setEnabledDaysOfWeek(rdfAvailableDaysOfWeek);

@@ -135,7 +135,7 @@
 
             </LinearLayout>
 
-            <com.blancadomene.tfg.availableDaysOfWeek
+            <com.blancadomene.tfg.AvailableDaysOfWeek
                 android:id="@+id/fragment_search_days_of_week_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

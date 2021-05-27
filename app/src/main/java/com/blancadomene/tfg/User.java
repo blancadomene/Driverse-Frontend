@@ -12,7 +12,6 @@ public class User {
     private String mobilePhone; // TODO: check valid
     private Image photo;
     private String car;
-
     private String preferences;
 
     public User(String name, String surName, String email, String phone) {

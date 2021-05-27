@@ -1,12 +1,16 @@
 package com.blancadomene.tfg;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.os.Build;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+
+import androidx.core.app.NotificationCompat;
+import androidx.fragment.app.Fragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,6 +63,18 @@ public class NotificationsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_notifications, container, false);
+        View view = inflater.inflate(R.layout.fragment_notifications, container, false);
+        LinearLayout linearLayout = view.findViewById(R.id.fragment_notifications_container);
+
+        Notification not = new Notification("Testing notifications.");
+        View card = not.getNotificationCardView(getActivity());
+        linearLayout.addView(card);
+
+
+        return view;
     }
+
+
+
+
 }

@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fragmentContainerView"
+            android:id="@+id/activity_main_fragment_container_view"
             android:name="com.blancadomene.tfg.SearchFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -33,41 +33,37 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/search_button"
+                    android:id="@+id/activity_main_search_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="@string/search_button"
-                    android:onClick="showSearchView"
                     android:text=""
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
 
                 <Button
-                    android:id="@+id/notifications_button"
+                    android:id="@+id/activity_main_notifications_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="@string/notifications_button"
-                    android:onClick="showNotificationsView"
                     android:text="" />
 
                 <Button
-                    android:id="@+id/publish_button"
+                    android:id="@+id/activity_main_publish_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="@string/publish_button"
-                    android:onClick="showPublishView"
                     android:text="" />
 
                 <Button
-                    android:id="@+id/profile_button"
+                    android:id="@+id/activity_main_profile_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="@string/profile_button"
-                    android:onClick="showProfileView"
                     android:text="" />
             </LinearLayout>
         </LinearLayout>

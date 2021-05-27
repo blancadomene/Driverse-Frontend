@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-public class availableDaysOfWeek extends LinearLayout {
+public class AvailableDaysOfWeek extends LinearLayout {
     View view;
     View monday;
     View tuesday;
@@ -18,7 +18,7 @@ public class availableDaysOfWeek extends LinearLayout {
     View saturday;
     View sunday;
 
-    public availableDaysOfWeek(Context context, AttributeSet attrs) {
+    public AvailableDaysOfWeek(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         LayoutInflater inflater = (LayoutInflater)
