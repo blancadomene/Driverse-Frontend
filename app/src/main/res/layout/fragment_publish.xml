@@ -3,4 +3,137 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PublishFragment"/>
+    tools:context=".PublishFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/fragment_publish_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/publish_message"
+                android:padding="5dp"
+                android:text="" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <EditText
+                    android:id="@+id/fragment_publish_start_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="no"
+                    android:focusableInTouchMode="false"
+                    android:hint="@string/start_date" />
+
+                <TextView
+                    android:id="@+id/fragment_publish_dash"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="no"
+                    android:hint="@string/dash"
+                    android:text="" />
+
+                <EditText
+                    android:id="@+id/fragment_publish_end_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="no"
+                    android:focusableInTouchMode="false"
+                    android:hint="@string/end_date" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+                <EditText
+                    android:id="@+id/fragment_publish_departure_point"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="no"
+                    android:hint="@string/departure_point"
+                    android:inputType="text"
+                    android:text="" />
+
+
+                <EditText
+                    android:id="@+id/fragment_publish_arrival_point"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="no"
+                    android:hint="@string/arrival_point"
+                    android:inputType="text"
+                    android:text="" />
+
+                <EditText
+                    android:id="@+id/fragment_publish_departure_hour"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="no"
+                    android:focusableInTouchMode="false"
+                    android:hint="@string/departure_hour" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <EditText
+                    android:id="@+id/fragment_publish_price_per_seat"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="no"
+                    android:focusableInTouchMode="false"
+                    android:hint="@string/price_per_seat" />
+
+                <EditText
+                    android:id="@+id/fragment_publish_available_seats"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="no"
+                    android:gravity="end"
+                    android:hint="@string/available_seats"
+                    android:inputType="number" />
+
+            </LinearLayout>
+
+            <com.blancadomene.tfg.AvailableDaysOfWeek
+                android:id="@+id/fragment_publish_days_of_week_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/fragment_publish_travel_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/publish_ride_button"
+                android:text="" />
+
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>

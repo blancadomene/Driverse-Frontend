@@ -19,7 +19,6 @@
                 android:id="@+id/fragment_profile_message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:hint="@string/profile_message"
                 android:padding="5dp"
                 android:text="" />
@@ -36,6 +35,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/user_name"
+                android:text="" />
+
+            <TextView
+                android:id="@+id/fragment_profile_birth_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/user_birth_date"
                 android:text="" />
 
             <TextView

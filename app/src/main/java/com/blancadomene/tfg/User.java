@@ -2,19 +2,22 @@ package com.blancadomene.tfg;
 
 import android.media.Image;
 
+import java.util.Calendar;
 import java.util.UUID;
 
 public class User {
     private UUID userID;
+    private Calendar birthDate;
     private String name;
     private String surName;
-    private String email; // TODO: mandar email con datos de viaje? Check valid
-    private String mobilePhone; // TODO: check valid
+    private String email;
+    private String mobilePhone;
     private Image photo;
     private String car;
     private String preferences;
 
     public User(String name, String surName, String email, String phone) {
+        // TODO: Check valids: birthday, phone and email
         this.userID = UUID.randomUUID();
         this.name = name;
         this.surName = surName;
@@ -31,6 +34,14 @@ public class User {
 
     public void setUserID(UUID userID) {
         this.userID = userID;
+    }
+
+    public Calendar getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Calendar birthDate) {
+        this.birthDate = birthDate;
     }
 
     public String getName() {
@@ -89,4 +100,14 @@ public class User {
         this.preferences = preferences;
     }
 
+/*
+    public int calculateAge(Calendar birthDate) {
+        LocalDate birthLocalDate = LocalDate.ofInstant(birthDate.toInstant(), ZoneId.systemDefault());
+
+        if ((birthLocalDate != null)) {
+            return Period.between(birthLocalDate, LocalDate.now()).getYears();
+        } else {
+            return 0;
+        }
+    }*/
 }

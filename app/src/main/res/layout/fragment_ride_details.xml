@@ -20,7 +20,6 @@
                 android:id="@+id/fragment_ride_details_ride_details_message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:hint="@string/ride_details_message"
                 android:padding="5dp"
                 android:text="" />
@@ -160,6 +159,14 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
                         android:hint="@string/driver_name"
+                        android:text="" />
+
+                    <TextView
+                        android:id="@+id/fragment_ride_details_driver_age"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:hint="@string/driver_age"
                         android:text="" />
 
                     <TextView

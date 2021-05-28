@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TFG</string>
+    <string name="app_name">Driverse</string>
     <string name="colon">%1$s:%2s</string>      <!-- TODO: not used, show hour in Ride and RideDetails-->
     <string name="slash">/</string>      <!-- TODO: not used, show date in RideDetails-->
     <string name="dash">-</string>
@@ -29,12 +29,15 @@
     <string name="available_seats">Available seats</string>
     <string name="price_per_seat">Price per seat</string>
     <string name="driver_name">Driver name</string> <!-- driver name, image, preferences and car repeated? -->
+    <string name="driver_age">Driver ager</string>
     <string name="trip_driver_image">Trip driver\'s image</string>
     <string name="driver_preferences">Driver preferences</string>
     <string name="driver_car">Driver car</string>
     <string name="search_travel_button">SEARCH</string>
     <string name="ride_details_message">Ride details</string>
     <string name="book_ride_button">BOOK</string>
+    <string name="publish_ride_button">PUBLISH</string>
+    <string name="publish_message">Share your ride</string>
 
 
     <!-- TODO: all of AvailableDaysOfWeek -->
@@ -48,6 +51,7 @@
 
     <!-- User & Profile -->
     <string name="user_name">Name</string>
+    <string name="user_birth_date">Birth Date</string>
     <string name="user_sur_name">Surname</string>
     <string name="user_email">Email</string>
     <string name="user_mobile_number">Mobile number</string>
