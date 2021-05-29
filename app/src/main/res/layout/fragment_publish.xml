@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
     tools:context=".PublishFragment">
 
@@ -116,6 +117,20 @@
                     android:gravity="end"
                     android:hint="@string/available_seats"
                     android:inputType="number" />
+
+                <com.gildaswise.horizontalcounter.HorizontalCounter
+                    android:id="@+id/horizontal_counter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:stepValue="1"
+                    app:textColor="#009688"
+                    app:textSize="16dp"
+                    app:minusButtonColor="#F44336"
+                    app:plusButtonColor="#2196F3"
+                    app:displayAsInteger="true"
+                    app:initialValue="1"
+                    app:maxValue="8"
+                    app:minValue="1" />
 
             </LinearLayout>
 
