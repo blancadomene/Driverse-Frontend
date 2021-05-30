@@ -10,10 +10,11 @@
     <string name="password">Password</string>
 
     <!-- MainActivity -->
-    <string name="search_button">Search</string>
-    <string name="notifications_button">Notifications</string>
-    <string name="publish_button">Publish</string>
-    <string name="profile_button">Profile</string>
+    <string name="search_button_icon">&#xf002; Search</string>
+    <string name="notifications_button_icon">&#xf01c; Notifications</string>
+    <string name="publish_button_icon">&#xf1b9; Publish</string>
+    <string name="profile_button_icon">&#xf2bd; Profile</string>
+
 
     <!-- ProfileFragment & Ride details -->
     <string name="search_message">Looking for a ride?</string>
@@ -64,6 +65,10 @@
     <string name="card_message">Card message</string>
     <string name="notification_card_image">Notification card image</string>
     <string name="notifications_messages">Messages</string>
+    <string name="title_activity_main2">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 
 
 </resources>

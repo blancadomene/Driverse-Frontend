@@ -13,6 +13,8 @@
     <color name="light_blue_A400">#FF00B0FF</color>
     <color name="black_overlay">#66000000</color>
 
+
+    <color name="disabled_text">#77000000</color>
     <color name="watusi">#FEDBD0</color>
     <color name="rodeo_dust">#CAA99F</color>
     <color name="woody_brown">#442C2E</color>

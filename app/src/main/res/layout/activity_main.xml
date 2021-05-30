@@ -16,11 +16,14 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/activity_main_fragment_container_view"
-            android:name="com.blancadomene.tfg.SearchFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#c0c0c0" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,36 +35,51 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="@string/search_button"
-                android:text=""
+                android:background="@android:color/transparent"
+                android:fontFamily="@font/fa_solid_900"
+                android:lines="2"
+                android:text="@string/search_button_icon"
+                android:textAllCaps="false"
+                android:textFontWeight="500"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
-
-            <Button
-                android:id="@+id/activity_main_notifications_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="@string/notifications_button"
-                android:text="" />
 
             <Button
                 android:id="@+id/activity_main_publish_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="@string/publish_button"
-                android:text="" />
+                android:background="@android:color/transparent"
+                android:fontFamily="@font/fa_solid_900"
+                android:lines="2"
+                android:text="@string/publish_button_icon"
+                android:textAllCaps="false"
+                android:textFontWeight="500" />
+
+            <Button
+                android:id="@+id/activity_main_notifications_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:fontFamily="@font/fa_solid_900"
+                android:lines="2"
+                android:text="@string/notifications_button_icon"
+                android:textAllCaps="false"
+                android:textFontWeight="500" />
 
             <Button
                 android:id="@+id/activity_main_profile_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="@string/profile_button"
-                android:text="" />
+                android:background="@android:color/transparent"
+                android:fontFamily="@font/fa_solid_900"
+                android:lines="2"
+                android:text="@string/profile_button_icon"
+                android:textAllCaps="false"
+                android:textFontWeight="500" />
         </LinearLayout>
-
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

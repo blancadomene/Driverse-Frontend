@@ -9,6 +9,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
 public class MainActivity extends AppCompatActivity {
+    Button searchViewButton;
+    Button publishViewButton;
+    Button notificationsViewButton;
+    Button profileViewButton;
     FragmentManager fragmentManager = null;
 
     @Override
@@ -17,20 +21,39 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         fragmentManager = getSupportFragmentManager();
 
-        Button searchViewButton = this.findViewById(R.id.activity_main_search_button);
-        searchViewButton.setOnClickListener(this::showSearchView);
+        searchViewButton = this.findViewById(R.id.activity_main_search_button);
+        searchViewButton.setOnClickListener(v -> {
+            setGreyButtons();
+            searchViewButton.setTextColor(getResources().getColor(R.color.black));
+            showSearchView(v);
+        });
 
-        Button publishViewButton = this.findViewById(R.id.activity_main_publish_button);
-        publishViewButton.setOnClickListener(this::showPublishView);
+        publishViewButton = this.findViewById(R.id.activity_main_publish_button);
+        publishViewButton.setOnClickListener(v -> {
+            setGreyButtons();
+            publishViewButton.setTextColor(getResources().getColor(R.color.black));
+            this.showPublishView(v);
+        });
 
-        Button notificationsViewButton = this.findViewById(R.id.activity_main_notifications_button);
-        notificationsViewButton.setOnClickListener(this::showNotificationsView);
+        notificationsViewButton = this.findViewById(R.id.activity_main_notifications_button);
+        notificationsViewButton.setOnClickListener(v -> {
+            setGreyButtons();
+            notificationsViewButton.setTextColor(getResources().getColor(R.color.black));
+            showNotificationsView(v);
+        });
 
-        Button profileViewButton = this.findViewById(R.id.activity_main_profile_button);
-        profileViewButton.setOnClickListener(this::showProfileView);
+        profileViewButton = this.findViewById(R.id.activity_main_profile_button);
+        profileViewButton.setOnClickListener(v -> {
+            setGreyButtons();
+            profileViewButton.setTextColor(getResources().getColor(R.color.black));
+            showProfileView(v);
+        });
+
+        setGreyButtons();
+        searchViewButton.setTextColor(getResources().getColor(R.color.black));
+        showSearchView(null);
     }
 
     public void showSearchView(View view) {
@@ -63,5 +86,12 @@ public class MainActivity extends AppCompatActivity {
                 .setReorderingAllowed(true)
                 .addToBackStack("profileView")
                 .commit();
+    }
+
+    public void setGreyButtons() {
+        searchViewButton.setTextColor(getResources().getColor(R.color.disabled_text));
+        publishViewButton.setTextColor(getResources().getColor(R.color.disabled_text));
+        notificationsViewButton.setTextColor(getResources().getColor(R.color.disabled_text));
+        profileViewButton.setTextColor(getResources().getColor(R.color.disabled_text));
     }
 }
