@@ -82,13 +82,14 @@
                         android:hint="@string/price_per_seat"
                         android:text="" />
 
-                    <TextView
+                    <EditText
                         android:id="@+id/fragment_ride_details_available_seats"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="top|end"
-                        android:hint="@string/available_seats"
-                        android:text="" />
+                        android:autofillHints="no"
+                        android:focusableInTouchMode="false"
+                        android:hint="@string/available_seats" />
                 </LinearLayout>
 
             </LinearLayout>

@@ -3,21 +3,12 @@ package com.blancadomene.tfg;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.util.DisplayMetrics;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.cardview.widget.CardView;
-
-import com.blancadomene.tfg.databinding.LayoutAvailableDaysOfWeekBinding;
-
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.lang.String;
 import java.util.UUID;
 
 public class Ride {

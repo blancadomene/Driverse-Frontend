@@ -1,81 +1,46 @@
 package com.blancadomene.tfg;
 
 import android.annotation.SuppressLint;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.EditText;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Calendar;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link RideDetailsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class RideDetailsFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private EditText eTextNP;
     private Ride ride;
 
     public RideDetailsFragment() {
-        // Required empty public constructor
     }
 
     public RideDetailsFragment(Ride pRide) {
         this.ride = pRide;
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment RideDetailsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static RideDetailsFragment newInstance(String param1, String param2) {
-        RideDetailsFragment fragment = new RideDetailsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        // TODO ?
     }
 
+    // TODO: separate get and set from onCreate
     @SuppressLint({"DefaultLocale", "SetTextI18n"})
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_ride_details, container, false);
+
+        eTextNP = view.findViewById(R.id.fragment_ride_details_available_seats);
+        eTextNP.setOnClickListener(v -> showNumberPickerDialog());
 
         // Get view items and set text
         TextView text;
@@ -96,7 +61,7 @@ public class RideDetailsFragment extends Fragment {
         text = view.findViewById(R.id.fragment_ride_details_price_per_seat);
         text.setText(ride.getPricePerSeat().toString() + "€");
         text = view.findViewById(R.id.fragment_ride_details_available_seats);
-        text.setText(ride.getAvailableSeats() + " seats left");
+        text.setText(ride.getAvailableSeats() + " available seats");
         text = view.findViewById(R.id.fragment_ride_details_start_date);
         text.setText(String.format(
                 "%02d/%02d/%02d",
@@ -127,5 +92,25 @@ public class RideDetailsFragment extends Fragment {
 
 
         return view;
+    }
+
+    private AlertDialog showNumberPickerDialog() {
+        final NumberPicker np = new NumberPicker(getActivity());
+        np.setMaxValue(ride.getAvailableSeats());
+        np.setMinValue(1);
+        np.setValue(1);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setView(np);
+        builder.setTitle("Changing the Hue");
+        builder.setMessage("Choose a value :");
+        builder.setPositiveButton("OK", (dialog, which) -> {
+            eTextNP.setText(Integer.toString(np.getValue()));
+        });
+        builder.setNegativeButton("CANCEL", (dialog, which) -> {
+
+        });
+        builder.create();
+        return builder.show();
     }
 }

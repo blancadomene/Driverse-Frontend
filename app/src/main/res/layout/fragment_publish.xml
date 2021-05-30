@@ -2,7 +2,6 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
     tools:context=".PublishFragment">
 
@@ -63,74 +62,67 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                android:padding="5dp">
-
-                <EditText
-                    android:id="@+id/fragment_publish_departure_point"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:autofillHints="no"
-                    android:hint="@string/departure_point"
-                    android:inputType="text"
-                    android:text="" />
-
-
-                <EditText
-                    android:id="@+id/fragment_publish_arrival_point"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:autofillHints="no"
-                    android:hint="@string/arrival_point"
-                    android:inputType="text"
-                    android:text="" />
-
-                <EditText
-                    android:id="@+id/fragment_publish_departure_hour"
-                    android:layout_width="130dp"
-                    android:layout_height="wrap_content"
-                    android:autofillHints="no"
-                    android:focusableInTouchMode="false"
-                    android:hint="@string/departure_hour" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:orientation="horizontal"
                 android:padding="5dp">
 
-                <EditText
-                    android:id="@+id/fragment_publish_price_per_seat"
-                    android:layout_width="130dp"
-                    android:layout_height="wrap_content"
-                    android:autofillHints="no"
-                    android:focusableInTouchMode="false"
-                    android:hint="@string/price_per_seat" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/fragment_publish_available_seats"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:autofillHints="no"
-                    android:gravity="end"
-                    android:hint="@string/available_seats"
-                    android:inputType="number" />
+                    <EditText
+                        android:id="@+id/fragment_publish_departure_point"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:autofillHints="no"
+                        android:hint="@string/departure_point"
+                        android:inputType="text"
+                        android:text="" />
 
-                <com.gildaswise.horizontalcounter.HorizontalCounter
-                    android:id="@+id/horizontal_counter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:stepValue="1"
-                    app:textColor="#009688"
-                    app:textSize="16dp"
-                    app:minusButtonColor="#F44336"
-                    app:plusButtonColor="#2196F3"
-                    app:displayAsInteger="true"
-                    app:initialValue="1"
-                    app:maxValue="8"
-                    app:minValue="1" />
+                    <EditText
+                        android:id="@+id/fragment_publish_arrival_point"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:autofillHints="no"
+                        android:hint="@string/arrival_point"
+                        android:inputType="text"
+                        android:text="" />
+
+                    <EditText
+                        android:id="@+id/fragment_publish_departure_hour"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:autofillHints="no"
+                        android:focusableInTouchMode="false"
+                        android:hint="@string/departure_hour" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/fragment_publish_price_per_seat"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:autofillHints="no"
+                            android:hint="@string/price_per_seat"
+                            android:inputType="numberDecimal" />
+
+                        <EditText
+                            android:id="@+id/fragment_publish_available_seats"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:autofillHints="no"
+                            android:focusableInTouchMode="false"
+                            android:hint="@string/available_seats" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
 
             </LinearLayout>
 

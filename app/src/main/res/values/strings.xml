@@ -39,7 +39,6 @@
     <string name="publish_ride_button">PUBLISH</string>
     <string name="publish_message">Share your ride</string>
 
-
     <!-- TODO: all of AvailableDaysOfWeek -->
     <string name="monday">M</string>
     <string name="tuesday">T</string>

@@ -127,11 +127,12 @@
 
                 <EditText
                     android:id="@+id/fragment_search_passengers_number"
-                    android:layout_width="50dp"
+                    android:layout_width="250dp"
                     android:layout_height="wrap_content"
+                    android:gravity="end"
                     android:autofillHints="no"
-                    android:hint="@string/passengers_number"
-                    android:inputType="number" />
+                    android:focusableInTouchMode="false"
+                    android:hint="@string/passengers_number" />
 
             </LinearLayout>
 

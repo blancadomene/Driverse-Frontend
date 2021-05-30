@@ -1,11 +1,9 @@
 package com.blancadomene.tfg;
 
-import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 public class AvailableDaysOfWeek extends LinearLayout {
@@ -55,13 +53,13 @@ public class AvailableDaysOfWeek extends LinearLayout {
 
     public boolean[] getSelectedDaysOfWeek() {
         boolean[] weekDays = new boolean[7];
-        weekDays[0] = monday.isSelected();
-        weekDays[1] = tuesday.isSelected();
-        weekDays[2] = wednesday.isSelected();
-        weekDays[3] = thursday.isSelected();
-        weekDays[4] = friday.isSelected();
-        weekDays[5] = saturday.isSelected();
-        weekDays[6] = sunday.isSelected();
+        weekDays[0] = monday.isActivated();
+        weekDays[1] = tuesday.isActivated();
+        weekDays[2] = wednesday.isActivated();
+        weekDays[3] = thursday.isActivated();
+        weekDays[4] = friday.isActivated();
+        weekDays[5] = saturday.isActivated();
+        weekDays[6] = sunday.isActivated();
         return weekDays;
     }
 }
