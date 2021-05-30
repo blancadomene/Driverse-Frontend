@@ -41,6 +41,16 @@ public class AvailableDaysOfWeek extends LinearLayout {
         sunday.setOnClickListener(v -> v.setActivated(!v.isActivated()));
     }
 
+    public void disableClick() {
+        monday.setClickable(false);
+        tuesday.setClickable(false);
+        wednesday.setClickable(false);
+        thursday.setClickable(false);
+        friday.setClickable(false);
+        saturday.setClickable(false);
+        sunday.setClickable(false);
+    }
+
     public void setEnabledDaysOfWeek(boolean[] week) {
         monday.setEnabled(week[0]);
         tuesday.setEnabled(week[1]);

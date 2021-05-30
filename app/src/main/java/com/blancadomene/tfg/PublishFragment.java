@@ -17,10 +17,10 @@ import androidx.fragment.app.Fragment;
 import java.util.Calendar;
 
 public class PublishFragment extends Fragment {
-    private EditText eTextTP;
     private EditText eTextDPStart;
     private EditText eTextDPEnd;
     private EditText eTextNP;
+    private EditText eTextTP;
 
     public PublishFragment() {
     }
@@ -105,21 +105,29 @@ public class PublishFragment extends Fragment {
         EditText edText;
         edText = getActivity().findViewById(R.id.fragment_publish_start_date);
         String psStartDate = edText.getText().toString();
+
         edText = getActivity().findViewById(R.id.fragment_publish_end_date);
         String psEndDate = edText.getText().toString();
+
         edText = getActivity().findViewById(R.id.fragment_publish_departure_point);
         String psDeparturePoint = edText.getText().toString();
+
         edText = getActivity().findViewById(R.id.fragment_publish_arrival_point);
         String psArrivalPoint = edText.getText().toString();
+
         edText = getActivity().findViewById(R.id.fragment_publish_departure_hour);
         String psDepartureHour = edText.getText().toString();
+
         edText = getActivity().findViewById(R.id.fragment_publish_available_seats);
         String psAvailableSeats = edText.getText().toString();
+
         edText = getActivity().findViewById(R.id.fragment_publish_price_per_seat);
         String psPricePerSeat = edText.getText().toString();
+
         AvailableDaysOfWeek viewAv = getActivity().findViewById(R.id.fragment_publish_days_of_week_view);
         boolean[] psAvailableDaysOfWeek = viewAv.getSelectedDaysOfWeek();
 
+        // TODO: Delete prints
         System.out.println("fsStartDate" + " " + psStartDate);
         System.out.println("fsEndDate" + " " + psEndDate);
         System.out.println("fsDeparturePoint" + " " + psDeparturePoint);

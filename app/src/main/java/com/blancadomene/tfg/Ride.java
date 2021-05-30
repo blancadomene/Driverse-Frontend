@@ -12,19 +12,20 @@ import java.util.Calendar;
 import java.util.UUID;
 
 public class Ride {
-    private UUID rideID;
-    private Calendar startDate;
-    private Calendar endDate;
-    private Calendar departureHour;
-    private Calendar arrivalHour;
-    private String departurePoint;
-    private String arrivalPoint;
+    private boolean[] availableDaysOfWeek;
     private int availableSeats;
     private BigDecimal pricePerSeat;
+    private Calendar arrivalHour;
+    private String arrivalPoint;
+    private Calendar departureHour;
+    private String departurePoint;
+    private Calendar endDate;
+    private Calendar startDate;
     private User driver;
-    private boolean[] availableDaysOfWeek;
+    private UUID rideID;
 
-    public Ride(Calendar start, Calendar end, String depPoint, Calendar depHour, String arrPoint, Calendar arrHour, int avaSeats, BigDecimal price, User userDriver) {
+
+    public Ride(Calendar start, Calendar end, String depPoint, Calendar depHour, String arrPoint, Calendar arrHour, int avaSeats, BigDecimal price, User userDriver, boolean[] days) {
         // TODO: check nulls
         // TODO: check start no sea menor que end, y que tampoco sean antes de hoy
         // TODO: check departureHour < arrivalHour
@@ -39,7 +40,7 @@ public class Ride {
         this.availableSeats = avaSeats;
         this.pricePerSeat = price;
         this.driver = userDriver;
-        availableDaysOfWeek = new boolean[7];
+        this.availableDaysOfWeek = days;
     }
 
     public UUID getRideID() {
@@ -138,29 +139,34 @@ public class Ride {
 
         // Get view items and set text
         TextView text;
+
         text = view.findViewById(R.id.layout_ride_card_departure_hour);
         text.setText(String.format(
                 "%02d:%02d",
                 getDepartureHour().get(Calendar.HOUR_OF_DAY),
                 getDepartureHour().get(Calendar.MINUTE)));
+
         text = view.findViewById(R.id.layout_ride_card_departure_point);
         text.setText(getDeparturePoint());
-        text = view.findViewById(R.id.layout_ride_card_arrival_hour);
 
+        text = view.findViewById(R.id.layout_ride_card_arrival_hour);
         text.setText(String.format(
                 "%02d:%02d",
                 getArrivalHour().get(Calendar.HOUR_OF_DAY),
                 getArrivalHour().get(Calendar.MINUTE)));
         text = view.findViewById(R.id.layout_ride_card_arrival_point);
         text.setText(getArrivalPoint());
+
         text = view.findViewById(R.id.layout_ride_card_price_per_seat);
         text.setText(getPricePerSeat().toString() + "€");
 
+        AvailableDaysOfWeek viewAv = view.findViewById(R.id.layout_ride_card_available_days_of_week);
+        viewAv.setEnabledDaysOfWeek(this.getAvailableDaysOfWeek());
+        viewAv.disableClick();
+
+        // TODO: set photo
         new DownloadImageTask(view.findViewById(R.id.layout_ride_card_driver_image)).execute("https://www.gravatar.com/avatar/205e460b479e2e5b48aeg07710c08d50?s=450&r=pg&d=retro");
 
-        // TODO: set daysOfWeek
-        // TODO: set photo (add name? rating?)
-        // TODO: set name
         text = view.findViewById(R.id.layout_ride_card_name);
         text.setText(getDriver().getName());
 

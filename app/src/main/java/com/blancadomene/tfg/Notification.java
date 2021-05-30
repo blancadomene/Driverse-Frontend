@@ -9,8 +9,8 @@ import android.widget.TextView;
 import java.util.UUID;
 
 public class Notification {
-    private UUID notificationID;
     private String notificationText;
+    private UUID notificationID;
 
     public Notification(String text) {
         this.notificationID = UUID.randomUUID();

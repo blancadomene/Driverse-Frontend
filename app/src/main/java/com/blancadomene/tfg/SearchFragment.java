@@ -22,15 +22,6 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class SearchFragment extends Fragment {
-
-    // TODO: Delete
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-    private String mParam1;
-    private String mParam2;
-
     private ArrayList<Ride> searches = new ArrayList<>();
     private EditText eTexDPStart;
     private EditText eTexDPEnd;
@@ -119,23 +110,32 @@ public class SearchFragment extends Fragment {
         EditText edText;
         edText = getActivity().findViewById(R.id.fragment_search_start_date);
         String fsStartDate = edText.getText().toString();
+
         edText = getActivity().findViewById(R.id.fragment_search_end_date);
         String fsEndDate = edText.getText().toString();
+
         edText = getActivity().findViewById(R.id.fragment_search_departure_point);
         String fsDeparturePoint = edText.getText().toString();
+
         edText = getActivity().findViewById(R.id.fragment_search_departure_point_radius);
         String fsDeparturePointRadius = edText.getText().toString();
+
         edText = getActivity().findViewById(R.id.fragment_search_arrival_point);
         String fsArrivalPoint = edText.getText().toString();
+
         edText = getActivity().findViewById(R.id.fragment_search_arrival_point_radius);
         String fsArrivalPointRadius = edText.getText().toString();
+
         edText = getActivity().findViewById(R.id.fragment_search_departure_hour);
         String fsDepartureHour = edText.getText().toString();
+
         edText = getActivity().findViewById(R.id.fragment_search_passengers_number);
         String fsPassengersNumber = edText.getText().toString();
+
         AvailableDaysOfWeek viewAv = getActivity().findViewById(R.id.fragment_search_days_of_week_view);
         boolean[] fsAvailableDaysOfWeek = viewAv.getSelectedDaysOfWeek();
 
+        // TODO: Delete prints
         System.out.println("fsStartDate" + " " + fsStartDate);
         System.out.println("fsEndDate" + " " + fsEndDate);
         System.out.println("fsDeparturePoint" + " " + fsDeparturePoint);
@@ -157,13 +157,13 @@ public class SearchFragment extends Fragment {
         Calendar exDepHour = new GregorianCalendar(1999, 9, 9, 13, 01);
         Calendar exArrHour = new GregorianCalendar(1999, 9, 9, 17, 14);
         User exUser = new User("Eren", "Yaeger", "erenthetitan@gmail.com", "111111111");
+        boolean[] days = new boolean[]{Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, Boolean.FALSE, Boolean.TRUE};
 
-
-        searches.add(new Ride(exStartDate, exEndDate, "Almería", exDepHour, "Granada", exArrHour, 1, new BigDecimal("1.11"), exUser));
-        searches.add(new Ride(exStartDate, exEndDate, "Valencia", exDepHour, "Madriz", exArrHour, 2, new BigDecimal("2.22"), exUser));
-        searches.add(new Ride(exStartDate, exEndDate, "Barcelona", exDepHour, "Badajoz", exArrHour, 3, new BigDecimal("3.33"), exUser));
-        searches.add(new Ride(exStartDate, exEndDate, "Alfacar", exDepHour, "Viznar", exArrHour, 4, new BigDecimal("4.44"), exUser));
-        searches.add(new Ride(exStartDate, exEndDate, "Toledo", exDepHour, "Lugo", exArrHour, 5, new BigDecimal("5.55"), exUser));
+        searches.add(new Ride(exStartDate, exEndDate, "Almería", exDepHour, "Granada", exArrHour, 1, new BigDecimal("1.11"), exUser, days));
+        searches.add(new Ride(exStartDate, exEndDate, "Valencia", exDepHour, "Madriz", exArrHour, 2, new BigDecimal("2.22"), exUser, days));
+        searches.add(new Ride(exStartDate, exEndDate, "Barcelona", exDepHour, "Badajoz", exArrHour, 3, new BigDecimal("3.33"), exUser, days));
+        searches.add(new Ride(exStartDate, exEndDate, "Alfacar", exDepHour, "Viznar", exArrHour, 4, new BigDecimal("4.44"), exUser, days));
+        searches.add(new Ride(exStartDate, exEndDate, "Toledo", exDepHour, "Lugo", exArrHour, 5, new BigDecimal("5.55"), exUser, days));
         //TODO: delete examples and iterate searches array
 
         linearLayout.removeAllViews();

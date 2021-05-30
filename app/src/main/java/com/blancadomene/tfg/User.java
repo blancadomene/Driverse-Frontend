@@ -6,15 +6,15 @@ import java.util.Calendar;
 import java.util.UUID;
 
 public class User {
-    private UUID userID;
+    private Image photo;
     private Calendar birthDate;
-    private String name;
-    private String surName;
+    private String car;
     private String email;
     private String mobilePhone;
-    private Image photo;
-    private String car;
+    private String name;
     private String preferences;
+    private String surName;
+    private UUID userID;
 
     public User(String name, String surName, String email, String phone) {
         // TODO: Check valids: birthday, phone and email
@@ -23,7 +23,6 @@ public class User {
         this.surName = surName;
         this.email = email;
         this.mobilePhone = phone;
-        // TODO: Default photo
         this.preferences = "No preferences added.";
         this.car = "No car added.";
     }

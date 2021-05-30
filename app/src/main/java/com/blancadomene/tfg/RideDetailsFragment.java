@@ -49,47 +49,50 @@ public class RideDetailsFragment extends Fragment {
                 "%02d:%02d",
                 ride.getDepartureHour().get(Calendar.HOUR_OF_DAY),
                 ride.getDepartureHour().get(Calendar.MINUTE)));
+
         text = view.findViewById(R.id.fragment_ride_details_departure_point);
         text.setText(ride.getDeparturePoint());
+
         text = view.findViewById(R.id.fragment_ride_details_arrival_hour);
         text.setText(String.format(
                 "%02d:%02d",
                 ride.getArrivalHour().get(Calendar.HOUR_OF_DAY),
                 ride.getArrivalHour().get(Calendar.MINUTE)));
+
         text = view.findViewById(R.id.fragment_ride_details_arrival_point);
         text.setText(ride.getArrivalPoint());
+
         text = view.findViewById(R.id.fragment_ride_details_price_per_seat);
         text.setText(ride.getPricePerSeat().toString() + "€");
-        text = view.findViewById(R.id.fragment_ride_details_available_seats);
-        text.setText(ride.getAvailableSeats() + " available seats");
+
         text = view.findViewById(R.id.fragment_ride_details_start_date);
         text.setText(String.format(
                 "%02d/%02d/%02d",
                 ride.getStartDate().get(Calendar.DAY_OF_MONTH),
                 ride.getStartDate().get(Calendar.MONTH),
                 ride.getStartDate().get(Calendar.YEAR)));
+
         text = view.findViewById(R.id.fragment_ride_details_end_date);
         text.setText(String.format(
                 "%02d/%02d/%02d",
                 ride.getEndDate().get(Calendar.DAY_OF_MONTH),
                 ride.getEndDate().get(Calendar.MONTH),
                 ride.getEndDate().get(Calendar.YEAR)));
-        //AvailableDaysOfWeek viewAv = (AvailableDaysOfWeek) getActivity().findViewById(R.id.fragment_ride_details_days_of_week_view);
-        //boolean[] rdfAvailableDaysOfWeek = ride.getAvailableDaysOfWeek();
-        //boolean[] rdfAvailableDaysOfWeek = new boolean[7];
-        //viewAv.setEnabledDaysOfWeek(rdfAvailableDaysOfWeek);
 
+        AvailableDaysOfWeek viewAv = view.findViewById(R.id.fragment_ride_details_days_of_week_view);
+        viewAv.setEnabledDaysOfWeek(ride.getAvailableDaysOfWeek());
 
-        // TODO: set default if URL doesn't exist
+        // TODO: set photo
         new DownloadImageTask(view.findViewById(R.id.fragment_ride_details_driver_image)).execute("https://www.gravatar.com/avatar/205e460b479e2e5b48aeg07710c08d50?s=450&r=pg&d=retro");
 
         text = view.findViewById(R.id.fragment_ride_details_driver_name);
         text.setText(ride.getDriver().getName() + " " + ride.getDriver().getSurName());
+
         text = view.findViewById(R.id.fragment_ride_details_driver_preferences);
         text.setText(ride.getDriver().getPreferences());
+
         text = view.findViewById(R.id.fragment_ride_details_driver_car);
         text.setText(ride.getDriver().getCar());
-
 
         return view;
     }
