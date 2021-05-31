@@ -26,33 +26,33 @@ public class MainActivity extends AppCompatActivity {
         searchViewButton = this.findViewById(R.id.activity_main_search_button);
         searchViewButton.setOnClickListener(v -> {
             setGreyButtons();
-            searchViewButton.setTextColor(getResources().getColor(R.color.black));
+            searchViewButton.setTextColor(getResources().getColor(R.color.color_primary_variant));
             showSearchView(v);
         });
 
         publishViewButton = this.findViewById(R.id.activity_main_publish_button);
         publishViewButton.setOnClickListener(v -> {
             setGreyButtons();
-            publishViewButton.setTextColor(getResources().getColor(R.color.black));
+            publishViewButton.setTextColor(getResources().getColor(R.color.color_primary_variant));
             this.showPublishView(v);
         });
 
         notificationsViewButton = this.findViewById(R.id.activity_main_notifications_button);
         notificationsViewButton.setOnClickListener(v -> {
             setGreyButtons();
-            notificationsViewButton.setTextColor(getResources().getColor(R.color.black));
+            notificationsViewButton.setTextColor(getResources().getColor(R.color.color_primary_variant));
             showNotificationsView(v);
         });
 
         profileViewButton = this.findViewById(R.id.activity_main_profile_button);
         profileViewButton.setOnClickListener(v -> {
             setGreyButtons();
-            profileViewButton.setTextColor(getResources().getColor(R.color.black));
+            profileViewButton.setTextColor(getResources().getColor(R.color.color_primary_variant));
             showProfileView(v);
         });
 
         setGreyButtons();
-        searchViewButton.setTextColor(getResources().getColor(R.color.black));
+        searchViewButton.setTextColor(getResources().getColor(R.color.color_primary_variant));
         showSearchView(null);
     }
 

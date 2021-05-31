@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:color="#00000000" android:state_enabled="false" />
-    <item android:alpha="0.25" android:color="@color/watusi" android:state_enabled="true" android:state_selected="false" />
-    <item android:alpha="1" android:color="@color/woody_brown" android:state_enabled="true" android:state_selected="true" />
+    <item android:alpha="0.25" android:color="@color/color_secondary_variant" android:state_enabled="true" android:state_selected="false" />
+    <item android:alpha="1" android:color="@color/color_secondary" android:state_enabled="true" android:state_selected="true" />
 </selector>

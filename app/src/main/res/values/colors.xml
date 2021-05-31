@@ -15,11 +15,11 @@
 
 
     <color name="disabled_text">#77000000</color>
-    <color name="watusi">#FEDBD0</color>
-    <color name="rodeo_dust">#CAA99F</color>
-    <color name="woody_brown">#442C2E</color>
+    <color name="color_primary">#9fc5ff</color>
+    <color name="color_primary_variant">#6d95cc</color>
+    <color name="color_on_primary">#d2f8ff</color>
 
-    <color name="tonys_pink">#E5A28E</color>
-    <color name="santa_fe">#B17361</color>
+    <color name="color_secondary">#745a5a</color>
+    <color name="color_secondary_variant">#caa99f</color>
 
 </resources>

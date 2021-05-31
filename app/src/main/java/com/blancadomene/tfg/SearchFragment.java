@@ -23,8 +23,9 @@ import java.util.GregorianCalendar;
 
 public class SearchFragment extends Fragment {
     private ArrayList<Ride> searches = new ArrayList<>();
-    private EditText eTexDPStart;
-    private EditText eTexDPEnd;
+    private EditText eTextDPStart;
+    private EditText eTextDPEnd;
+    private EditText eTextGMap;
     private EditText eTextNP;
     private EditText eTextTP;
     private LinearLayout linearLayout = null;
@@ -44,11 +45,14 @@ public class SearchFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_search, container, false);
         linearLayout = view.findViewById(R.id.fragment_search_result_container);
 
-        eTexDPStart = view.findViewById(R.id.fragment_search_start_date);
-        eTexDPStart.setOnClickListener(v -> showDatePickerDialog(eTexDPStart));
+        eTextDPStart = view.findViewById(R.id.fragment_search_start_date);
+        eTextDPStart.setOnClickListener(v -> showDatePickerDialog(eTextDPStart));
 
-        eTexDPEnd = view.findViewById(R.id.fragment_search_end_date);
-        eTexDPEnd.setOnClickListener(v -> showDatePickerDialog(eTexDPEnd));
+        eTextDPEnd = view.findViewById(R.id.fragment_search_end_date);
+        eTextDPEnd.setOnClickListener(v -> showDatePickerDialog(eTextDPEnd));
+
+        eTextGMap = view.findViewById(R.id.fragment_search_departure_point);
+        eTextGMap.setOnClickListener(v -> switchToGoogleMapView());
 
         eTextNP = view.findViewById(R.id.fragment_search_passengers_number);
         eTextNP.setOnClickListener(v -> showNumberPickerDialog());
@@ -62,6 +66,16 @@ public class SearchFragment extends Fragment {
         return view;
     }
 
+    private void switchToGoogleMapView() {
+        MapsFragment mf = new MapsFragment();
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.activity_main_fragment_container_view, mf, null)
+                .setReorderingAllowed(true)
+                .addToBackStack("searchView")
+                .commit();
+    }
+
     private void showDatePickerDialog(EditText edText) {
         final Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
@@ -69,7 +83,10 @@ public class SearchFragment extends Fragment {
         int day = c.get(Calendar.DAY_OF_MONTH);
 
         @SuppressLint("DefaultLocale") DatePickerDialog datePicker = new DatePickerDialog(getActivity(),
-                (dp, dpYear, dpMonth, dpDay) -> edText.setText(String.format("%02d/%02d/%02d", dpDay, dpMonth, dpYear)), year, month, day);
+                (dp, dpYear, dpMonth, dpDay) -> edText.setText(String.format("%02d/%02d/%02d", dpDay, dpMonth, dpYear)),
+                year,
+                month,
+                day);
         datePicker.show();
     }
 
@@ -100,7 +117,10 @@ public class SearchFragment extends Fragment {
         int minutes = cldr.get(Calendar.MINUTE);
 
         @SuppressLint("DefaultLocale") TimePickerDialog timePicker = new TimePickerDialog(getActivity(),
-                (tp, tpHour, tpMinutes) -> eTextTP.setText(String.format("%02d:%02d", tpHour, tpMinutes)), hour, minutes, true);
+                (tp, tpHour, tpMinutes) -> eTextTP.setText(String.format("%02d:%02d", tpHour, tpMinutes)),
+                hour,
+                minutes,
+                true);
         timePicker.show();
     }
 

@@ -70,8 +70,8 @@
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:autofillHints="no"
+                    android:focusableInTouchMode="false"
                     android:hint="@string/departure_point"
-                    android:inputType="text"
                     android:text="" />
 
                 <EditText
@@ -96,8 +96,8 @@
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:autofillHints="no"
+                    android:focusableInTouchMode="false"
                     android:hint="@string/arrival_point"
-                    android:inputType="text"
                     android:text="" />
 
                 <EditText
@@ -129,9 +129,9 @@
                     android:id="@+id/fragment_search_passengers_number"
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
-                    android:gravity="end"
                     android:autofillHints="no"
                     android:focusableInTouchMode="false"
+                    android:gravity="end"
                     android:hint="@string/passengers_number" />
 
             </LinearLayout>

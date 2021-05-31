@@ -72,4 +72,5 @@ public class AvailableDaysOfWeek extends LinearLayout {
         weekDays[6] = sunday.isActivated();
         return weekDays;
     }
+
 }
