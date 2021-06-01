@@ -25,29 +25,33 @@ import java.util.Arrays;
 import java.util.Locale;
 
 public class MapsFragment extends Fragment {
+    AutocompleteSupportFragment autocompleteFragment;
+    private GoogleMap mMap;
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
-
         /**
          * Manipulates the map once available.
          * This callback is triggered when the map is ready to be used.
          * This is where we can add markers or lines, add listeners or move the camera.
-         * In this case, we just add a marker near Sydney, Australia.
          * If Google Play services is not installed on the device, the user will be prompted to
          * install it inside the SupportMapFragment. This method will only be triggered once the
          * user has installed Google Play services and returned to the app.
          */
         @Override
         public void onMapReady(GoogleMap googleMap) {
-            LatLng sydney = new LatLng(-34, 151);
-            googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+            mMap = googleMap;
+
+            LatLng defaultLocation = new LatLng(40.4165, -3.70256);
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(defaultLocation));
         }
+
+
     };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (!Places.isInitialized()) {
             Places.initialize(getActivity().getApplicationContext(), getString(R.string.google_maps_key), Locale.US);
         }
@@ -71,7 +75,7 @@ public class MapsFragment extends Fragment {
         }
 
         // Initialize the AutocompleteSupportFragment.
-        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
+        autocompleteFragment = (AutocompleteSupportFragment)
                 getChildFragmentManager().findFragmentById(R.id.autocomplete_fragment);
 
         // Specify the types of place data to return.
@@ -82,7 +86,12 @@ public class MapsFragment extends Fragment {
             @Override
             public void onPlaceSelected(@NonNull Place place) {
                 // TODO: Get info about the selected place.
-                System.out.println("Place: " + place.getName() + ", " + place.getId() + place.getAddress() + place.getLatLng());
+                int zoomlvl = 15;
+                System.out.println("Place: " + place.getName() + ", " + place.getId() + ", " + place.getAddress() + ", " + place.getLatLng());
+                LatLng location = place.getLatLng();
+                mMap.clear();
+                mMap.addMarker(new MarkerOptions().position(location).title("Location"));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, zoomlvl));
             }
 
             @Override

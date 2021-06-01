@@ -11,7 +11,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="10dp">
 
@@ -25,7 +25,7 @@
                 android:text="" />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="392dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -67,8 +67,9 @@
 
                 <EditText
                     android:id="@+id/fragment_search_departure_point"
-                    android:layout_width="300dp"
+                    android:layout_width="250dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="30dp"
                     android:autofillHints="no"
                     android:focusableInTouchMode="false"
                     android:hint="@string/departure_point"
@@ -76,11 +77,11 @@
 
                 <EditText
                     android:id="@+id/fragment_search_departure_point_radius"
-                    android:layout_width="80dp"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:autofillHints="no"
+                    android:focusableInTouchMode="false"
                     android:hint="@string/departure_point_radius"
-                    android:inputType="number"
                     android:text="" />
             </LinearLayout>
 
@@ -93,8 +94,9 @@
 
                 <EditText
                     android:id="@+id/fragment_search_arrival_point"
-                    android:layout_width="300dp"
+                    android:layout_width="250dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="30dp"
                     android:autofillHints="no"
                     android:focusableInTouchMode="false"
                     android:hint="@string/arrival_point"
@@ -102,11 +104,11 @@
 
                 <EditText
                     android:id="@+id/fragment_search_arrival_point_radius"
-                    android:layout_width="80dp"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:autofillHints="no"
+                    android:focusableInTouchMode="false"
                     android:hint="@string/arrival_point_radius"
-                    android:inputType="number"
                     android:text="" />
             </LinearLayout>
 
@@ -114,24 +116,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:orientation="horizontal"
                 android:padding="5dp">
 
                 <EditText
                     android:id="@+id/fragment_search_departure_hour"
-                    android:layout_width="130dp"
+                    android:layout_width="135dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="30dp"
                     android:autofillHints="no"
                     android:focusableInTouchMode="false"
                     android:hint="@string/departure_hour" />
 
                 <EditText
                     android:id="@+id/fragment_search_passengers_number"
-                    android:layout_width="250dp"
+                    android:layout_width="105dp"
                     android:layout_height="wrap_content"
                     android:autofillHints="no"
                     android:focusableInTouchMode="false"
-                    android:gravity="end"
                     android:hint="@string/passengers_number" />
 
             </LinearLayout>

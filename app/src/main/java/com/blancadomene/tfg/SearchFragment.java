@@ -25,7 +25,6 @@ public class SearchFragment extends Fragment {
     private ArrayList<Ride> searches = new ArrayList<>();
     private EditText eTextDPStart;
     private EditText eTextDPEnd;
-    private EditText eTextGMap;
     private EditText eTextNP;
     private EditText eTextTP;
     private LinearLayout linearLayout = null;
@@ -51,8 +50,11 @@ public class SearchFragment extends Fragment {
         eTextDPEnd = view.findViewById(R.id.fragment_search_end_date);
         eTextDPEnd.setOnClickListener(v -> showDatePickerDialog(eTextDPEnd));
 
-        eTextGMap = view.findViewById(R.id.fragment_search_departure_point);
-        eTextGMap.setOnClickListener(v -> switchToGoogleMapView());
+        EditText eTextGMapDepPoint = view.findViewById(R.id.fragment_search_departure_point);
+        eTextGMapDepPoint.setOnClickListener(v -> switchToGoogleMapFragment());
+
+        EditText eTextGMapArrPoint = view.findViewById(R.id.fragment_search_arrival_point);
+        eTextGMapArrPoint.setOnClickListener(v -> switchToGoogleMapFragment());
 
         eTextNP = view.findViewById(R.id.fragment_search_passengers_number);
         eTextNP.setOnClickListener(v -> showNumberPickerDialog());
@@ -66,7 +68,7 @@ public class SearchFragment extends Fragment {
         return view;
     }
 
-    private void switchToGoogleMapView() {
+    private void switchToGoogleMapFragment() {
         MapsFragment mf = new MapsFragment();
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         fragmentManager.beginTransaction()
