@@ -17,10 +17,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:srcCompat="@tools:sample/avatars" />
+
         <EditText
             android:id="@+id/activity_login_screen_username"
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
             android:autofillHints="no"
             android:ems="30"
             android:gravity="center"
@@ -30,7 +37,7 @@
 
         <EditText
             android:id="@+id/activity_login_screen_password"
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:autofillHints="no"
             android:ems="30"
@@ -43,6 +50,7 @@
             android:id="@+id/activity_login_screen_log_in_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:hint="@string/log_in_button"
             android:text="" />
 

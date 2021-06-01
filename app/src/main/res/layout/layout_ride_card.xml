@@ -38,7 +38,7 @@
                         android:id="@+id/layout_ride_card_driver_image"
                         android:layout_width="256px"
                         android:layout_height="256px"
-                        android:layout_weight="0"
+
                         android:scaleX="0.7"
                         android:scaleY="0.7"
                         tools:srcCompat="@tools:sample/avatars" />
@@ -63,6 +63,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:gravity="center|start"
                         android:hint="@string/departure_hour"
                         android:text="" />
 
@@ -71,6 +72,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:gravity="center|start"
                         android:hint="@string/arrival_hour"
                         android:text="" />
                 </LinearLayout>
@@ -86,6 +88,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:gravity="center|start"
                         android:hint="@string/departure_point"
                         android:text="" />
 
@@ -94,6 +97,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:gravity="center|start"
                         android:hint="@string/arrival_point"
                         android:text="" />
                 </LinearLayout>

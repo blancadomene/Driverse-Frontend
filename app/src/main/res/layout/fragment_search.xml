@@ -22,7 +22,8 @@
                 android:layout_weight="1"
                 android:hint="@string/search_message"
                 android:padding="5dp"
-                android:text="" />
+                android:text=""
+                android:textSize="20sp" />
 
             <LinearLayout
                 android:layout_width="392dp"
@@ -38,7 +39,8 @@
                     android:layout_height="wrap_content"
                     android:autofillHints="no"
                     android:focusableInTouchMode="false"
-                    android:hint="@string/start_date" />
+                    android:hint="@string/start_date"
+                    android:textAlignment="center" />
 
                 <TextView
                     android:id="@+id/fragment_search_dash"
@@ -54,7 +56,8 @@
                     android:layout_height="wrap_content"
                     android:autofillHints="no"
                     android:focusableInTouchMode="false"
-                    android:hint="@string/end_date" />
+                    android:hint="@string/end_date"
+                    android:textAlignment="center" />
 
             </LinearLayout>
 
@@ -80,9 +83,10 @@
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:autofillHints="no"
-                    android:focusableInTouchMode="false"
                     android:hint="@string/departure_point_radius"
-                    android:text="" />
+                    android:inputType="number"
+                    android:text=""
+                    android:textAlignment="center" />
             </LinearLayout>
 
             <LinearLayout
@@ -107,9 +111,10 @@
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:autofillHints="no"
-                    android:focusableInTouchMode="false"
                     android:hint="@string/arrival_point_radius"
-                    android:text="" />
+                    android:inputType="number"
+                    android:text=""
+                    android:textAlignment="center" />
             </LinearLayout>
 
             <LinearLayout
@@ -127,7 +132,8 @@
                     android:layout_marginEnd="30dp"
                     android:autofillHints="no"
                     android:focusableInTouchMode="false"
-                    android:hint="@string/departure_hour" />
+                    android:hint="@string/departure_hour"
+                    android:textAlignment="center" />
 
                 <EditText
                     android:id="@+id/fragment_search_passengers_number"
@@ -135,7 +141,8 @@
                     android:layout_height="wrap_content"
                     android:autofillHints="no"
                     android:focusableInTouchMode="false"
-                    android:hint="@string/passengers_number" />
+                    android:hint="@string/passengers_number"
+                    android:textAlignment="center" />
 
             </LinearLayout>
 

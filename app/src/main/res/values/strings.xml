@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">Driverse</string>
-    <string name="colon">%1$s:%2s</string>      <!-- TODO: not used, show hour in Ride and RideDetails-->
-    <string name="slash">/</string>      <!-- TODO: not used, show date in RideDetails-->
     <string name="dash">-</string>
 
     <!-- LoginScreenActivity -->
@@ -17,7 +15,7 @@
 
 
     <!-- ProfileFragment & Ride details -->
-    <string name="search_message">Looking for a ride?</string>
+    <string name="search_message"><b>Looking for a ride?</b></string>
     <string name="departure_point">Departure point</string>
     <string name="departure_point_radius">Radius (m)</string>
     <string name="arrival_point">Arrival point</string>
@@ -27,18 +25,18 @@
     <string name="start_date">Start date</string>
     <string name="end_date">End date</string>
     <string name="passengers_number">Passengers</string>
-    <string name="available_seats">Available seats</string>
-    <string name="price_per_seat">Price per seat</string>
+    <string name="available_seats">Seats</string>
+    <string name="price_per_seat">Price</string>
     <string name="driver_name">Driver name</string> <!-- driver name, image, preferences and car repeated? -->
     <string name="driver_age">Driver age</string>
     <string name="trip_driver_image">Trip drivers image</string>
     <string name="driver_preferences">Driver preferences</string>
     <string name="driver_car">Driver car</string>
     <string name="search_travel_button">SEARCH</string>
-    <string name="ride_details_message">Ride details</string>
+    <string name="ride_details_message"><b>Ride details</b></string>
     <string name="book_ride_button">BOOK</string>
     <string name="publish_ride_button">PUBLISH</string>
-    <string name="publish_message">Share your ride</string>
+    <string name="publish_message"><b>Share your ride</b></string>
 
     <!-- TODO: all of AvailableDaysOfWeek -->
     <string name="monday">M</string>
@@ -59,12 +57,12 @@
     <string name="user_preferences">Car</string>
     <string name="user_profile_image">Profile image</string>
     <string name="log_out_button">LOG OUT</string>
-    <string name="profile_message">Profile page</string>
+    <string name="profile_message"><b>Profile page</b></string>
 
     <!-- Notifications Card -->
-    <string name="card_message">Card message</string>
+    <string name="card_text">Card text notification</string>
     <string name="notification_card_image">Notification card image</string>
-    <string name="notifications_messages">Messages</string>
+    <string name="notifications_messages"><b>Notifications</b></string>
     <string name="title_activity_main2">MainActivity</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>

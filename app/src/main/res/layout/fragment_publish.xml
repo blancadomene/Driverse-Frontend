@@ -22,7 +22,8 @@
                 android:layout_weight="1"
                 android:hint="@string/publish_message"
                 android:padding="5dp"
-                android:text="" />
+                android:text=""
+                android:textSize="20sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -38,7 +39,8 @@
                     android:layout_height="wrap_content"
                     android:autofillHints="no"
                     android:focusableInTouchMode="false"
-                    android:hint="@string/start_date" />
+                    android:hint="@string/start_date"
+                    android:textAlignment="center" />
 
                 <TextView
                     android:id="@+id/fragment_publish_dash"
@@ -54,7 +56,8 @@
                     android:layout_height="wrap_content"
                     android:autofillHints="no"
                     android:focusableInTouchMode="false"
-                    android:hint="@string/end_date" />
+                    android:hint="@string/end_date"
+                    android:textAlignment="center" />
 
             </LinearLayout>
 
@@ -71,12 +74,21 @@
                     android:orientation="vertical">
 
                     <EditText
+                        android:id="@+id/fragment_publish_departure_hour"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:autofillHints="no"
+                        android:focusableInTouchMode="false"
+                        android:hint="@string/departure_hour"
+                        android:textAlignment="center" />
+
+                    <EditText
                         android:id="@+id/fragment_publish_departure_point"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:autofillHints="no"
+                        android:focusableInTouchMode="false"
                         android:hint="@string/departure_point"
-                        android:inputType="text"
                         android:text="" />
 
                     <EditText
@@ -84,39 +96,34 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:autofillHints="no"
-                        android:hint="@string/arrival_point"
-                        android:inputType="text"
-                        android:text="" />
-
-                    <EditText
-                        android:id="@+id/fragment_publish_departure_hour"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:autofillHints="no"
                         android:focusableInTouchMode="false"
-                        android:hint="@string/departure_hour" />
+                        android:hint="@string/arrival_point"
+                        android:text="" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:gravity="center"
                         android:orientation="horizontal">
 
                         <EditText
                             android:id="@+id/fragment_publish_price_per_seat"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginEnd="30dp"
                             android:autofillHints="no"
                             android:hint="@string/price_per_seat"
-                            android:inputType="numberDecimal" />
+                            android:inputType="numberDecimal"
+                            android:textAlignment="center" />
 
                         <EditText
                             android:id="@+id/fragment_publish_available_seats"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:gravity="end"
                             android:autofillHints="no"
                             android:focusableInTouchMode="false"
-                            android:hint="@string/available_seats" />
+                            android:hint="@string/available_seats"
+                            android:textAlignment="center" />
 
                     </LinearLayout>
 

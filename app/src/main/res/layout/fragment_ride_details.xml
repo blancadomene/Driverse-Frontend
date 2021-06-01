@@ -22,77 +22,8 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/ride_details_message"
                 android:padding="5dp"
-                android:text="" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal"
-                android:padding="5dp"
-                android:baselineAligned="false">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="5dp">
-
-                    <TextView
-                        android:id="@+id/fragment_ride_details_departure_hour"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/departure_hour"
-                        android:text="" />
-
-                    <TextView
-                        android:id="@+id/fragment_ride_details_departure_point"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/departure_point"
-                        android:text="" />
-
-                    <TextView
-                        android:id="@+id/fragment_ride_details_arrival_hour"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/arrival_hour"
-                        android:text="" />
-
-                    <TextView
-                        android:id="@+id/fragment_ride_details_arrival_point"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/arrival_point"
-                        android:text="" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:padding="5dp">
-
-                    <TextView
-                        android:id="@+id/fragment_ride_details_price_per_seat"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="top|end"
-                        android:hint="@string/price_per_seat"
-                        android:text="" />
-
-                    <EditText
-                        android:id="@+id/fragment_ride_details_available_seats"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="top|end"
-                        android:autofillHints="no"
-                        android:focusableInTouchMode="false"
-                        android:hint="@string/available_seats" />
-                </LinearLayout>
-
-            </LinearLayout>
+                android:text=""
+                android:textSize="20sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -107,7 +38,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="@string/start_date"
-                    android:text="" />
+                    android:text=""
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/fragment_search_dash"
@@ -122,8 +54,88 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="@string/end_date"
-                    android:text="" />
+                    android:text=""
+                    android:textSize="18sp" />
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:baselineAligned="false"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="30dp"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:id="@+id/fragment_ride_details_departure_hour"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/departure_hour"
+                        android:text=""
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/fragment_ride_details_departure_point"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/departure_point"
+                        android:text=""
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/fragment_ride_details_arrival_hour"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/arrival_hour"
+                        android:text=""
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/fragment_ride_details_arrival_point"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/arrival_point"
+                        android:text=""
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="87dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:id="@+id/fragment_ride_details_price_per_seat"
+                        android:layout_width="82dp"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/price_per_seat"
+                        android:text=""
+                        android:textAlignment="center"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/fragment_ride_details_available_seats"
+                        android:layout_width="82dp"
+                        android:layout_height="wrap_content"
+                        android:autofillHints="no"
+                        android:focusableInTouchMode="false"
+
+                        android:hint="@string/available_seats"
+                        android:textAlignment="center"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
 
             <com.blancadomene.tfg.AvailableDaysOfWeek
                 android:id="@+id/fragment_ride_details_days_of_week_view"
@@ -141,10 +153,10 @@
                     android:id="@+id/fragment_ride_details_driver_image"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@string/trip_driver_image"
                     android:scaleX="0.5"
                     android:scaleY="0.5"
-                    tools:src="@tools:sample/avatars"
-                    android:contentDescription="@string/trip_driver_image" />
+                    tools:src="@tools:sample/avatars" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -160,7 +172,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
                         android:hint="@string/driver_name"
-                        android:text="" />
+                        android:text=""
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/fragment_ride_details_driver_age"
@@ -168,7 +181,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
                         android:hint="@string/driver_age"
-                        android:text="" />
+                        android:text=""
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/fragment_ride_details_driver_preferences"
@@ -176,7 +190,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
                         android:hint="@string/driver_preferences"
-                        android:text="" />
+                        android:text=""
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/fragment_ride_details_driver_car"
@@ -184,7 +199,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
                         android:hint="@string/driver_car"
-                        android:text="" />
+                        android:text=""
+                        android:textSize="18sp" />
                 </LinearLayout>
 
             </LinearLayout>
