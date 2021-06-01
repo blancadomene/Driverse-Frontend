@@ -23,8 +23,7 @@ public class LoginScreenActivity extends AppCompatActivity {
     }
 
     /**
-     * TODO: Log in, try catch
-     * TODO: change
+     * TODO: Log in, try catch? CHANGE
      **/
     public void sendMessage(View view) {
         // Starts new activity

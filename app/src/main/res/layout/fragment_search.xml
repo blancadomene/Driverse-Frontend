@@ -20,9 +20,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="@string/search_message"
+                android:text="@string/search_message"
                 android:padding="5dp"
-                android:text=""
                 android:textSize="20sp" />
 
             <LinearLayout
@@ -40,6 +39,7 @@
                     android:autofillHints="no"
                     android:focusableInTouchMode="false"
                     android:hint="@string/start_date"
+                    android:text=""
                     android:textAlignment="center" />
 
                 <TextView
@@ -47,8 +47,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:autofillHints="no"
-                    android:hint="@string/dash"
-                    android:text="" />
+                    android:text="@string/dash" />
 
                 <EditText
                     android:id="@+id/fragment_search_end_date"
@@ -158,8 +157,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="@string/search_travel_button"
-                android:text="" />
+                android:text="@string/search_travel_button" />
 
             <LinearLayout
                 android:id="@+id/fragment_search_result_container"

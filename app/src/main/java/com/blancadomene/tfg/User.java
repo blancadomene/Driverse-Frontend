@@ -16,11 +16,11 @@ public class User {
     private String surName;
     private UUID userID;
 
-    public User(String name, String surName, String email, String phone) {
-        // TODO: Check valids: birthday, phone and email
+    public User(String name, String surName, Calendar bDate, String email, String phone) {
         this.userID = UUID.randomUUID();
         this.name = name;
         this.surName = surName;
+        this.birthDate = bDate;
         this.email = email;
         this.mobilePhone = phone;
         this.preferences = "No preferences added.";
@@ -99,14 +99,16 @@ public class User {
         this.preferences = preferences;
     }
 
-/*
-    public int calculateAge(Calendar birthDate) {
-        LocalDate birthLocalDate = LocalDate.ofInstant(birthDate.toInstant(), ZoneId.systemDefault());
-
-        if ((birthLocalDate != null)) {
-            return Period.between(birthLocalDate, LocalDate.now()).getYears();
-        } else {
-            return 0;
-        }
-    }*/
+    public int calculateAge() {
+        Calendar birthDate = getBirthDate();
+        if ((birthDate != null)) {
+            Calendar currentDate = Calendar.getInstance();
+            int diff = currentDate.get(Calendar.YEAR) - birthDate.get(Calendar.YEAR);
+            if (birthDate.get(Calendar.MONTH) > currentDate.get(Calendar.MONTH) ||
+                    (birthDate.get(Calendar.MONTH) == currentDate.get(Calendar.MONTH) &&
+                            birthDate.get(Calendar.DAY_OF_MONTH) > currentDate.get(Calendar.DAY_OF_MONTH)))
+                diff--;
+            return diff;
+        } else return 0;
+    }
 }

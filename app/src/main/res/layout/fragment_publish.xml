@@ -20,9 +20,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="@string/publish_message"
+                android:text="@string/publish_message"
                 android:padding="5dp"
-                android:text=""
                 android:textSize="20sp" />
 
             <LinearLayout
@@ -47,8 +46,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:autofillHints="no"
-                    android:hint="@string/dash"
-                    android:text="" />
+                    android:text="@string/dash" />
 
                 <EditText
                     android:id="@+id/fragment_publish_end_date"
@@ -145,8 +143,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="@string/publish_ride_button"
-                android:text="" />
+                android:text="@string/publish_ride_button" />
 
         </LinearLayout>
     </ScrollView>

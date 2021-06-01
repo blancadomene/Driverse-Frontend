@@ -25,7 +25,6 @@ import java.util.Arrays;
 import java.util.Locale;
 
 public class MapsFragment extends Fragment {
-    AutocompleteSupportFragment autocompleteFragment;
     private GoogleMap mMap;
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
@@ -44,8 +43,6 @@ public class MapsFragment extends Fragment {
             LatLng defaultLocation = new LatLng(40.4165, -3.70256);
             mMap.moveCamera(CameraUpdateFactory.newLatLng(defaultLocation));
         }
-
-
     };
 
     @Override
@@ -75,7 +72,7 @@ public class MapsFragment extends Fragment {
         }
 
         // Initialize the AutocompleteSupportFragment.
-        autocompleteFragment = (AutocompleteSupportFragment)
+        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
                 getChildFragmentManager().findFragmentById(R.id.autocomplete_fragment);
 
         // Specify the types of place data to return.
@@ -86,12 +83,12 @@ public class MapsFragment extends Fragment {
             @Override
             public void onPlaceSelected(@NonNull Place place) {
                 // TODO: Get info about the selected place.
-                int zoomlvl = 15;
+                int zoomLevel = 15;
                 System.out.println("Place: " + place.getName() + ", " + place.getId() + ", " + place.getAddress() + ", " + place.getLatLng());
                 LatLng location = place.getLatLng();
                 mMap.clear();
                 mMap.addMarker(new MarkerOptions().position(location).title("Location"));
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, zoomlvl));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, zoomLevel));
             }
 
             @Override

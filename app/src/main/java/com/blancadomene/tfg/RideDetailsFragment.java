@@ -15,7 +15,6 @@ import androidx.fragment.app.Fragment;
 import java.util.Calendar;
 
 public class RideDetailsFragment extends Fragment {
-
     private EditText eTextNP;
     private Ride ride;
 
@@ -29,7 +28,6 @@ public class RideDetailsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // TODO ?
     }
 
     // TODO: separate get and set from onCreate
@@ -82,11 +80,13 @@ public class RideDetailsFragment extends Fragment {
         AvailableDaysOfWeek viewAv = view.findViewById(R.id.fragment_ride_details_days_of_week_view);
         viewAv.setEnabledDaysOfWeek(ride.getAvailableDaysOfWeek());
 
-        // TODO: set photo
         new DownloadImageTask(view.findViewById(R.id.fragment_ride_details_driver_image)).execute("https://www.gravatar.com/avatar/205e460b479e2e5b48aeg07710c08d50?s=450&r=pg&d=retro");
 
         text = view.findViewById(R.id.fragment_ride_details_driver_name);
         text.setText(ride.getDriver().getName() + " " + ride.getDriver().getSurName());
+
+        text = view.findViewById(R.id.fragment_ride_details_driver_age);
+        text.setText(ride.getDriver().calculateAge() + " years old");
 
         text = view.findViewById(R.id.fragment_ride_details_driver_preferences);
         text.setText(ride.getDriver().getPreferences());
@@ -105,7 +105,7 @@ public class RideDetailsFragment extends Fragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(np);
-        builder.setTitle("Changing the Hue");
+        builder.setTitle("Number of passengers");
         builder.setMessage("Choose a value :");
         builder.setPositiveButton("OK", (dialog, which) -> {
             eTextNP.setText(Integer.toString(np.getValue()));

@@ -49,13 +49,14 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
                         android:gravity="center"
-                        android:hint="@string/driver_name"
-                        android:text="" />
+                        android:text="@string/driver_name" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
                     android:orientation="vertical">
 
                     <TextView
@@ -64,8 +65,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center|start"
-                        android:hint="@string/departure_hour"
-                        android:text="" />
+                        android:text="@string/departure_hour" />
 
                     <TextView
                         android:id="@+id/layout_ride_card_arrival_hour"
@@ -73,13 +73,14 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center|start"
-                        android:hint="@string/arrival_hour"
-                        android:text="" />
+                        android:text="@string/arrival_hour" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
@@ -89,8 +90,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center|start"
-                        android:hint="@string/departure_point"
-                        android:text="" />
+                        android:lines="2"
+                        android:text="@string/departure_point" />
 
                     <TextView
                         android:id="@+id/layout_ride_card_arrival_point"
@@ -98,8 +99,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center|start"
-                        android:hint="@string/arrival_point"
-                        android:text="" />
+                        android:lines="2"
+                        android:text="@string/arrival_point" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -119,9 +120,8 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center|end"
-                    android:hint="@string/price_per_seat"
                     android:paddingEnd="25dp"
-                    android:text="" />
+                    android:text="@string/price_per_seat" />
 
 
             </LinearLayout>

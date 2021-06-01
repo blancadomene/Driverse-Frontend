@@ -19,10 +19,8 @@
                 android:id="@+id/fragment_profile_message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                android:hint="@string/profile_message"
                 android:padding="5dp"
-                android:text=""
+                android:text="@string/profile_message"
                 android:textSize="20sp" />
 
             <ImageView
@@ -43,48 +41,42 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:hint="@string/user_name"
-                    android:text=""
+                    android:text="@string/user_name"
                     android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/fragment_profile_sur_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/user_sur_name"
-                    android:text=""
+                    android:text="@string/user_sur_name"
                     android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/fragment_profile_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/user_email"
-                    android:text=""
+                    android:text="@string/user_email"
                     android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/fragment_profile_birth_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/user_birth_date"
-                    android:text=""
+                    android:text="@string/user_birth_date"
                     android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/fragment_profile_mobile_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/user_mobile_number"
-                    android:text=""
+                    android:text="@string/user_mobile_number"
                     android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/fragment_profile_car"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/user_car"
-                    android:text=""
+                    android:text="@string/user_car"
                     android:textSize="20sp" />
             </LinearLayout>
 
@@ -94,8 +86,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
-                android:hint="@string/log_out_button"
-                android:text="" />
+                android:text="@string/log_out_button" />
 
         </LinearLayout>
     </ScrollView>

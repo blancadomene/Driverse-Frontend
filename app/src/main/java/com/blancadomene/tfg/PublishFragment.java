@@ -28,7 +28,6 @@ public class PublishFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // TODO ?
     }
 
     @Override
@@ -77,7 +76,7 @@ public class PublishFragment extends Fragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(np);
-        builder.setTitle("Changing the Hue");
+        builder.setTitle("Number of available seats");
         builder.setMessage("Choose a value :");
         builder.setPositiveButton("OK", (dialog, which) -> {
             eTextNP.setText(Integer.toString(np.getValue()));
@@ -138,9 +137,6 @@ public class PublishFragment extends Fragment {
         for (boolean b : psAvailableDaysOfWeek) {
             if (b) System.out.println("True");
         }
-
-
-        // TODO: Create ride
 
         // new Ride(fsStartDate, fsEndDate, fsDeparturePoint, fsDepartureHour, fsArrivalPoint, exArrHour, fsAvailableSeats, new BigDecimal("1.11"), System.getProperty("user.name"));
 

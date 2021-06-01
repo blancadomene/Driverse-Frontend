@@ -29,7 +29,6 @@ public class Ride {
         // TODO: check nulls
         // TODO: check start no sea menor que end, y que tampoco sean antes de hoy
         // TODO: check departureHour < arrivalHour
-        // TODO. availableSeats < 8
         this.rideID = UUID.randomUUID();
         this.startDate = start;
         this.endDate = end;

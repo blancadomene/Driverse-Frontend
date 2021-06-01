@@ -36,7 +36,6 @@ public class SearchFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // TODO ?
     }
 
     @Override
@@ -101,7 +100,7 @@ public class SearchFragment extends Fragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(np);
-        builder.setTitle("Changing the Hue");
+        builder.setTitle("Number of passengers");
         builder.setMessage("Choose a value :");
         builder.setPositiveButton("OK", (dialog, which) -> {
             eTextNP.setText(Integer.toString(np.getValue()));
@@ -174,14 +173,15 @@ public class SearchFragment extends Fragment {
         // TODO: Search with editTexts parameters and add searches to array (same name)
         // TODO: delete examples and iterate searches array
         searches.clear();
-        Calendar exStartDate = new GregorianCalendar(2001, 1, 1);
-        Calendar exEndDate = new GregorianCalendar(2002, 2, 2);
+        Calendar exStartDate = new GregorianCalendar(2111, 1, 1);
+        Calendar exEndDate = new GregorianCalendar(2222, 2, 2);
         Calendar exDepHour = new GregorianCalendar(1999, 9, 9, 13, 01);
         Calendar exArrHour = new GregorianCalendar(1999, 9, 9, 17, 14);
-        User exUser = new User("Eren", "Yaeger", "erenthetitan@gmail.com", "111111111");
+        Calendar exBirthDate = new GregorianCalendar(1997, 14, 11, 9, 13, 01);
+        User exUser = new User("Eren", "Yaeger", exBirthDate, "erenthetitan@gmail.com", "111111111");
         boolean[] days = new boolean[]{Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, Boolean.FALSE, Boolean.TRUE};
 
-        searches.add(new Ride(exStartDate, exEndDate, "Almería", exDepHour, "Granada", exArrHour, 1, new BigDecimal("1.11"), exUser, days));
+        searches.add(new Ride(exStartDate, exEndDate, "Estación intermodal de Almería", exDepHour, "Estación de autobuses de Granada", exArrHour, 1, new BigDecimal("1.11"), exUser, days));
         searches.add(new Ride(exStartDate, exEndDate, "Valencia", exDepHour, "Madriz", exArrHour, 2, new BigDecimal("2.22"), exUser, days));
         searches.add(new Ride(exStartDate, exEndDate, "Barcelona", exDepHour, "Badajoz", exArrHour, 3, new BigDecimal("3.33"), exUser, days));
         searches.add(new Ride(exStartDate, exEndDate, "Alfacar", exDepHour, "Viznar", exArrHour, 4, new BigDecimal("4.44"), exUser, days));

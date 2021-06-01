@@ -20,9 +20,8 @@
                 android:id="@+id/fragment_ride_details_ride_details_message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/ride_details_message"
                 android:padding="5dp"
-                android:text=""
+                android:text="@string/ride_details_message"
                 android:textSize="20sp" />
 
             <LinearLayout
@@ -37,8 +36,7 @@
                     android:id="@+id/fragment_ride_details_start_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="@string/start_date"
-                    android:text=""
+                    android:text="@string/start_date"
                     android:textSize="18sp" />
 
                 <TextView
@@ -46,15 +44,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:autofillHints="no"
-                    android:hint="@string/dash"
-                    android:text="" />
+                    android:text="@string/dash" />
 
                 <TextView
                     android:id="@+id/fragment_ride_details_end_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="@string/end_date"
-                    android:text=""
+                    android:text="@string/end_date"
                     android:textSize="18sp" />
             </LinearLayout>
 
@@ -77,32 +73,29 @@
                         android:id="@+id/fragment_ride_details_departure_hour"
                         android:layout_width="250dp"
                         android:layout_height="wrap_content"
-                        android:hint="@string/departure_hour"
-                        android:text=""
+                        android:text="@string/departure_hour"
                         android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/fragment_ride_details_departure_point"
                         android:layout_width="250dp"
                         android:layout_height="wrap_content"
-                        android:hint="@string/departure_point"
-                        android:text=""
+                        android:text="@string/departure_point"
                         android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/fragment_ride_details_arrival_hour"
                         android:layout_width="250dp"
                         android:layout_height="wrap_content"
-                        android:hint="@string/arrival_hour"
-                        android:text=""
+                        android:text="@string/arrival_hour"
+                        android:layout_marginTop="10dp"
                         android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/fragment_ride_details_arrival_point"
                         android:layout_width="250dp"
                         android:layout_height="wrap_content"
-                        android:hint="@string/arrival_point"
-                        android:text=""
+                        android:text="@string/arrival_point"
                         android:textSize="18sp" />
                 </LinearLayout>
 
@@ -117,8 +110,7 @@
                         android:id="@+id/fragment_ride_details_price_per_seat"
                         android:layout_width="82dp"
                         android:layout_height="wrap_content"
-                        android:hint="@string/price_per_seat"
-                        android:text=""
+                        android:text="@string/price_per_seat"
                         android:textAlignment="center"
                         android:textSize="18sp" />
 
@@ -128,8 +120,8 @@
                         android:layout_height="wrap_content"
                         android:autofillHints="no"
                         android:focusableInTouchMode="false"
-
                         android:hint="@string/available_seats"
+                        android:text=""
                         android:textAlignment="center"
                         android:textSize="18sp" />
                 </LinearLayout>
@@ -171,8 +163,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
-                        android:hint="@string/driver_name"
-                        android:text=""
+                        android:text="@string/driver_name"
                         android:textSize="18sp" />
 
                     <TextView
@@ -180,8 +171,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
-                        android:hint="@string/driver_age"
-                        android:text=""
+                        android:text="@string/driver_age"
                         android:textSize="18sp" />
 
                     <TextView
@@ -189,8 +179,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
-                        android:hint="@string/driver_preferences"
-                        android:text=""
+                        android:text="@string/driver_preferences"
                         android:textSize="18sp" />
 
                     <TextView
@@ -198,8 +187,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
-                        android:hint="@string/driver_car"
-                        android:text=""
+                        android:text="@string/driver_car"
                         android:textSize="18sp" />
                 </LinearLayout>
 
@@ -210,8 +198,7 @@
                 android:id="@+id/button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/book_ride_button"
-                android:text="" />
+                android:text="@string/book_ride_button" />
 
         </LinearLayout>
     </ScrollView>
