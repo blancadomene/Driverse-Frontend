@@ -4,10 +4,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -25,6 +27,7 @@ import java.util.Arrays;
 import java.util.Locale;
 
 public class MapsFragment extends Fragment {
+    private String data;
     private GoogleMap mMap;
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
@@ -59,7 +62,34 @@ public class MapsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_maps, container, false);
+        View view = inflater.inflate(R.layout.fragment_maps, container, false);
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+
+        // TODO: Delete prints
+        System.out.println("Maps: " + fragmentManager.getBackStackEntryCount());
+        for (int entry = 0; entry < fragmentManager.getBackStackEntryCount(); entry++) {
+            System.out.println("Found fragment: " + fragmentManager.getBackStackEntryAt(entry).getName());
+        }
+
+
+        Button buttonOK = view.findViewById(R.id.fragment_maps_OK);
+        buttonOK.setOnClickListener(v -> {
+            // TODO: Delete prints
+            System.out.println("Maps button OK: " + fragmentManager.getBackStackEntryCount());
+            for (int entry = 0; entry < fragmentManager.getBackStackEntryCount(); entry++) {
+                System.out.println("Found fragment: " + fragmentManager.getBackStackEntryAt(entry).getName());
+            }
+            fragmentManager.popBackStack();
+            fragmentManager.beginTransaction().commit();
+        });
+
+        Button buttonCancel = view.findViewById(R.id.fragment_maps_cancel);
+        buttonCancel.setOnClickListener(v -> {
+            fragmentManager.popBackStack();
+            fragmentManager.beginTransaction().commit();
+        });
+
+        return view;
     }
 
     @Override
@@ -84,8 +114,10 @@ public class MapsFragment extends Fragment {
             public void onPlaceSelected(@NonNull Place place) {
                 // TODO: Get info about the selected place.
                 int zoomLevel = 15;
-                System.out.println("Place: " + place.getName() + ", " + place.getId() + ", " + place.getAddress() + ", " + place.getLatLng());
+                data = (place.getId() + "_" + place.getName() + "_" + place.getLatLng());
                 LatLng location = place.getLatLng();
+
+                // Move map and add marker
                 mMap.clear();
                 mMap.addMarker(new MarkerOptions().position(location).title("Location"));
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, zoomLevel));
@@ -98,5 +130,23 @@ public class MapsFragment extends Fragment {
             }
         });
 
+
+    }
+
+    private FragmentCallBacks fragmentCallBacks;
+
+    public interface FragmentCallBacks {
+        void onCallBack(String data);
+    }
+
+    public void setFragmentCallBacks(FragmentCallBacks fragmentCallBacks) {
+        this.fragmentCallBacks = fragmentCallBacks;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        fragmentCallBacks.onCallBack(data);
     }
 }
+

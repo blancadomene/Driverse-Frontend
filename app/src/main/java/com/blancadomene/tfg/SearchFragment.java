@@ -50,10 +50,10 @@ public class SearchFragment extends Fragment {
         eTextDPEnd.setOnClickListener(v -> showDatePickerDialog(eTextDPEnd));
 
         EditText eTextGMapDepPoint = view.findViewById(R.id.fragment_search_departure_point);
-        eTextGMapDepPoint.setOnClickListener(v -> switchToGoogleMapFragment());
+        eTextGMapDepPoint.setOnClickListener(v -> switchToGoogleMapsFragment(R.id.fragment_search_departure_point));
 
         EditText eTextGMapArrPoint = view.findViewById(R.id.fragment_search_arrival_point);
-        eTextGMapArrPoint.setOnClickListener(v -> switchToGoogleMapFragment());
+        eTextGMapArrPoint.setOnClickListener(v -> switchToGoogleMapsFragment(R.id.fragment_search_arrival_point));
 
         eTextNP = view.findViewById(R.id.fragment_search_passengers_number);
         eTextNP.setOnClickListener(v -> showNumberPickerDialog());
@@ -67,15 +67,34 @@ public class SearchFragment extends Fragment {
         return view;
     }
 
-    private void switchToGoogleMapFragment() {
-        MapsFragment mf = new MapsFragment();
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.activity_main_fragment_container_view, mf, null)
+    private void switchToGoogleMapsFragment(int edTextID) {
+        MapsFragment fragment = new MapsFragment();
+
+        // TODO: Delete prints
+        System.out.println("Search: " + getActivity().getSupportFragmentManager().getBackStackEntryCount());
+        for (int entry = 0; entry < getActivity().getSupportFragmentManager().getBackStackEntryCount(); entry++) {
+            System.out.println("Found fragment: " + getActivity().getSupportFragmentManager().getBackStackEntryAt(entry).getName());
+        }
+
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.activity_main_fragment_container_view, fragment, null)
                 .setReorderingAllowed(true)
-                .addToBackStack("searchView")
+                .addToBackStack("MapsView")
                 .commit();
+
+        fragment.setFragmentCallBacks(data -> {
+            if (data != null) {
+                String[] parts = data.split("_");
+                EditText edView = view.findViewById(edTextID);
+                System.out.println(data);
+                edView.setText(parts[1]); //parts3 contains latlng
+            }
+        });
     }
+
+
+
+
 
     private void showDatePickerDialog(EditText edText) {
         final Calendar c = Calendar.getInstance();
@@ -126,8 +145,6 @@ public class SearchFragment extends Fragment {
     }
 
     public void showResultList(View view) {
-        // TODO: Take data from editTexts
-        // TODO: not null
         EditText edText;
         edText = getActivity().findViewById(R.id.fragment_search_start_date);
         String fsStartDate = edText.getText().toString();
@@ -156,19 +173,6 @@ public class SearchFragment extends Fragment {
         AvailableDaysOfWeek viewAv = getActivity().findViewById(R.id.fragment_search_days_of_week_view);
         boolean[] fsAvailableDaysOfWeek = viewAv.getSelectedDaysOfWeek();
 
-        // TODO: Delete prints
-        System.out.println("fsStartDate" + " " + fsStartDate);
-        System.out.println("fsEndDate" + " " + fsEndDate);
-        System.out.println("fsDeparturePoint" + " " + fsDeparturePoint);
-        System.out.println("fsDeparturePointRadius" + " " + fsDeparturePointRadius);
-        System.out.println("fsArrivalPoint" + " " + fsArrivalPoint);
-        System.out.println("fsArrivalPointRadius" + " " + fsArrivalPointRadius);
-        System.out.println("fsDepartureHour" + " " + fsDepartureHour);
-        System.out.println("fsPassengersNumber" + " " + fsPassengersNumber);
-        for (boolean b : fsAvailableDaysOfWeek) {
-            if (b) System.out.println("True");
-        }
-
 
         // TODO: Search with editTexts parameters and add searches to array (same name)
         // TODO: delete examples and iterate searches array
@@ -186,7 +190,7 @@ public class SearchFragment extends Fragment {
         searches.add(new Ride(exStartDate, exEndDate, "Barcelona", exDepHour, "Badajoz", exArrHour, 3, new BigDecimal("3.33"), exUser, days));
         searches.add(new Ride(exStartDate, exEndDate, "Alfacar", exDepHour, "Viznar", exArrHour, 4, new BigDecimal("4.44"), exUser, days));
         searches.add(new Ride(exStartDate, exEndDate, "Toledo", exDepHour, "Lugo", exArrHour, 5, new BigDecimal("5.55"), exUser, days));
-        //TODO: delete examples and iterate searches array
+        /***************************************/
 
         linearLayout.removeAllViews();
 
@@ -210,9 +214,10 @@ public class SearchFragment extends Fragment {
         fragmentManager.beginTransaction()
                 .replace(R.id.activity_main_fragment_container_view, rdf, null)
                 .setReorderingAllowed(true)
-                .addToBackStack("searchView")
+                .addToBackStack("DetailedRideView")
                 .commit();
     }
+
 
 }
 

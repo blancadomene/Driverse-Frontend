@@ -57,10 +57,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showSearchView(View view) {
+        // TODO: Delete prints
+        System.out.println("Main Activity: " + fragmentManager.getBackStackEntryCount());
+        for (int entry = 0; entry < fragmentManager.getBackStackEntryCount(); entry++) {
+            System.out.println("Found fragment: " + fragmentManager.getBackStackEntryAt(entry).getName());
+        }
+
         fragmentManager.beginTransaction()
-                .replace(R.id.activity_main_fragment_container_view, SearchFragment.class, null)   // allows the FragmentManager to handle instantiation using its FragmentFactory
-                .setReorderingAllowed(true)                                                             // optimizes the state changes of the fragments involved
-                .addToBackStack("searchView")                                                           // commits the transaction to the back stack
+                .replace(R.id.activity_main_fragment_container_view, SearchFragment.class, null)
+                .setReorderingAllowed(true)
+                .addToBackStack("searchView")
                 .commit();
     }
 
