@@ -21,6 +21,7 @@ public class PublishFragment extends Fragment {
     private EditText eTextDPEnd;
     private EditText eTextNP;
     private EditText eTextTP;
+    private View view;
 
     public PublishFragment() {
     }
@@ -33,7 +34,7 @@ public class PublishFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_publish, container, false);
+        view = inflater.inflate(R.layout.fragment_publish, container, false);
 
         eTextTP = view.findViewById(R.id.fragment_publish_departure_hour);
         eTextTP.setOnClickListener(v -> showTimePickerDialog());
@@ -43,6 +44,12 @@ public class PublishFragment extends Fragment {
 
         eTextDPEnd = view.findViewById(R.id.fragment_publish_end_date);
         eTextDPEnd.setOnClickListener(v -> showDatePickerDialog(eTextDPEnd));
+
+        EditText eTextGMapDepPoint = view.findViewById(R.id.fragment_publish_departure_point);
+        eTextGMapDepPoint.setOnClickListener(v -> switchToGoogleMapsFragment(R.id.fragment_publish_departure_point));
+
+        EditText eTextGMapArrPoint = view.findViewById(R.id.fragment_publish_arrival_point);
+        eTextGMapArrPoint.setOnClickListener(v -> switchToGoogleMapsFragment(R.id.fragment_publish_arrival_point));
 
         eTextDPEnd = view.findViewById(R.id.fragment_publish_end_date);
         eTextDPEnd.setOnClickListener(v -> showDatePickerDialog(eTextDPEnd));
@@ -54,6 +61,25 @@ public class PublishFragment extends Fragment {
         button.setOnClickListener(this::publishNewRide);
 
         return view;
+    }
+
+    private void switchToGoogleMapsFragment(int edTextID) {
+        MapsFragment fragment = new MapsFragment();
+
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.activity_main_fragment_container_view, fragment, null)
+                .setReorderingAllowed(true)
+                .addToBackStack("MapsView")
+                .commit();
+
+        fragment.setFragmentCallBacks(data -> {
+            if (data != null) {
+                String[] parts = data.split("_");
+                EditText edView = view.findViewById(edTextID);
+                System.out.println(data);
+                edView.setText(parts[1]); //parts3 contains latlng
+            }
+        });
     }
 
     private void showDatePickerDialog(EditText edText) {
@@ -99,8 +125,6 @@ public class PublishFragment extends Fragment {
     }
 
     public void publishNewRide(View view) {
-        // TODO: Take data from editTexts
-        // TODO: not null
         EditText edText;
         edText = getActivity().findViewById(R.id.fragment_publish_start_date);
         String psStartDate = edText.getText().toString();
@@ -125,18 +149,6 @@ public class PublishFragment extends Fragment {
 
         AvailableDaysOfWeek viewAv = getActivity().findViewById(R.id.fragment_publish_days_of_week_view);
         boolean[] psAvailableDaysOfWeek = viewAv.getSelectedDaysOfWeek();
-
-        // TODO: Delete prints
-        System.out.println("fsStartDate" + " " + psStartDate);
-        System.out.println("fsEndDate" + " " + psEndDate);
-        System.out.println("fsDeparturePoint" + " " + psDeparturePoint);
-        System.out.println("fsArrivalPoint" + " " + psArrivalPoint);
-        System.out.println("fsDepartureHour" + " " + psDepartureHour);
-        System.out.println("fsAvailableSeats" + " " + psAvailableSeats);
-        System.out.println("fsPricePerSeat" + " " + psPricePerSeat);
-        for (boolean b : psAvailableDaysOfWeek) {
-            if (b) System.out.println("True");
-        }
 
         // new Ride(fsStartDate, fsEndDate, fsDeparturePoint, fsDepartureHour, fsArrivalPoint, exArrHour, fsAvailableSeats, new BigDecimal("1.11"), System.getProperty("user.name"));
 

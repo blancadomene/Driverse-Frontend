@@ -26,9 +26,6 @@ public class Ride {
 
 
     public Ride(Calendar start, Calendar end, String depPoint, Calendar depHour, String arrPoint, Calendar arrHour, int avaSeats, BigDecimal price, User userDriver, boolean[] days) {
-        // TODO: check nulls
-        // TODO: check start no sea menor que end, y que tampoco sean antes de hoy
-        // TODO: check departureHour < arrivalHour
         this.rideID = UUID.randomUUID();
         this.startDate = start;
         this.endDate = end;
@@ -163,7 +160,6 @@ public class Ride {
         viewAv.setEnabledDaysOfWeek(this.getAvailableDaysOfWeek());
         viewAv.disableClick();
 
-        // TODO: set photo
         new DownloadImageTask(view.findViewById(R.id.layout_ride_card_driver_image)).execute("https://www.gravatar.com/avatar/205e460b479e2e5b48aeg07710c08d50?s=450&r=pg&d=retro");
 
         text = view.findViewById(R.id.layout_ride_card_name);

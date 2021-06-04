@@ -65,20 +65,8 @@ public class MapsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_maps, container, false);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 
-        // TODO: Delete prints
-        System.out.println("Maps: " + fragmentManager.getBackStackEntryCount());
-        for (int entry = 0; entry < fragmentManager.getBackStackEntryCount(); entry++) {
-            System.out.println("Found fragment: " + fragmentManager.getBackStackEntryAt(entry).getName());
-        }
-
-
         Button buttonOK = view.findViewById(R.id.fragment_maps_OK);
         buttonOK.setOnClickListener(v -> {
-            // TODO: Delete prints
-            System.out.println("Maps button OK: " + fragmentManager.getBackStackEntryCount());
-            for (int entry = 0; entry < fragmentManager.getBackStackEntryCount(); entry++) {
-                System.out.println("Found fragment: " + fragmentManager.getBackStackEntryAt(entry).getName());
-            }
             fragmentManager.popBackStack();
             fragmentManager.beginTransaction().commit();
         });
@@ -112,12 +100,12 @@ public class MapsFragment extends Fragment {
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(@NonNull Place place) {
-                // TODO: Get info about the selected place.
+                // Gets info about the selected place.
                 int zoomLevel = 15;
                 data = (place.getId() + "_" + place.getName() + "_" + place.getLatLng());
                 LatLng location = place.getLatLng();
 
-                // Move map and add marker
+                // Move map and add marker.
                 mMap.clear();
                 mMap.addMarker(new MarkerOptions().position(location).title("Location"));
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, zoomLevel));

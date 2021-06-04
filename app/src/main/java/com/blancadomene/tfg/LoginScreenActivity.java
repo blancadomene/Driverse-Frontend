@@ -22,7 +22,7 @@ public class LoginScreenActivity extends AppCompatActivity {
     }
 
     /**
-     * TODO: Log in, try catch? CHANGE
+     * TODO: Change
      **/
     public void switchToMainActivityView(View view) {
         Intent intent = new Intent(this, MainActivity.class);

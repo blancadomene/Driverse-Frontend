@@ -26,7 +26,7 @@
     <string name="passengers_number">Passengers</string>
     <string name="available_seats">Seats</string>
     <string name="price_per_seat">Price</string>
-    <string name="driver_name">Driver name</string> <!-- driver name, image, preferences and car repeated? -->
+    <string name="driver_name">Driver name</string>
     <string name="driver_age">Driver age</string>
     <string name="trip_driver_image">Trip drivers image</string>
     <string name="driver_preferences">Driver preferences</string>
@@ -62,8 +62,6 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_maps">Map</string>
-
-
 </resources>
 
 

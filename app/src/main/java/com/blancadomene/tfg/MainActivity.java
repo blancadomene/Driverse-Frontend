@@ -9,11 +9,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
 public class MainActivity extends AppCompatActivity {
-    Button searchViewButton;
-    Button publishViewButton;
+    FragmentManager fragmentManager = null;
     Button notificationsViewButton;
     Button profileViewButton;
-    FragmentManager fragmentManager = null;
+    Button publishViewButton;
+    Button searchViewButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,46 +23,41 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         fragmentManager = getSupportFragmentManager();
 
+        // Sets each listener, changing the color of the buttons according to current button pressed.
         searchViewButton = this.findViewById(R.id.activity_main_search_button);
         searchViewButton.setOnClickListener(v -> {
             setGreyButtons();
             searchViewButton.setTextColor(getResources().getColor(R.color.color_primary_variant));
-            showSearchView(v);
+            switchToSearchView(v);
         });
 
         publishViewButton = this.findViewById(R.id.activity_main_publish_button);
         publishViewButton.setOnClickListener(v -> {
             setGreyButtons();
             publishViewButton.setTextColor(getResources().getColor(R.color.color_primary_variant));
-            this.showPublishView(v);
+            this.switchToPublishView(v);
         });
 
         notificationsViewButton = this.findViewById(R.id.activity_main_notifications_button);
         notificationsViewButton.setOnClickListener(v -> {
             setGreyButtons();
             notificationsViewButton.setTextColor(getResources().getColor(R.color.color_primary_variant));
-            showNotificationsView(v);
+            switchToNotificationsView(v);
         });
 
         profileViewButton = this.findViewById(R.id.activity_main_profile_button);
         profileViewButton.setOnClickListener(v -> {
             setGreyButtons();
             profileViewButton.setTextColor(getResources().getColor(R.color.color_primary_variant));
-            showProfileView(v);
+            switchToProfileView(v);
         });
 
         setGreyButtons();
         searchViewButton.setTextColor(getResources().getColor(R.color.color_primary_variant));
-        showSearchView(null);
+        switchToSearchView(null);
     }
 
-    public void showSearchView(View view) {
-        // TODO: Delete prints
-        System.out.println("Main Activity: " + fragmentManager.getBackStackEntryCount());
-        for (int entry = 0; entry < fragmentManager.getBackStackEntryCount(); entry++) {
-            System.out.println("Found fragment: " + fragmentManager.getBackStackEntryAt(entry).getName());
-        }
-
+    public void switchToSearchView(View view) {
         fragmentManager.beginTransaction()
                 .replace(R.id.activity_main_fragment_container_view, SearchFragment.class, null)
                 .setReorderingAllowed(true)
@@ -70,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
-    public void showPublishView(View view) {
+    public void switchToPublishView(View view) {
         fragmentManager.beginTransaction()
                 .replace(R.id.activity_main_fragment_container_view, PublishFragment.class, null)
                 .setReorderingAllowed(true)
@@ -78,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
-    public void showNotificationsView(View view) {
+    public void switchToNotificationsView(View view) {
         fragmentManager.beginTransaction()
                 .replace(R.id.activity_main_fragment_container_view, NotificationsFragment.class, null)
                 .setReorderingAllowed(true)
@@ -86,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
-    public void showProfileView(View view) {
+    public void switchToProfileView(View view) {
         fragmentManager.beginTransaction()
                 .replace(R.id.activity_main_fragment_container_view, ProfileFragment.class, null)
                 .setReorderingAllowed(true)

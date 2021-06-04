@@ -20,8 +20,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/publish_message"
                 android:padding="5dp"
+                android:text="@string/publish_message"
                 android:textSize="20sp" />
 
             <LinearLayout
@@ -82,7 +82,7 @@
 
                     <EditText
                         android:id="@+id/fragment_publish_departure_point"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:autofillHints="no"
                         android:focusableInTouchMode="false"
@@ -91,7 +91,7 @@
 
                     <EditText
                         android:id="@+id/fragment_publish_arrival_point"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:autofillHints="no"
                         android:focusableInTouchMode="false"
@@ -124,11 +124,7 @@
                             android:textAlignment="center" />
 
                     </LinearLayout>
-
-
                 </LinearLayout>
-
-
             </LinearLayout>
 
             <com.blancadomene.tfg.AvailableDaysOfWeek

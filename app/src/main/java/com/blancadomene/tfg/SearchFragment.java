@@ -70,12 +70,6 @@ public class SearchFragment extends Fragment {
     private void switchToGoogleMapsFragment(int edTextID) {
         MapsFragment fragment = new MapsFragment();
 
-        // TODO: Delete prints
-        System.out.println("Search: " + getActivity().getSupportFragmentManager().getBackStackEntryCount());
-        for (int entry = 0; entry < getActivity().getSupportFragmentManager().getBackStackEntryCount(); entry++) {
-            System.out.println("Found fragment: " + getActivity().getSupportFragmentManager().getBackStackEntryAt(entry).getName());
-        }
-
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.activity_main_fragment_container_view, fragment, null)
                 .setReorderingAllowed(true)
@@ -91,9 +85,6 @@ public class SearchFragment extends Fragment {
             }
         });
     }
-
-
-
 
 
     private void showDatePickerDialog(EditText edText) {
@@ -217,7 +208,6 @@ public class SearchFragment extends Fragment {
                 .addToBackStack("DetailedRideView")
                 .commit();
     }
-
 
 }
 
