@@ -38,9 +38,6 @@
                         android:id="@+id/layout_ride_card_driver_image"
                         android:layout_width="256px"
                         android:layout_height="256px"
-
-                        android:scaleX="0.7"
-                        android:scaleY="0.7"
                         tools:srcCompat="@tools:sample/avatars" />
 
                     <TextView

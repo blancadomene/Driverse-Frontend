@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Driverse</string>
-    <string name="dash">-</string>
+    <string name="dash">   -   </string>
+    <string name="backend_address">10.0.2.2:80</string>
 
     <!-- LoginScreenActivity -->
     <string name="log_in_button">LOG IN</string>
@@ -48,7 +49,7 @@
     <string name="user_email">Email</string>
     <string name="user_mobile_number">Mobile number</string>
     <string name="user_car">Car</string>
-    <string name="user_preferences">Car</string>
+    <string name="user_preferences">Preferences</string>
     <string name="user_profile_image">Profile image</string>
     <string name="log_out_button">LOG OUT</string>
     <string name="profile_message"><b>Profile page</b></string>

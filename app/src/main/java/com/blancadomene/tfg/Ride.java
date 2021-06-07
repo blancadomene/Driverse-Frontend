@@ -160,8 +160,6 @@ public class Ride {
         viewAv.setEnabledDaysOfWeek(this.getAvailableDaysOfWeek());
         viewAv.disableClick();
 
-        new DownloadImageTask(view.findViewById(R.id.layout_ride_card_driver_image)).execute("https://www.gravatar.com/avatar/205e460b479e2e5b48aeg07710c08d50?s=450&r=pg&d=retro");
-
         text = view.findViewById(R.id.layout_ride_card_name);
         text.setText(getDriver().getName());
 
