@@ -1,5 +1,6 @@
 package com.blancadomene.tfg;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -44,14 +45,13 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
+    @SuppressLint("SetTextI18n")
     private void getUserInfo(View view, Bundle extrasBundle) {
-        String extraEmail = extrasBundle.getString("EXTRA_EMAIL");
-        TextView textView = view.findViewById(R.id.fragment_profile_email);
-        textView.setText(extraEmail);
+        String extraID = extrasBundle.getString("EXTRA_ID");
 
         AsyncTask.execute(() -> {
             try {
-                URL url = new URL(String.format("http://%s/users/info?Email=%s", getString(R.string.backend_address), extraEmail));
+                URL url = new URL(String.format("http://%s/users/info?ID=%s", getString(R.string.backend_address), extraID));
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
                 connection.setDoOutput(false); // false for GET
@@ -65,21 +65,25 @@ public class ProfileFragment extends Fragment {
                     jsonReader.beginObject();                   // Start processing the JSON object
                     while (jsonReader.hasNext()) {              // Loop through all keys
                         switch (jsonReader.nextName()) {
+                            case ("email"):
+                                TextView tv = view.findViewById(R.id.fragment_profile_email);
+                                tv.setText("Email: " + jsonReader.nextString());
+                                break;
                             case ("name"):
-                                TextView tv = view.findViewById(R.id.fragment_profile_name);
-                                tv.setText(jsonReader.nextString());
+                                tv = view.findViewById(R.id.fragment_profile_name);
+                                tv.setText("Name: " + jsonReader.nextString());
                                 break;
                             case ("surname"):
                                 tv = view.findViewById(R.id.fragment_profile_sur_name);
-                                tv.setText(jsonReader.nextString());
+                                tv.setText("Surname: " + jsonReader.nextString());
                                 break;
                             case ("birthdate"):
                                 tv = view.findViewById(R.id.fragment_profile_birth_date);
-                                tv.setText(jsonReader.nextString());
+                                tv.setText("Birth date: " + jsonReader.nextString());
                                 break;
                             case ("car"):
                                 tv = view.findViewById(R.id.fragment_profile_car);
-                                tv.setText(jsonReader.nextString());
+                                tv.setText("Car: " + jsonReader.nextString());
                                 break;
                             case ("image"):
                                 ImageView imView = view.findViewById(R.id.fragment_profile_image);
@@ -87,11 +91,11 @@ public class ProfileFragment extends Fragment {
                                 break;
                             case ("mobilephone"):
                                 tv = view.findViewById(R.id.fragment_profile_mobile_number);
-                                tv.setText(jsonReader.nextString());
+                                tv.setText("Mobile phone: " + jsonReader.nextString());
                                 break;
                             case ("preferences"):
                                 tv = view.findViewById(R.id.fragment_profile_preferences);
-                                tv.setText(jsonReader.nextString());
+                                tv.setText("Preferences: " + jsonReader.nextString());
                                 break;
                             default:
                                 jsonReader.skipValue(); // Skip values of other keys
@@ -116,4 +120,5 @@ public class ProfileFragment extends Fragment {
             }
         });
     }
+
 }

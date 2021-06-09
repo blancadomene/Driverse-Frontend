@@ -3,6 +3,9 @@ package com.blancadomene.tfg;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
+import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,17 +13,37 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.NumberPicker;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
+import com.google.android.gms.maps.model.LatLng;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.UUID;
 
 public class PublishFragment extends Fragment {
-    private EditText eTextDPStart;
-    private EditText eTextDPEnd;
+    private boolean[] psAvailableDaysOfWeek;
     private EditText eTextNP;
     private EditText eTextTP;
+    private String psArrivalLatLng;
+    private String psArrivalPoint;
+    private String psAvailableSeats;
+    private String psDepartureHour;
+    private String psDepartureLatLng;
+    private String psDeparturePoint;
+    private String psEndDate;
+    private String psPricePerSeat;
+    private String psStartDate;
     private View view;
 
     public PublishFragment() {
@@ -39,11 +62,11 @@ public class PublishFragment extends Fragment {
         eTextTP = view.findViewById(R.id.fragment_publish_departure_hour);
         eTextTP.setOnClickListener(v -> showTimePickerDialog());
 
-        eTextDPStart = view.findViewById(R.id.fragment_publish_start_date);
-        eTextDPStart.setOnClickListener(v -> showDatePickerDialog(eTextDPStart));
+        EditText eTextDPStart = view.findViewById(R.id.fragment_publish_start_date);
+        eTextDPStart.setOnClickListener(v -> showDatePickerDialog(R.id.fragment_publish_start_date));
 
-        eTextDPEnd = view.findViewById(R.id.fragment_publish_end_date);
-        eTextDPEnd.setOnClickListener(v -> showDatePickerDialog(eTextDPEnd));
+        EditText eTextDPEnd = view.findViewById(R.id.fragment_publish_end_date);
+        eTextDPEnd.setOnClickListener(v -> showDatePickerDialog(R.id.fragment_publish_end_date));
 
         EditText eTextGMapDepPoint = view.findViewById(R.id.fragment_publish_departure_point);
         eTextGMapDepPoint.setOnClickListener(v -> switchToGoogleMapsFragment(R.id.fragment_publish_departure_point));
@@ -51,14 +74,16 @@ public class PublishFragment extends Fragment {
         EditText eTextGMapArrPoint = view.findViewById(R.id.fragment_publish_arrival_point);
         eTextGMapArrPoint.setOnClickListener(v -> switchToGoogleMapsFragment(R.id.fragment_publish_arrival_point));
 
-        eTextDPEnd = view.findViewById(R.id.fragment_publish_end_date);
-        eTextDPEnd.setOnClickListener(v -> showDatePickerDialog(eTextDPEnd));
-
         eTextNP = view.findViewById(R.id.fragment_publish_available_seats);
         eTextNP.setOnClickListener(v -> showNumberPickerDialog());
 
+        // Get info from DB
+        // Argument: bundle from previous activity
+        MainActivity activity = (MainActivity) getActivity();
+        assert activity != null;
+
         Button button = view.findViewById(R.id.fragment_publish_travel_button);
-        button.setOnClickListener(this::publishNewRide);
+        button.setOnClickListener(v -> publishNewRide(view, activity.getExtraData()));
 
         return view;
     }
@@ -74,27 +99,32 @@ public class PublishFragment extends Fragment {
 
         fragment.setFragmentCallBacks(data -> {
             if (data != null) {
-                String[] parts = data.split("_");
+                String[] parts = data.split("__");
                 EditText edView = view.findViewById(edTextID);
-                System.out.println(data);
-                edView.setText(parts[1]); //parts3 contains latlng
+                edView.setText(parts[1]);
+
+                if (edTextID == R.id.fragment_publish_departure_point)
+                    psDepartureLatLng = parts[2];
+                else
+                    psArrivalLatLng = parts[2];
             }
         });
     }
 
-    private void showDatePickerDialog(EditText edText) {
+    private void showDatePickerDialog(int edTextID) {
         final Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
 
+        EditText edView = view.findViewById(edTextID);
         @SuppressLint("DefaultLocale") DatePickerDialog datePicker = new DatePickerDialog(getActivity(),
-                (dp, dpYear, dpMonth, dpDay) -> edText.setText(String.format("%02d/%02d/%02d", dpDay, dpMonth, dpYear)), year, month, day);
+                (dp, dpYear, dpMonth, dpDay) -> edView.setText(String.format("%02d/%02d/%02d", dpDay, dpMonth, dpYear)), year, month, day);
         datePicker.show();
     }
 
     @SuppressLint("SetTextI18n")
-    private AlertDialog showNumberPickerDialog() {
+    private void showNumberPickerDialog() {
         final NumberPicker np = new NumberPicker(getActivity());
         np.setMaxValue(8);
         np.setMinValue(1);
@@ -111,7 +141,7 @@ public class PublishFragment extends Fragment {
 
         });
         builder.create();
-        return builder.show();
+        builder.show();
     }
 
     private void showTimePickerDialog() {
@@ -124,33 +154,123 @@ public class PublishFragment extends Fragment {
         timePicker.show();
     }
 
-    public void publishNewRide(View view) {
-        EditText edText;
-        edText = getActivity().findViewById(R.id.fragment_publish_start_date);
-        String psStartDate = edText.getText().toString();
+    private void publishNewRide(View view, Bundle extrasBundle) {
+        String EXTRA_ID = extrasBundle.getString("EXTRA_ID");
+        retrieveDataFromEditTexts(view);
 
-        edText = getActivity().findViewById(R.id.fragment_publish_end_date);
-        String psEndDate = edText.getText().toString();
+        AsyncTask.execute(() -> {
+            try {
+                URL url = new URL(String.format("http://%s/rides/info", getString(R.string.backend_address)));
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("POST");
+                connection.setDoOutput(true);
 
-        edText = getActivity().findViewById(R.id.fragment_publish_departure_point);
-        String psDeparturePoint = edText.getText().toString();
 
-        edText = getActivity().findViewById(R.id.fragment_publish_arrival_point);
-        String psArrivalPoint = edText.getText().toString();
+                // TODO: Do something with psAvailableDaysOfWeek to flag?
+                String processedArrivalHour = estimateArrivalHour(psDepartureHour);
+                String processedDepartureLatLng = formatLatLngString(psDepartureLatLng);
+                String processedArrivalLatLng = formatLatLngString(psArrivalLatLng);
+                String myData = String.format("{\"id\": \"%s\", \"driver\": \"%s\", \"departurePoint\": \"%s\", \"departureLatLng\": \"%s\", \"departureHour\": \"%s\", " +
+                                "\"arrivalPoint\": \"%s\", \"arrivalLatLng\": \"%s\", \"arrivalHour\": \"%s\", \"availableSeats\": \"%s\", \"pricePerSeat\": \"%s\", \"startDate\": " +
+                                "\"%s\", \"endDate\": \"%s\", \"availableDaysOfWeek\": \"%s\"}",
+                                UUID.randomUUID(), EXTRA_ID, psDeparturePoint, processedDepartureLatLng, psDepartureHour, psArrivalPoint, processedArrivalLatLng, processedArrivalHour,
+                                psAvailableSeats, psPricePerSeat, psStartDate, psEndDate, "1");
+                connection.setDoOutput(true); // true for POST and PUT
+                connection.getOutputStream().write(myData.getBytes());
 
-        edText = getActivity().findViewById(R.id.fragment_publish_departure_hour);
-        String psDepartureHour = edText.getText().toString();
+                System.out.println("/////////////////////////////////////////////////////");
+                System.out.println(myData);
+                System.out.println("/////////////////////////////////////////////////////");
 
-        edText = getActivity().findViewById(R.id.fragment_publish_available_seats);
-        String psAvailableSeats = edText.getText().toString();
+                if (connection.getResponseCode() == 200) {
+                    connection.disconnect();
+                } else {
+                    Context context = getActivity().getApplicationContext();
+                    CharSequence text = "Incomplete ride details.";
+                    int duration = Toast.LENGTH_SHORT;
 
-        edText = getActivity().findViewById(R.id.fragment_publish_price_per_seat);
-        String psPricePerSeat = edText.getText().toString();
+                    getActivity().runOnUiThread(() -> {
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();
+                    });
+                }
 
-        AvailableDaysOfWeek viewAv = getActivity().findViewById(R.id.fragment_publish_days_of_week_view);
-        boolean[] psAvailableDaysOfWeek = viewAv.getSelectedDaysOfWeek();
+            } catch (IOException | ParseException e) {
+                e.printStackTrace();
+            }
+        });
 
-        // new Ride(fsStartDate, fsEndDate, fsDeparturePoint, fsDepartureHour, fsArrivalPoint, exArrHour, fsAvailableSeats, new BigDecimal("1.11"), System.getProperty("user.name"));
-
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        fragmentManager.popBackStack();
+        fragmentManager.beginTransaction().commit();
     }
+
+    private void retrieveDataFromEditTexts(View view) {
+        EditText edText;
+        edText = view.findViewById(R.id.fragment_publish_start_date);
+        psStartDate = edText.getText().toString();
+
+        edText = view.findViewById(R.id.fragment_publish_end_date);
+        psEndDate = edText.getText().toString();
+
+        edText = view.findViewById(R.id.fragment_publish_departure_point);
+        psDeparturePoint = edText.getText().toString();
+
+        edText = view.findViewById(R.id.fragment_publish_arrival_point);
+        psArrivalPoint = edText.getText().toString();
+
+        edText = view.findViewById(R.id.fragment_publish_departure_hour);
+        psDepartureHour = edText.getText().toString();
+
+        edText = view.findViewById(R.id.fragment_publish_available_seats);
+        psAvailableSeats = edText.getText().toString();
+
+        edText = view.findViewById(R.id.fragment_publish_price_per_seat);
+        psPricePerSeat = edText.getText().toString();
+
+        AvailableDaysOfWeek viewAv = view.findViewById(R.id.fragment_publish_days_of_week_view);
+        psAvailableDaysOfWeek = viewAv.getSelectedDaysOfWeek();
+    }
+
+    private String estimateArrivalHour(String DepartureHour) throws ParseException {
+        Location locDep = getLocationFromString(psDepartureLatLng);
+        Location locArr = getLocationFromString(psArrivalLatLng);
+
+        float distanceInM = locDep.distanceTo(locArr);
+        int speedInKmH = 60;
+        float time = distanceInM / ((speedInKmH/60)*1000);
+
+        // String to date, then adds estimated time to departure time
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat df = new SimpleDateFormat("HH:mm");
+        Calendar gc = new GregorianCalendar();
+        gc.setTime(df.parse(DepartureHour));
+        gc.add(Calendar.MINUTE, Math.round(time));
+
+        @SuppressLint("DefaultLocale") String res = String.format(
+                "%02d:%02d",
+                gc.get(Calendar.HOUR_OF_DAY),
+                gc.get(Calendar.MINUTE));
+        return res;
+    }
+
+    private Location getLocationFromString(String psStringLatLng) {
+        String tmp = formatLatLngString(psStringLatLng);
+        String[] latLng = tmp.split(",");
+
+        Location loc = new Location("");
+        loc.setLatitude(Double.parseDouble(latLng[0]));
+        loc.setLongitude(Double.parseDouble(latLng[1]));
+
+        return loc;
+    }
+
+    // Preprocessing: splits string, then deletes lat/lng: ( ) from both substrings
+    private String formatLatLngString(String psStringLatLng) {
+        String[] latLng = psStringLatLng.split(",");
+        double lat = Double.parseDouble(latLng[0].substring(10));
+        double lng = Double.parseDouble(latLng[1].substring(0, latLng[1].length() - 1));
+
+        return (lat + "," + lng);
+    }
+
 }

@@ -22,11 +22,12 @@ public class Ride {
     private Calendar endDate;
     private Calendar startDate;
     private User driver;
-    private UUID rideID;
+    private String rideID;
 
 
-    public Ride(Calendar start, Calendar end, String depPoint, Calendar depHour, String arrPoint, Calendar arrHour, int avaSeats, BigDecimal price, User userDriver, boolean[] days) {
-        this.rideID = UUID.randomUUID();
+    public Ride(String id, User userDriver, Calendar start, Calendar end, String depPoint, Calendar depHour, String arrPoint, Calendar arrHour, int avaSeats, BigDecimal price, boolean[] days) {
+        this.rideID = id;
+        this.driver = userDriver;
         this.startDate = start;
         this.endDate = end;
         this.departurePoint = depPoint;
@@ -35,15 +36,14 @@ public class Ride {
         this.arrivalHour = arrHour;
         this.availableSeats = avaSeats;
         this.pricePerSeat = price;
-        this.driver = userDriver;
         this.availableDaysOfWeek = days;
     }
 
-    public UUID getRideID() {
+    public String getRideID() {
         return rideID;
     }
 
-    public void setRideID(UUID rideID) {
+    public void setRideID(String rideID) {
         this.rideID = rideID;
     }
 

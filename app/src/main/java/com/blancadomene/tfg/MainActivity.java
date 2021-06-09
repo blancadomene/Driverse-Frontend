@@ -62,10 +62,12 @@ public class MainActivity extends AppCompatActivity {
         switchToSearchView();
     }
 
+    // Method to access the variables of LoginScreenActivity
     public Bundle getExtraData() {
         return extrasBundle;
     }
 
+    // Adds a different fragment depending on which button is pressed
     private void switchToSearchView() {
         fragmentManager.beginTransaction()
                 .replace(R.id.activity_main_fragment_container_view, SearchFragment.class, null)
@@ -104,4 +106,5 @@ public class MainActivity extends AppCompatActivity {
         notificationsViewButton.setTextColor(getResources().getColor(R.color.disabled_text));
         profileViewButton.setTextColor(getResources().getColor(R.color.disabled_text));
     }
+
 }

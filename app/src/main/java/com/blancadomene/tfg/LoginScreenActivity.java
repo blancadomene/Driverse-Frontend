@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.JsonReader;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -14,13 +15,17 @@ import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 public class LoginScreenActivity extends AppCompatActivity {
     private EditText edEmail;
     private EditText edPassword;
     private String edPasswordMD5;
+    private String EXTRA_ID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +41,7 @@ public class LoginScreenActivity extends AppCompatActivity {
 
     private void switchToMainActivityView() {
         Intent intent = new Intent(this, MainActivity.class);
-        Bundle extrasBundle = new Bundle();
-        extrasBundle.putString("EXTRA_EMAIL", edEmail.getText().toString());
-        extrasBundle.putString("EXTRA_PASSWORD", edPasswordMD5);
-        intent.putExtras(extrasBundle);
+        intent.putExtra("EXTRA_ID", EXTRA_ID);
         startActivity(intent);
     }
 
@@ -56,7 +58,24 @@ public class LoginScreenActivity extends AppCompatActivity {
                 connection.setDoOutput(true); // true for POST and PUT
                 connection.getOutputStream().write(myData.getBytes());
 
-                if (connection.getResponseCode() == 200) {
+                if (connection.getResponseCode() == 200) { // Take ID, close reader/connection and switch
+                    InputStream responseBody = connection.getInputStream();
+                    InputStreamReader responseBodyReader =
+                            new InputStreamReader(responseBody, StandardCharsets.UTF_8);
+
+                    JsonReader jsonReader = new JsonReader(responseBodyReader);
+                    jsonReader.beginObject();
+                    while (jsonReader.hasNext()) {
+                        String key = jsonReader.nextName();
+                        if (key.equals("id")) {
+                            EXTRA_ID = jsonReader.nextString();
+                            break;
+                        } else {
+                            jsonReader.skipValue();
+                        }
+                    }
+
+                    jsonReader.close();
                     connection.disconnect();
                     switchToMainActivityView();
                 } else {

@@ -102,7 +102,7 @@ public class MapsFragment extends Fragment {
             public void onPlaceSelected(@NonNull Place place) {
                 // Gets info about the selected place.
                 int zoomLevel = 15;
-                data = (place.getId() + "_" + place.getName() + "_" + place.getLatLng());
+                data = (place.getId() + "__" + place.getName() + "__" + place.getLatLng());
                 LatLng location = place.getLatLng();
 
                 // Move map and add marker.
@@ -136,5 +136,6 @@ public class MapsFragment extends Fragment {
         super.onDestroy();
         fragmentCallBacks.onCallBack(data);
     }
+
 }
 

@@ -41,6 +41,7 @@ public class AvailableDaysOfWeek extends LinearLayout {
         sunday.setOnClickListener(v -> v.setActivated(!v.isActivated()));
     }
 
+    // Disables click in all chips
     public void disableClick() {
         monday.setClickable(false);
         tuesday.setClickable(false);
@@ -51,6 +52,7 @@ public class AvailableDaysOfWeek extends LinearLayout {
         sunday.setClickable(false);
     }
 
+    // Enables chips according to the array passed
     public void setEnabledDaysOfWeek(boolean[] week) {
         monday.setEnabled(week[0]);
         tuesday.setEnabled(week[1]);
@@ -61,6 +63,7 @@ public class AvailableDaysOfWeek extends LinearLayout {
         sunday.setEnabled(week[6]);
     }
 
+    // Returns selected days in chips as an array
     public boolean[] getSelectedDaysOfWeek() {
         boolean[] weekDays = new boolean[7];
         weekDays[0] = monday.isActivated();

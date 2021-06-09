@@ -176,11 +176,11 @@ public class SearchFragment extends Fragment {
         User exUser = new User("Eren", "Yaeger", exBirthDate, "erenthetitan@gmail.com", "111111111");
         boolean[] days = new boolean[]{Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, Boolean.FALSE, Boolean.TRUE};
 
-        searches.add(new Ride(exStartDate, exEndDate, "Estación intermodal de Almería", exDepHour, "Estación de autobuses de Granada", exArrHour, 1, new BigDecimal("1.11"), exUser, days));
-        searches.add(new Ride(exStartDate, exEndDate, "Valencia", exDepHour, "Madriz", exArrHour, 2, new BigDecimal("2.22"), exUser, days));
-        searches.add(new Ride(exStartDate, exEndDate, "Barcelona", exDepHour, "Badajoz", exArrHour, 3, new BigDecimal("3.33"), exUser, days));
-        searches.add(new Ride(exStartDate, exEndDate, "Alfacar", exDepHour, "Viznar", exArrHour, 4, new BigDecimal("4.44"), exUser, days));
-        searches.add(new Ride(exStartDate, exEndDate, "Toledo", exDepHour, "Lugo", exArrHour, 5, new BigDecimal("5.55"), exUser, days));
+        searches.add(new Ride("1", exUser, exStartDate, exEndDate, "Estación intermodal de Almería", exDepHour, "Estación de autobuses de Granada", exArrHour, 1, new BigDecimal("1.11"), days));
+        searches.add(new Ride("2", exUser, exStartDate, exEndDate, "Valencia", exDepHour, "Madriz", exArrHour, 2, new BigDecimal("2.22"), days));
+        searches.add(new Ride("3", exUser, exStartDate, exEndDate, "Barcelona", exDepHour, "Badajoz", exArrHour, 3, new BigDecimal("3.33"), days));
+        searches.add(new Ride("4", exUser, exStartDate, exEndDate, "Alfacar", exDepHour, "Viznar", exArrHour, 4, new BigDecimal("4.44"), days));
+        searches.add(new Ride("5", exUser, exStartDate, exEndDate, "Toledo", exDepHour, "Lugo", exArrHour, 5, new BigDecimal("5.55"), days));
         /***************************************/
 
         linearLayout.removeAllViews();
