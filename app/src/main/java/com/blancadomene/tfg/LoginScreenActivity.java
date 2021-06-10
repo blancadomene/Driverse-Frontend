@@ -39,6 +39,8 @@ public class LoginScreenActivity extends AppCompatActivity {
         button.setOnClickListener(v -> checkLogin());
     }
 
+    // Switches to main activity after login has been checked
+    // Intent passes user ID, so it can be accessed from fragments
     private void switchToMainActivityView() {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("EXTRA_ID", EXTRA_ID);
@@ -58,7 +60,7 @@ public class LoginScreenActivity extends AppCompatActivity {
                 connection.setDoOutput(true); // true for POST and PUT
                 connection.getOutputStream().write(myData.getBytes());
 
-                if (connection.getResponseCode() == 200) { // Take ID, close reader/connection and switch
+                if (connection.getResponseCode() == 200) { // Takes ID, closes reader/connection and switches activity
                     InputStream responseBody = connection.getInputStream();
                     InputStreamReader responseBodyReader =
                             new InputStreamReader(responseBody, StandardCharsets.UTF_8);

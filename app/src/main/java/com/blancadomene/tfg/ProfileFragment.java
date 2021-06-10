@@ -113,6 +113,7 @@ public class ProfileFragment extends Fragment {
                         Toast toast = Toast.makeText(context, text, duration);
                         toast.show();
                     });
+                    connection.disconnect();
                 }
 
             } catch (IOException e) {

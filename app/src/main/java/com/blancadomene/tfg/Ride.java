@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
-import java.util.UUID;
 
 public class Ride {
     private boolean[] availableDaysOfWeek;

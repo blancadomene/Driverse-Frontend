@@ -28,6 +28,8 @@ public class SearchFragment extends Fragment {
     private EditText eTextNP;
     private EditText eTextTP;
     private LinearLayout linearLayout = null;
+    private String sfDepartureLatLng;
+    private String sfArrivalLatLng;
     private View view = null;
 
     public SearchFragment() {
@@ -81,7 +83,12 @@ public class SearchFragment extends Fragment {
                 String[] parts = data.split("_");
                 EditText edView = view.findViewById(edTextID);
                 System.out.println(data);
-                edView.setText(parts[1]); //parts3 contains latlng
+                edView.setText(parts[1]);
+
+                if (edTextID == R.id.fragment_publish_departure_point)
+                    sfDepartureLatLng = parts[2];
+                else
+                    sfArrivalLatLng = parts[2];
             }
         });
     }
@@ -173,7 +180,7 @@ public class SearchFragment extends Fragment {
         Calendar exDepHour = new GregorianCalendar(1999, 9, 9, 13, 01);
         Calendar exArrHour = new GregorianCalendar(1999, 9, 9, 17, 14);
         Calendar exBirthDate = new GregorianCalendar(1997, 14, 11, 9, 13, 01);
-        User exUser = new User("Eren", "Yaeger", exBirthDate, "erenthetitan@gmail.com", "111111111");
+        User exUser = new User("123", "Eren", "Yaeger", exBirthDate, "erenthetitan@gmail.com", "111111111", "No preferences added.", "No car added.");
         boolean[] days = new boolean[]{Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, Boolean.FALSE, Boolean.TRUE};
 
         searches.add(new Ride("1", exUser, exStartDate, exEndDate, "Estación intermodal de Almería", exDepHour, "Estación de autobuses de Granada", exArrHour, 1, new BigDecimal("1.11"), days));

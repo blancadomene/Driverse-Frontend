@@ -203,10 +203,3 @@
         </LinearLayout>
     </ScrollView>
 </FrameLayout>
-
-
-    <!--
-    this.rideID = UUID.randomUUID();
-    this.availableSeats = avaSeats;
-    // TODO: Driver and passengers assigned
-    this.pricePerSeat = price; -->

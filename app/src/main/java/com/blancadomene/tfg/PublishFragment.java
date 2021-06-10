@@ -19,31 +19,29 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import com.google.android.gms.maps.model.LatLng;
-
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Objects;
 import java.util.UUID;
 
 public class PublishFragment extends Fragment {
     private boolean[] psAvailableDaysOfWeek;
     private EditText eTextNP;
     private EditText eTextTP;
-    private String psArrivalLatLng;
-    private String psArrivalPoint;
-    private String psAvailableSeats;
-    private String psDepartureHour;
-    private String psDepartureLatLng;
-    private String psDeparturePoint;
-    private String psEndDate;
-    private String psPricePerSeat;
-    private String psStartDate;
+    private String pfArrivalLatLng;
+    private String pfArrivalPoint;
+    private String pfAvailableSeats;
+    private String pfDepartureHour;
+    private String pfDepartureLatLng;
+    private String pfDeparturePoint;
+    private String pfEndDate;
+    private String pfPricePerSeat;
+    private String pfStartDate;
     private View view;
 
     public PublishFragment() {
@@ -104,9 +102,9 @@ public class PublishFragment extends Fragment {
                 edView.setText(parts[1]);
 
                 if (edTextID == R.id.fragment_publish_departure_point)
-                    psDepartureLatLng = parts[2];
+                    pfDepartureLatLng = parts[2];
                 else
-                    psArrivalLatLng = parts[2];
+                    pfArrivalLatLng = parts[2];
             }
         });
     }
@@ -134,9 +132,7 @@ public class PublishFragment extends Fragment {
         builder.setView(np);
         builder.setTitle("Number of available seats");
         builder.setMessage("Choose a value :");
-        builder.setPositiveButton("OK", (dialog, which) -> {
-            eTextNP.setText(Integer.toString(np.getValue()));
-        });
+        builder.setPositiveButton("OK", (dialog, which) -> eTextNP.setText(Integer.toString(np.getValue())));
         builder.setNegativeButton("CANCEL", (dialog, which) -> {
 
         });
@@ -167,14 +163,14 @@ public class PublishFragment extends Fragment {
 
 
                 // TODO: Do something with psAvailableDaysOfWeek to flag?
-                String processedArrivalHour = estimateArrivalHour(psDepartureHour);
-                String processedDepartureLatLng = formatLatLngString(psDepartureLatLng);
-                String processedArrivalLatLng = formatLatLngString(psArrivalLatLng);
+                String processedArrivalHour = estimateArrivalHour(pfDepartureHour);
+                String processedDepartureLatLng = formatLatLngString(pfDepartureLatLng);
+                String processedArrivalLatLng = formatLatLngString(pfArrivalLatLng);
                 String myData = String.format("{\"id\": \"%s\", \"driver\": \"%s\", \"departurePoint\": \"%s\", \"departureLatLng\": \"%s\", \"departureHour\": \"%s\", " +
                                 "\"arrivalPoint\": \"%s\", \"arrivalLatLng\": \"%s\", \"arrivalHour\": \"%s\", \"availableSeats\": \"%s\", \"pricePerSeat\": \"%s\", \"startDate\": " +
                                 "\"%s\", \"endDate\": \"%s\", \"availableDaysOfWeek\": \"%s\"}",
-                                UUID.randomUUID(), EXTRA_ID, psDeparturePoint, processedDepartureLatLng, psDepartureHour, psArrivalPoint, processedArrivalLatLng, processedArrivalHour,
-                                psAvailableSeats, psPricePerSeat, psStartDate, psEndDate, "1");
+                        UUID.randomUUID(), EXTRA_ID, pfDeparturePoint, processedDepartureLatLng, pfDepartureHour, pfArrivalPoint, processedArrivalLatLng, processedArrivalHour,
+                        pfAvailableSeats, pfPricePerSeat, pfStartDate, pfEndDate, "1");
                 connection.setDoOutput(true); // true for POST and PUT
                 connection.getOutputStream().write(myData.getBytes());
 
@@ -193,6 +189,7 @@ public class PublishFragment extends Fragment {
                         Toast toast = Toast.makeText(context, text, duration);
                         toast.show();
                     });
+                    connection.disconnect();
                 }
 
             } catch (IOException | ParseException e) {
@@ -208,42 +205,44 @@ public class PublishFragment extends Fragment {
     private void retrieveDataFromEditTexts(View view) {
         EditText edText;
         edText = view.findViewById(R.id.fragment_publish_start_date);
-        psStartDate = edText.getText().toString();
+        pfStartDate = edText.getText().toString();
 
         edText = view.findViewById(R.id.fragment_publish_end_date);
-        psEndDate = edText.getText().toString();
+        pfEndDate = edText.getText().toString();
 
         edText = view.findViewById(R.id.fragment_publish_departure_point);
-        psDeparturePoint = edText.getText().toString();
+        pfDeparturePoint = edText.getText().toString();
 
         edText = view.findViewById(R.id.fragment_publish_arrival_point);
-        psArrivalPoint = edText.getText().toString();
+        pfArrivalPoint = edText.getText().toString();
 
         edText = view.findViewById(R.id.fragment_publish_departure_hour);
-        psDepartureHour = edText.getText().toString();
+        pfDepartureHour = edText.getText().toString();
 
         edText = view.findViewById(R.id.fragment_publish_available_seats);
-        psAvailableSeats = edText.getText().toString();
+        pfAvailableSeats = edText.getText().toString();
 
         edText = view.findViewById(R.id.fragment_publish_price_per_seat);
-        psPricePerSeat = edText.getText().toString();
+        pfPricePerSeat = edText.getText().toString();
 
         AvailableDaysOfWeek viewAv = view.findViewById(R.id.fragment_publish_days_of_week_view);
         psAvailableDaysOfWeek = viewAv.getSelectedDaysOfWeek();
     }
 
+    // This method uses straight line distance and a constant average speed to calculate the estimated time of arrival
+    // Future work: use Google Matrix API
     private String estimateArrivalHour(String DepartureHour) throws ParseException {
-        Location locDep = getLocationFromString(psDepartureLatLng);
-        Location locArr = getLocationFromString(psArrivalLatLng);
+        Location locDep = getLocationFromString(pfDepartureLatLng);
+        Location locArr = getLocationFromString(pfArrivalLatLng);
 
         float distanceInM = locDep.distanceTo(locArr);
-        int speedInKmH = 60;
-        float time = distanceInM / ((speedInKmH/60)*1000);
+        float speedInKmH = 60;
+        float time = distanceInM / ((speedInKmH / 60) * 1000);
 
         // String to date, then adds estimated time to departure time
         @SuppressLint("SimpleDateFormat") SimpleDateFormat df = new SimpleDateFormat("HH:mm");
         Calendar gc = new GregorianCalendar();
-        gc.setTime(df.parse(DepartureHour));
+        gc.setTime(Objects.requireNonNull(df.parse(DepartureHour)));
         gc.add(Calendar.MINUTE, Math.round(time));
 
         @SuppressLint("DefaultLocale") String res = String.format(
@@ -253,6 +252,7 @@ public class PublishFragment extends Fragment {
         return res;
     }
 
+    // Transforms a preprocessed string to a Location data type
     private Location getLocationFromString(String psStringLatLng) {
         String tmp = formatLatLngString(psStringLatLng);
         String[] latLng = tmp.split(",");
@@ -266,11 +266,7 @@ public class PublishFragment extends Fragment {
 
     // Preprocessing: splits string, then deletes lat/lng: ( ) from both substrings
     private String formatLatLngString(String psStringLatLng) {
-        String[] latLng = psStringLatLng.split(",");
-        double lat = Double.parseDouble(latLng[0].substring(10));
-        double lng = Double.parseDouble(latLng[1].substring(0, latLng[1].length() - 1));
-
-        return (lat + "," + lng);
+        return psStringLatLng.substring(10, psStringLatLng.length() - 1);
     }
 
 }

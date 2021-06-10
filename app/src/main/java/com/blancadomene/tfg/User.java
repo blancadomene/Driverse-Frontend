@@ -14,24 +14,24 @@ public class User {
     private String name;
     private String preferences;
     private String surName;
-    private UUID userID;
+    private String userID;
 
-    public User(String name, String surName, Calendar bDate, String email, String phone) {
-        this.userID = UUID.randomUUID();
+    public User(String id, String name, String surName, Calendar bDate, String email, String phone, String pref, String car) {
+        this.userID = id;
         this.name = name;
         this.surName = surName;
         this.birthDate = bDate;
         this.email = email;
         this.mobilePhone = phone;
-        this.preferences = "No preferences added.";
-        this.car = "No car added.";
+        this.preferences = pref;
+        this.car = car;
     }
 
-    public UUID getUserID() {
+    public String getUserID() {
         return userID;
     }
 
-    public void setUserID(UUID userID) {
+    public void setUserID(String userID) {
         this.userID = userID;
     }
 
