@@ -3,6 +3,8 @@ package com.blancadomene.tfg;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,25 +13,45 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import java.math.BigDecimal;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.util.concurrent.ExecutionException;
 
 public class SearchFragment extends Fragment {
+    private boolean[] sfAvailableDaysOfWeek;
     private ArrayList<Ride> searches = new ArrayList<>();
     private EditText eTextDPStart;
     private EditText eTextDPEnd;
     private EditText eTextNP;
     private EditText eTextTP;
     private LinearLayout linearLayout = null;
-    private String sfDepartureLatLng;
     private String sfArrivalLatLng;
+    private String sfArrivalPoint;
+    private String sfArrivalPointRadius;
+    private String sfNumberPassengers;
+    private String sfDepartureHour;
+    private String sfDepartureLatLng;
+    private String sfDeparturePoint;
+    private String sfDeparturePointRadius;
+    private String sfEndDate;
+    private String sfStartDate;
     private View view = null;
 
     public SearchFragment() {
@@ -64,7 +86,7 @@ public class SearchFragment extends Fragment {
         eTextTP.setOnClickListener(v -> showTimePickerDialog());
 
         Button button = view.findViewById(R.id.fragment_search_travel_button);
-        button.setOnClickListener(v -> showResultList(v));
+        button.setOnClickListener(v -> getMatchingRides(v));
 
         return view;
     }
@@ -80,12 +102,11 @@ public class SearchFragment extends Fragment {
 
         fragment.setFragmentCallBacks(data -> {
             if (data != null) {
-                String[] parts = data.split("_");
+                String[] parts = data.split("__");
                 EditText edView = view.findViewById(edTextID);
-                System.out.println(data);
                 edView.setText(parts[1]);
 
-                if (edTextID == R.id.fragment_publish_departure_point)
+                if (edTextID == R.id.fragment_search_departure_point)
                     sfDepartureLatLng = parts[2];
                 else
                     sfArrivalLatLng = parts[2];
@@ -142,61 +163,92 @@ public class SearchFragment extends Fragment {
         timePicker.show();
     }
 
-    public void showResultList(View view) {
-        EditText edText;
-        edText = getActivity().findViewById(R.id.fragment_search_start_date);
-        String fsStartDate = edText.getText().toString();
-
-        edText = getActivity().findViewById(R.id.fragment_search_end_date);
-        String fsEndDate = edText.getText().toString();
-
-        edText = getActivity().findViewById(R.id.fragment_search_departure_point);
-        String fsDeparturePoint = edText.getText().toString();
-
-        edText = getActivity().findViewById(R.id.fragment_search_departure_point_radius);
-        String fsDeparturePointRadius = edText.getText().toString();
-
-        edText = getActivity().findViewById(R.id.fragment_search_arrival_point);
-        String fsArrivalPoint = edText.getText().toString();
-
-        edText = getActivity().findViewById(R.id.fragment_search_arrival_point_radius);
-        String fsArrivalPointRadius = edText.getText().toString();
-
-        edText = getActivity().findViewById(R.id.fragment_search_departure_hour);
-        String fsDepartureHour = edText.getText().toString();
-
-        edText = getActivity().findViewById(R.id.fragment_search_passengers_number);
-        String fsPassengersNumber = edText.getText().toString();
-
-        AvailableDaysOfWeek viewAv = getActivity().findViewById(R.id.fragment_search_days_of_week_view);
-        boolean[] fsAvailableDaysOfWeek = viewAv.getSelectedDaysOfWeek();
-
-
-        // TODO: Search with editTexts parameters and add searches to array (same name)
-        // TODO: delete examples and iterate searches array
+    @SuppressLint({"SetTextI18n", "DefaultLocale"})
+    private void getMatchingRides(View view) {
         searches.clear();
-        Calendar exStartDate = new GregorianCalendar(2111, 1, 1);
-        Calendar exEndDate = new GregorianCalendar(2222, 2, 2);
-        Calendar exDepHour = new GregorianCalendar(1999, 9, 9, 13, 01);
-        Calendar exArrHour = new GregorianCalendar(1999, 9, 9, 17, 14);
-        Calendar exBirthDate = new GregorianCalendar(1997, 14, 11, 9, 13, 01);
-        User exUser = new User("123", "Eren", "Yaeger", exBirthDate, "erenthetitan@gmail.com", "111111111", "No preferences added.", "No car added.");
-        boolean[] days = new boolean[]{Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, Boolean.FALSE, Boolean.TRUE};
-
-        searches.add(new Ride("1", exUser, exStartDate, exEndDate, "Estación intermodal de Almería", exDepHour, "Estación de autobuses de Granada", exArrHour, 1, new BigDecimal("1.11"), days));
-        searches.add(new Ride("2", exUser, exStartDate, exEndDate, "Valencia", exDepHour, "Madriz", exArrHour, 2, new BigDecimal("2.22"), days));
-        searches.add(new Ride("3", exUser, exStartDate, exEndDate, "Barcelona", exDepHour, "Badajoz", exArrHour, 3, new BigDecimal("3.33"), days));
-        searches.add(new Ride("4", exUser, exStartDate, exEndDate, "Alfacar", exDepHour, "Viznar", exArrHour, 4, new BigDecimal("4.44"), days));
-        searches.add(new Ride("5", exUser, exStartDate, exEndDate, "Toledo", exDepHour, "Lugo", exArrHour, 5, new BigDecimal("5.55"), days));
-        /***************************************/
-
         linearLayout.removeAllViews();
+        retrieveDataFromEditTexts();
 
+        String processedDepartureLatLng = formatLatLngString(sfDepartureLatLng);
+        String processedArrivalLatLng = formatLatLngString(sfArrivalLatLng);
+        int processedAvailableDays = formatBooleanToInt(sfAvailableDaysOfWeek);
+
+        APIClient client = new APIClient(getString(R.string.backend_address));
+
+        APIClient.Request request = new APIClient.Request();
+        request.method = "GET";
+        request.query = String.format("rides/info?StartDate=%s&EndDate=%s" +
+                        "&DepartureLatLng=%s&DeparturePointRadius=%s&ArrivalLatLng=%s&ArrivalPointRadius=%s" +
+                        "&DepartureHour=%s&NumberOfSeats=%s&AvailableDaysOfWeek=%d",
+                sfStartDate, sfEndDate, processedDepartureLatLng, sfDeparturePointRadius,
+                processedArrivalLatLng, sfArrivalPointRadius, sfDepartureHour, sfNumberPassengers, processedAvailableDays);
+
+        try {
+            APIClient.Response response = client.execute(request).get();
+
+            if (response.retcode == 200) {
+                if (response.json.isJsonArray()) {
+                    final JsonArray values = response.json.getAsJsonArray();
+                    for (final JsonElement value : values) {
+                        final JsonObject obj = value.getAsJsonObject();
+                        Ride r = new Ride(obj);
+                        System.out.println("Mete r en searches");
+                        searches.add(r);
+                    }
+                }
+            } else {
+                Context context = getActivity();
+                CharSequence text = "Unable to connect.";
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Print showresultlist");
+        showResultList();
+    }
+
+    public void showResultList() {
         for (int i = 0; i < searches.size(); i++) {
+            System.out.println("Valor de i: " + i);
             Ride ride = searches.get(i);
             View card = getInstrumentRideCard(ride);
             linearLayout.addView(card);
         }
+    }
+
+    private void retrieveDataFromEditTexts() {
+        EditText edText;
+        edText = getActivity().findViewById(R.id.fragment_search_start_date);
+        sfStartDate = edText.getText().toString();
+
+        edText = getActivity().findViewById(R.id.fragment_search_end_date);
+        sfEndDate = edText.getText().toString();
+
+        edText = getActivity().findViewById(R.id.fragment_search_departure_point);
+        sfDeparturePoint = edText.getText().toString();
+
+        edText = getActivity().findViewById(R.id.fragment_search_departure_point_radius);
+        sfDeparturePointRadius = edText.getText().toString();
+
+        edText = getActivity().findViewById(R.id.fragment_search_arrival_point);
+        sfArrivalPoint = edText.getText().toString();
+
+        edText = getActivity().findViewById(R.id.fragment_search_arrival_point_radius);
+        sfArrivalPointRadius = edText.getText().toString();
+
+        edText = getActivity().findViewById(R.id.fragment_search_departure_hour);
+        sfDepartureHour = edText.getText().toString();
+
+        edText = getActivity().findViewById(R.id.fragment_search_passengers_number);
+        sfNumberPassengers = edText.getText().toString();
+
+        AvailableDaysOfWeek viewAv = getActivity().findViewById(R.id.fragment_search_days_of_week_view);
+        sfAvailableDaysOfWeek = viewAv.getSelectedDaysOfWeek();
     }
 
     private View getInstrumentRideCard(Ride ride) {
@@ -214,6 +266,20 @@ public class SearchFragment extends Fragment {
                 .setReorderingAllowed(true)
                 .addToBackStack("DetailedRideView")
                 .commit();
+    }
+
+    private int formatBooleanToInt(boolean[] daysWeek) {
+        int processed_int = 0;
+        for (int i = 6; i >= 0; i--) {
+            processed_int |= (daysWeek[i] ? 1 : 0);
+            processed_int <<= 1;
+        }
+        return processed_int;
+    }
+
+    // Preprocessing: splits string, then deletes lat/lng: ( ) from both substrings
+    private String formatLatLngString(String psStringLatLng) {
+        return psStringLatLng.substring(10, psStringLatLng.length() - 1);
     }
 
 }

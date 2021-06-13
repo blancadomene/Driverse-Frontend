@@ -61,7 +61,7 @@ public class RideDetailsFragment extends Fragment {
         text.setText(ride.getArrivalPoint());
 
         text = view.findViewById(R.id.fragment_ride_details_price_per_seat);
-        text.setText(ride.getPricePerSeat().toString() + "€");
+        text.setText(ride.getPricePerSeat() + "€");
 
         text = view.findViewById(R.id.fragment_ride_details_start_date);
         text.setText(String.format(

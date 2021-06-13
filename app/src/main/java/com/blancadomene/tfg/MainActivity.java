@@ -1,5 +1,6 @@
 package com.blancadomene.tfg;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -8,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
 public class MainActivity extends AppCompatActivity {
+    static Activity ctx;
+
     private FragmentManager fragmentManager = null;
     private Bundle extrasBundle;
     private Button notificationsViewButton;
@@ -18,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ctx = this;
+
         // Hide keyboard at activity start
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 

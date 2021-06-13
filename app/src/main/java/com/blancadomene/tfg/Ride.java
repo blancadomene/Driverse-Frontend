@@ -3,17 +3,35 @@ package com.blancadomene.tfg;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.math.BigDecimal;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class Ride {
+    private BigDecimal pricePerSeat;
     private boolean[] availableDaysOfWeek;
     private int availableSeats;
-    private BigDecimal pricePerSeat;
     private Calendar arrivalHour;
     private String arrivalPoint;
     private Calendar departureHour;
@@ -36,6 +54,71 @@ public class Ride {
         this.availableSeats = avaSeats;
         this.pricePerSeat = price;
         this.availableDaysOfWeek = days;
+    }
+
+    public Ride(JsonObject jsonObj) {
+        this.rideID = jsonObj.get("id").getAsString();
+        this.driver = getUserInfo(jsonObj.get("driver").getAsString());
+        this.startDate = formatStringToCalendar(jsonObj.get("startDate").getAsString());
+        this.endDate = formatStringToCalendar(jsonObj.get("endDate").getAsString());
+        this.departurePoint = jsonObj.get("departurePoint").getAsString();
+        this.departureHour = formatStringToCalendarHour(jsonObj.get("departureHour").getAsString());
+        this.arrivalPoint = jsonObj.get("arrivalPoint").getAsString();
+        this.arrivalHour = formatStringToCalendarHour(jsonObj.get("arrivalHour").getAsString());
+        this.availableSeats = jsonObj.get("availableSeats").getAsInt();
+        this.pricePerSeat = jsonObj.get("pricePerSeat").getAsBigDecimal();
+        this.availableDaysOfWeek = formatIntToBoolean(jsonObj.get("availableDaysOfWeek").getAsInt());
+    }
+
+    private Calendar formatStringToCalendar(String date) {
+        String[] splitDate = date.split("-");
+        return new GregorianCalendar(Integer.parseInt(splitDate[0]), Integer.parseInt(splitDate[1]), Integer.parseInt(splitDate[2]));
+    }
+
+    private Calendar formatStringToCalendarHour(String date) {
+        String[] splitDate = date.split(":");
+        return new GregorianCalendar(2000, 01, 01, Integer.parseInt(splitDate[0]), Integer.parseInt(splitDate[1]), Integer.parseInt(splitDate[2]));
+    }
+
+    private User getUserInfo(String id) {
+        String objEmail;
+        String objName;
+        String objSurname;
+        Calendar objBirthDate;
+        String objCar;
+        String objMobilePhone;
+        String objPreferences;
+        String objImage;
+        
+        APIClient client = new APIClient(MainActivity.ctx.getString(R.string.backend_address));
+
+        APIClient.Request request = new APIClient.Request();
+        request.method = "GET";
+        request.query = String.format("users/info?ID=%s", id);
+
+        try {
+            APIClient.Response response = client.execute(request).get();
+
+            if (response.retcode == 200) {
+                final JsonObject obj = response.json.getAsJsonObject();
+                objEmail = obj.get("email").getAsString();
+                objName = obj.get("name").getAsString();
+                objSurname = obj.get("surname").getAsString();
+                objBirthDate = formatStringToCalendar(obj.get("birthdate").getAsString());
+                objCar = obj.get("car").getAsString();
+                objMobilePhone = obj.get("mobilephone").getAsString();
+                objPreferences = obj.get("preferences").getAsString();
+                objImage = obj.get("image").getAsString();
+
+                return new User(id, objName, objSurname, objBirthDate, objEmail, objMobilePhone, objPreferences, objCar, objImage);
+            } else {
+                System.out.println("Failed to get user.");
+            }
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     public String getRideID() {
@@ -126,6 +209,15 @@ public class Ride {
         this.availableDaysOfWeek = week;
     }
 
+    private boolean[] formatIntToBoolean(int daysWeek) {
+        boolean[] processed_boolean_array = new boolean[7];
+        for (int i = 0; i < 7; i++) {
+            processed_boolean_array[i] = ((daysWeek >> i) & 1) == 1;
+        }
+
+        return processed_boolean_array;
+    }
+
     @SuppressLint({"DefaultLocale", "SetTextI18n"})
     public View getRideCardView(Activity context) {
         LayoutInflater inflater = (LayoutInflater)
@@ -161,6 +253,9 @@ public class Ride {
 
         text = view.findViewById(R.id.layout_ride_card_name);
         text.setText(getDriver().getName());
+
+        ImageView imView = view.findViewById(R.id.layout_ride_card_driver_image);
+        new DownloadImageTask(imView).execute(getDriver().getPhoto());
 
         return view;
     }

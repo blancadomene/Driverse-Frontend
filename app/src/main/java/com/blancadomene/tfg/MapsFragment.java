@@ -89,14 +89,14 @@ public class MapsFragment extends Fragment {
             mapFragment.getMapAsync(callback);
         }
 
-        // Initialize the AutocompleteSupportFragment.
+        // Initializes the AutocompleteSupportFragment
         AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
                 getChildFragmentManager().findFragmentById(R.id.autocomplete_fragment);
 
-        // Specify the types of place data to return.
+        // Specifies the types of place data to return
         autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS, Place.Field.LAT_LNG));
 
-        // Set up a PlaceSelectionListener to handle the response.
+        // Sets up a PlaceSelectionListener to handle the response
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(@NonNull Place place) {
@@ -105,7 +105,7 @@ public class MapsFragment extends Fragment {
                 data = (place.getId() + "__" + place.getName() + "__" + place.getLatLng());
                 LatLng location = place.getLatLng();
 
-                // Move map and add marker.
+                // Moves map and adds marker.
                 mMap.clear();
                 mMap.addMarker(new MarkerOptions().position(location).title("Location"));
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, zoomLevel));
@@ -113,11 +113,9 @@ public class MapsFragment extends Fragment {
 
             @Override
             public void onError(@NonNull Status status) {
-                // TODO: Handle the error.
                 System.out.println("An error occurred: " + status);
             }
         });
-
 
     }
 

@@ -1,22 +1,19 @@
 package com.blancadomene.tfg;
 
-import android.media.Image;
-
 import java.util.Calendar;
-import java.util.UUID;
 
 public class User {
-    private Image photo;
     private Calendar birthDate;
     private String car;
     private String email;
     private String mobilePhone;
     private String name;
+    private String photo;
     private String preferences;
     private String surName;
     private String userID;
 
-    public User(String id, String name, String surName, Calendar bDate, String email, String phone, String pref, String car) {
+    public User(String id, String name, String surName, Calendar bDate, String email, String phone, String pref, String car, String img) {
         this.userID = id;
         this.name = name;
         this.surName = surName;
@@ -25,6 +22,7 @@ public class User {
         this.mobilePhone = phone;
         this.preferences = pref;
         this.car = car;
+        this.photo = img;
     }
 
     public String getUserID() {
@@ -75,11 +73,11 @@ public class User {
         this.mobilePhone = mobilePhone;
     }
 
-    public Image getPhoto() {
+    public String getPhoto() {
         return photo;
     }
 
-    public void setPhoto(Image photo) {
+    public void setPhoto(String photo) {
         this.photo = photo;
     }
 

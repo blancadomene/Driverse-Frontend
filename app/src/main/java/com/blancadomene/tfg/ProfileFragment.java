@@ -62,8 +62,8 @@ public class ProfileFragment extends Fragment {
                             new InputStreamReader(responseBody, StandardCharsets.UTF_8);
 
                     JsonReader jsonReader = new JsonReader(responseBodyReader);
-                    jsonReader.beginObject();                   // Start processing the JSON object
-                    while (jsonReader.hasNext()) {              // Loop through all keys
+                    jsonReader.beginObject();
+                    while (jsonReader.hasNext()) {
                         switch (jsonReader.nextName()) {
                             case ("email"):
                                 TextView tv = view.findViewById(R.id.fragment_profile_email);
@@ -98,14 +98,14 @@ public class ProfileFragment extends Fragment {
                                 tv.setText("Preferences: " + jsonReader.nextString());
                                 break;
                             default:
-                                jsonReader.skipValue(); // Skip values of other keys
+                                jsonReader.skipValue();
                         }
                     }
                     jsonReader.close();
                     connection.disconnect();
 
                 } else {
-                    Context context = getActivity().getApplicationContext();
+                    Context context = getActivity();
                     CharSequence text = "Unknown problem related to user credentials.";
                     int duration = Toast.LENGTH_SHORT;
 
@@ -113,7 +113,7 @@ public class ProfileFragment extends Fragment {
                         Toast toast = Toast.makeText(context, text, duration);
                         toast.show();
                     });
-                    connection.disconnect();
+                    connection.disconnect();// Skip values of other keys
                 }
 
             } catch (IOException e) {

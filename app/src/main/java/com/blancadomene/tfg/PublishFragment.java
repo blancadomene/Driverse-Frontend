@@ -30,7 +30,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class PublishFragment extends Fragment {
-    private boolean[] psAvailableDaysOfWeek;
+    private boolean[] pfAvailableDaysOfWeek;
     private EditText eTextNP;
     private EditText eTextTP;
     private String pfArrivalLatLng;
@@ -160,28 +160,24 @@ public class PublishFragment extends Fragment {
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("POST");
                 connection.setDoOutput(true);
-
-
-                // TODO: Do something with psAvailableDaysOfWeek to flag?
+                
                 String processedArrivalHour = estimateArrivalHour(pfDepartureHour);
                 String processedDepartureLatLng = formatLatLngString(pfDepartureLatLng);
                 String processedArrivalLatLng = formatLatLngString(pfArrivalLatLng);
-                String myData = String.format("{\"id\": \"%s\", \"driver\": \"%s\", \"departurePoint\": \"%s\", \"departureLatLng\": \"%s\", \"departureHour\": \"%s\", " +
+                int processedAvailableDays = formatBooleanToInt(pfAvailableDaysOfWeek);
+                @SuppressLint("DefaultLocale") String myData = String.format("{\"id\": \"%s\", \"driver\": \"%s\", \"departurePoint\": \"%s\", \"departureLatLng\": \"%s\", \"departureHour\": \"%s\", " +
                                 "\"arrivalPoint\": \"%s\", \"arrivalLatLng\": \"%s\", \"arrivalHour\": \"%s\", \"availableSeats\": \"%s\", \"pricePerSeat\": \"%s\", \"startDate\": " +
-                                "\"%s\", \"endDate\": \"%s\", \"availableDaysOfWeek\": \"%s\"}",
+                                "\"%s\", \"endDate\": \"%s\", \"availableDaysOfWeek\": %d}",
                         UUID.randomUUID(), EXTRA_ID, pfDeparturePoint, processedDepartureLatLng, pfDepartureHour, pfArrivalPoint, processedArrivalLatLng, processedArrivalHour,
-                        pfAvailableSeats, pfPricePerSeat, pfStartDate, pfEndDate, "1");
+                        pfAvailableSeats, pfPricePerSeat, pfStartDate, pfEndDate, processedAvailableDays);
+                System.out.println("processedAvailableDays IN POST = " + processedAvailableDays);
                 connection.setDoOutput(true); // true for POST and PUT
                 connection.getOutputStream().write(myData.getBytes());
-
-                System.out.println("/////////////////////////////////////////////////////");
-                System.out.println(myData);
-                System.out.println("/////////////////////////////////////////////////////");
 
                 if (connection.getResponseCode() == 200) {
                     connection.disconnect();
                 } else {
-                    Context context = getActivity().getApplicationContext();
+                    Context context = getActivity();
                     CharSequence text = "Incomplete ride details.";
                     int duration = Toast.LENGTH_SHORT;
 
@@ -226,7 +222,7 @@ public class PublishFragment extends Fragment {
         pfPricePerSeat = edText.getText().toString();
 
         AvailableDaysOfWeek viewAv = view.findViewById(R.id.fragment_publish_days_of_week_view);
-        psAvailableDaysOfWeek = viewAv.getSelectedDaysOfWeek();
+        pfAvailableDaysOfWeek = viewAv.getSelectedDaysOfWeek();
     }
 
     // This method uses straight line distance and a constant average speed to calculate the estimated time of arrival
@@ -267,6 +263,15 @@ public class PublishFragment extends Fragment {
     // Preprocessing: splits string, then deletes lat/lng: ( ) from both substrings
     private String formatLatLngString(String psStringLatLng) {
         return psStringLatLng.substring(10, psStringLatLng.length() - 1);
+    }
+
+    private int formatBooleanToInt(boolean[] daysWeek) {
+        int processed_int = 0;
+        for (int i = 6; i >= 0; i--) {
+            processed_int |= (daysWeek[i] ? 1:0);
+            processed_int <<= 1;
+        }
+        return processed_int;
     }
 
 }
