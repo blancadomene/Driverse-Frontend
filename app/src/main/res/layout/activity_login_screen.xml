@@ -18,10 +18,10 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/activity_login_screen_logo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:srcCompat="@tools:sample/avatars" />
+            android:src="@drawable/logo" />
 
         <EditText
             android:id="@+id/activity_login_screen_username"

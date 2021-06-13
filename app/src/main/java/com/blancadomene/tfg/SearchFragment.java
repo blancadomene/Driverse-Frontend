@@ -192,7 +192,6 @@ public class SearchFragment extends Fragment {
                     for (final JsonElement value : values) {
                         final JsonObject obj = value.getAsJsonObject();
                         Ride r = new Ride(obj);
-                        System.out.println("Mete r en searches");
                         searches.add(r);
                     }
                 }
@@ -208,13 +207,11 @@ public class SearchFragment extends Fragment {
             e.printStackTrace();
         }
 
-        System.out.println("Print showresultlist");
         showResultList();
     }
 
     public void showResultList() {
         for (int i = 0; i < searches.size(); i++) {
-            System.out.println("Valor de i: " + i);
             Ride ride = searches.get(i);
             View card = getInstrumentRideCard(ride);
             linearLayout.addView(card);

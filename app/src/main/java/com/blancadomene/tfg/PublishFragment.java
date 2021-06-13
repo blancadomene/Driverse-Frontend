@@ -170,13 +170,10 @@ public class PublishFragment extends Fragment {
                                 "\"%s\", \"endDate\": \"%s\", \"availableDaysOfWeek\": %d}",
                         UUID.randomUUID(), EXTRA_ID, pfDeparturePoint, processedDepartureLatLng, pfDepartureHour, pfArrivalPoint, processedArrivalLatLng, processedArrivalHour,
                         pfAvailableSeats, pfPricePerSeat, pfStartDate, pfEndDate, processedAvailableDays);
-                System.out.println("processedAvailableDays IN POST = " + processedAvailableDays);
                 connection.setDoOutput(true); // true for POST and PUT
                 connection.getOutputStream().write(myData.getBytes());
 
-                if (connection.getResponseCode() == 200) {
-                    connection.disconnect();
-                } else {
+                if (connection.getResponseCode() != 200) {
                     Context context = getActivity();
                     CharSequence text = "Incomplete ride details.";
                     int duration = Toast.LENGTH_SHORT;
@@ -185,8 +182,8 @@ public class PublishFragment extends Fragment {
                         Toast toast = Toast.makeText(context, text, duration);
                         toast.show();
                     });
-                    connection.disconnect();
                 }
+                connection.disconnect();
 
             } catch (IOException | ParseException e) {
                 e.printStackTrace();
