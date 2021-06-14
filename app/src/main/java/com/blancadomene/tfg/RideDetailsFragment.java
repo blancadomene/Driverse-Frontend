@@ -30,7 +30,6 @@ public class RideDetailsFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-    // TODO: separate get and set from onCreate
     @SuppressLint({"DefaultLocale", "SetTextI18n"})
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -80,7 +79,7 @@ public class RideDetailsFragment extends Fragment {
         AvailableDaysOfWeek viewAv = view.findViewById(R.id.fragment_ride_details_days_of_week_view);
         viewAv.setEnabledDaysOfWeek(ride.getAvailableDaysOfWeek());
 
-        new DownloadImageTask(view.findViewById(R.id.fragment_ride_details_driver_image)).execute("https://www.gravatar.com/avatar/205e460b479e2e5b48aeg07710c08d50?s=450&r=pg&d=retro");
+        new DownloadImageTask(view.findViewById(R.id.fragment_ride_details_driver_image)).execute(ride.getDriver().getPhoto());
 
         text = view.findViewById(R.id.fragment_ride_details_driver_name);
         text.setText(ride.getDriver().getName() + " " + ride.getDriver().getSurName());

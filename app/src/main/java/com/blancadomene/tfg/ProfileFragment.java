@@ -2,9 +2,7 @@ package com.blancadomene.tfg;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.JsonReader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +12,9 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
+import com.google.gson.JsonObject;
+
+import java.util.concurrent.ExecutionException;
 
 public class ProfileFragment extends Fragment {
 
@@ -36,7 +31,7 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        // Get info from DB
+        // Gets info from DB
         // Argument: bundle from previous activity
         MainActivity activity = (MainActivity) getActivity();
         assert activity != null;
@@ -45,81 +40,66 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
+    // Gets info for current user
     @SuppressLint("SetTextI18n")
     private void getUserInfo(View view, Bundle extrasBundle) {
         String extraID = extrasBundle.getString("EXTRA_ID");
 
-        AsyncTask.execute(() -> {
-            try {
-                URL url = new URL(String.format("http://%s/users/info?ID=%s", getString(R.string.backend_address), extraID));
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("GET");
-                connection.setDoOutput(false); // false for GET
+        APIClient client = new APIClient(getString(R.string.backend_address));
 
-                if (connection.getResponseCode() == 200) {
-                    InputStream responseBody = connection.getInputStream();
-                    InputStreamReader responseBodyReader =
-                            new InputStreamReader(responseBody, StandardCharsets.UTF_8);
+        APIClient.Request request = new APIClient.Request();
+        request.method = "GET";
+        request.query = String.format("users/info?ID=%s", extraID);
 
-                    JsonReader jsonReader = new JsonReader(responseBodyReader);
-                    jsonReader.beginObject();
-                    while (jsonReader.hasNext()) {
-                        switch (jsonReader.nextName()) {
-                            case ("email"):
-                                TextView tv = view.findViewById(R.id.fragment_profile_email);
-                                tv.setText("Email: " + jsonReader.nextString());
-                                break;
-                            case ("name"):
-                                tv = view.findViewById(R.id.fragment_profile_name);
-                                tv.setText("Name: " + jsonReader.nextString());
-                                break;
-                            case ("surname"):
-                                tv = view.findViewById(R.id.fragment_profile_sur_name);
-                                tv.setText("Surname: " + jsonReader.nextString());
-                                break;
-                            case ("birthdate"):
-                                tv = view.findViewById(R.id.fragment_profile_birth_date);
-                                tv.setText("Birth date: " + jsonReader.nextString());
-                                break;
-                            case ("car"):
-                                tv = view.findViewById(R.id.fragment_profile_car);
-                                tv.setText("Car: " + jsonReader.nextString());
-                                break;
-                            case ("image"):
-                                ImageView imView = view.findViewById(R.id.fragment_profile_image);
-                                new DownloadImageTask(imView).execute(jsonReader.nextString());
-                                break;
-                            case ("mobilephone"):
-                                tv = view.findViewById(R.id.fragment_profile_mobile_number);
-                                tv.setText("Mobile phone: " + jsonReader.nextString());
-                                break;
-                            case ("preferences"):
-                                tv = view.findViewById(R.id.fragment_profile_preferences);
-                                tv.setText("Preferences: " + jsonReader.nextString());
-                                break;
-                            default:
-                                jsonReader.skipValue();
-                        }
-                    }
-                    jsonReader.close();
-                    connection.disconnect();
+        try {
+            APIClient.Response response = client.execute(request).get();
 
-                } else {
-                    Context context = getActivity();
-                    CharSequence text = "Unknown problem related to user credentials.";
-                    int duration = Toast.LENGTH_SHORT;
+            if (response.retcode == 200) {
+                TextView tmpTV;
+                final JsonObject obj = response.json.getAsJsonObject();
 
-                    getActivity().runOnUiThread(() -> {
-                        Toast toast = Toast.makeText(context, text, duration);
-                        toast.show();
-                    });
-                    connection.disconnect();// Skip values of other keys
-                }
+                tmpTV = view.findViewById(R.id.fragment_profile_email);
+                tmpTV.setText("Email: " + obj.get("email").getAsString());
 
-            } catch (IOException e) {
-                e.printStackTrace();
+
+                tmpTV = view.findViewById(R.id.fragment_profile_name);
+                tmpTV.setText("Name: " + obj.get("name").getAsString());
+
+
+                tmpTV = view.findViewById(R.id.fragment_profile_sur_name);
+                tmpTV.setText("Surname: " + obj.get("surname").getAsString());
+
+
+                tmpTV = view.findViewById(R.id.fragment_profile_birth_date);
+                tmpTV.setText("Birth date: " + obj.get("birthdate").getAsString());
+
+
+                tmpTV = view.findViewById(R.id.fragment_profile_car);
+                tmpTV.setText("Car: " + obj.get("car").getAsString());
+
+
+                ImageView imView = view.findViewById(R.id.fragment_profile_image);
+                new DownloadImageTask(imView).execute(obj.get("image").getAsString());
+
+
+                tmpTV = view.findViewById(R.id.fragment_profile_mobile_number);
+                tmpTV.setText("Mobile phone: " + obj.get("mobilephone").getAsString());
+
+
+                tmpTV = view.findViewById(R.id.fragment_profile_preferences);
+                tmpTV.setText("Preferences: " + obj.get("preferences").getAsString());
+
+            } else {
+                Context context = getActivity();
+                CharSequence text = "Unknown error retrieving data from user.";
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
             }
-        });
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 }

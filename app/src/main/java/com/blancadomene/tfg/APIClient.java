@@ -47,7 +47,10 @@ public class APIClient extends AsyncTask<APIClient.Request, Void, APIClient.Resp
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod(request.method);
 
-            connection.setDoOutput(!request.method.equals("GET")); // false for GET
+            if (request.method.equals("POST")) {
+                connection.setDoOutput(true); // default value: false (GET)
+                connection.getOutputStream().write(request.body.getBytes());
+            }
 
             response.retcode = connection.getResponseCode();
 

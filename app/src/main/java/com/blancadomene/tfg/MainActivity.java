@@ -1,5 +1,6 @@
 package com.blancadomene.tfg;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.WindowManager;
@@ -9,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
 public class MainActivity extends AppCompatActivity {
+    @SuppressLint("StaticFieldLeak")
     static Activity ctx;
 
     private FragmentManager fragmentManager = null;
@@ -23,10 +25,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         ctx = this;
 
-        // Hide keyboard at activity start
+        // Hides keyboard at activity start
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-        // Get bundle from previous activity
+        // Gets bundle from previous activity
         extrasBundle = getIntent().getExtras();
 
         super.onCreate(savedInstanceState);
@@ -67,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         switchToSearchView();
     }
 
-    // Method to access the variables of LoginScreenActivity
+    // Accesses the saved variable of the LoginScreenActivity
     public Bundle getExtraData() {
         return extrasBundle;
     }

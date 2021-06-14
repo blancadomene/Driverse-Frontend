@@ -28,7 +28,7 @@
                 android:id="@+id/fragment_profile_image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="50dp"
                 android:contentDescription="@string/user_profile_image"
                 tools:src="@tools:sample/avatars" />
 

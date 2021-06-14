@@ -138,6 +138,7 @@
                 android:id="@+id/fragment_publish_travel_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
                 android:layout_weight="1"
                 android:text="@string/publish_ride_button" />
 

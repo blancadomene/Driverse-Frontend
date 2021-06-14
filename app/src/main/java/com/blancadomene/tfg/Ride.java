@@ -3,30 +3,17 @@ package com.blancadomene.tfg;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.Resources;
-import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.math.BigDecimal;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class Ride {
     private BigDecimal pricePerSeat;
@@ -89,7 +76,7 @@ public class Ride {
         String objMobilePhone;
         String objPreferences;
         String objImage;
-        
+
         APIClient client = new APIClient(MainActivity.ctx.getString(R.string.backend_address));
 
         APIClient.Request request = new APIClient.Request();
@@ -222,9 +209,9 @@ public class Ride {
     public View getRideCardView(Activity context) {
         LayoutInflater inflater = (LayoutInflater)
                 context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.layout_ride_card, null);
+        @SuppressLint("InflateParams") View view = inflater.inflate(R.layout.layout_ride_card, null);
 
-        // Get view items and set text
+        // Gets view items and sets text
         TextView text;
 
         text = view.findViewById(R.id.layout_ride_card_departure_hour);

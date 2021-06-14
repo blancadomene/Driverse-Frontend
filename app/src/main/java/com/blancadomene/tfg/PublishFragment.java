@@ -5,7 +5,6 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.location.Location;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,15 +18,13 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 public class PublishFragment extends Fragment {
     private boolean[] pfAvailableDaysOfWeek;
@@ -75,13 +72,19 @@ public class PublishFragment extends Fragment {
         eTextNP = view.findViewById(R.id.fragment_publish_available_seats);
         eTextNP.setOnClickListener(v -> showNumberPickerDialog());
 
-        // Get info from DB
+        // Gets info from DB
         // Argument: bundle from previous activity
         MainActivity activity = (MainActivity) getActivity();
         assert activity != null;
 
         Button button = view.findViewById(R.id.fragment_publish_travel_button);
-        button.setOnClickListener(v -> publishNewRide(view, activity.getExtraData()));
+        button.setOnClickListener(v -> {
+            try {
+                publishNewRide(view, activity.getExtraData());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        });
 
         return view;
     }
@@ -150,45 +153,43 @@ public class PublishFragment extends Fragment {
         timePicker.show();
     }
 
-    private void publishNewRide(View view, Bundle extrasBundle) {
+    @SuppressLint("DefaultLocale")
+    private void publishNewRide(View view, Bundle extrasBundle) throws ParseException {
         String EXTRA_ID = extrasBundle.getString("EXTRA_ID");
         retrieveDataFromEditTexts(view);
 
-        AsyncTask.execute(() -> {
-            try {
-                URL url = new URL(String.format("http://%s/rides/info", getString(R.string.backend_address)));
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("POST");
-                connection.setDoOutput(true);
-                
-                String processedArrivalHour = estimateArrivalHour(pfDepartureHour);
-                String processedDepartureLatLng = formatLatLngString(pfDepartureLatLng);
-                String processedArrivalLatLng = formatLatLngString(pfArrivalLatLng);
-                int processedAvailableDays = formatBooleanToInt(pfAvailableDaysOfWeek);
-                @SuppressLint("DefaultLocale") String myData = String.format("{\"id\": \"%s\", \"driver\": \"%s\", \"departurePoint\": \"%s\", \"departureLatLng\": \"%s\", \"departureHour\": \"%s\", " +
-                                "\"arrivalPoint\": \"%s\", \"arrivalLatLng\": \"%s\", \"arrivalHour\": \"%s\", \"availableSeats\": \"%s\", \"pricePerSeat\": \"%s\", \"startDate\": " +
-                                "\"%s\", \"endDate\": \"%s\", \"availableDaysOfWeek\": %d}",
-                        UUID.randomUUID(), EXTRA_ID, pfDeparturePoint, processedDepartureLatLng, pfDepartureHour, pfArrivalPoint, processedArrivalLatLng, processedArrivalHour,
-                        pfAvailableSeats, pfPricePerSeat, pfStartDate, pfEndDate, processedAvailableDays);
-                connection.setDoOutput(true); // true for POST and PUT
-                connection.getOutputStream().write(myData.getBytes());
+        APIClient client = new APIClient(getString(R.string.backend_address));
 
-                if (connection.getResponseCode() != 200) {
-                    Context context = getActivity();
-                    CharSequence text = "Incomplete ride details.";
-                    int duration = Toast.LENGTH_SHORT;
+        APIClient.Request request = new APIClient.Request();
+        request.method = "POST";
+        request.query = "rides/info";
 
-                    getActivity().runOnUiThread(() -> {
-                        Toast toast = Toast.makeText(context, text, duration);
-                        toast.show();
-                    });
-                }
-                connection.disconnect();
+        String processedArrivalHour = estimateArrivalHour(pfDepartureHour);
+        String processedDepartureLatLng = formatLatLngString(pfDepartureLatLng);
+        String processedArrivalLatLng = formatLatLngString(pfArrivalLatLng);
+        int processedAvailableDays = formatBooleanToInt(pfAvailableDaysOfWeek);
+        request.body = String.format("{\"id\": \"%s\", \"driver\": \"%s\", \"departurePoint\": \"%s\", \"departureLatLng\": \"%s\", \"departureHour\": \"%s\", " +
+                        "\"arrivalPoint\": \"%s\", \"arrivalLatLng\": \"%s\", \"arrivalHour\": \"%s\", \"availableSeats\": \"%s\", \"pricePerSeat\": \"%s\", \"startDate\": " +
+                        "\"%s\", \"endDate\": \"%s\", \"availableDaysOfWeek\": %d}",
+                UUID.randomUUID(), EXTRA_ID, pfDeparturePoint, processedDepartureLatLng, pfDepartureHour, pfArrivalPoint, processedArrivalLatLng, processedArrivalHour,
+                pfAvailableSeats, pfPricePerSeat, pfStartDate, pfEndDate, processedAvailableDays);
 
-            } catch (IOException | ParseException e) {
-                e.printStackTrace();
+        try {
+            APIClient.Response response = client.execute(request).get();
+
+            if (response.retcode != 200) {
+                Context context = getActivity();
+                CharSequence text = "Incomplete ride details.";
+                int duration = Toast.LENGTH_SHORT;
+
+                getActivity().runOnUiThread(() -> {
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                });
             }
-        });
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
 
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         fragmentManager.popBackStack();
@@ -265,7 +266,7 @@ public class PublishFragment extends Fragment {
     private int formatBooleanToInt(boolean[] daysWeek) {
         int processed_int = 0;
         for (int i = 6; i >= 0; i--) {
-            processed_int |= (daysWeek[i] ? 1:0);
+            processed_int |= (daysWeek[i] ? 1 : 0);
             processed_int <<= 1;
         }
         return processed_int;
