@@ -1,18 +1,25 @@
 package com.blancadomene.tfg;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
+import java.text.ParseException;
 import java.util.Calendar;
+import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 public class RideDetailsFragment extends Fragment {
     private EditText eTextNP;
@@ -38,6 +45,14 @@ public class RideDetailsFragment extends Fragment {
 
         eTextNP = view.findViewById(R.id.fragment_ride_details_available_seats);
         eTextNP.setOnClickListener(v -> showNumberPickerDialog());
+
+        // Gets info from DB
+        // Argument: bundle from previous activity
+        MainActivity activity = (MainActivity) getActivity();
+        assert activity != null;
+
+        Button button = view.findViewById(R.id.fragment_ride_details_book_button);
+        button.setOnClickListener(v -> bookRide(view, activity.getExtraData()));
 
         // Get view items and set text
         TextView text;
@@ -114,5 +129,41 @@ public class RideDetailsFragment extends Fragment {
         });
         builder.create();
         return builder.show();
+    }
+
+    @SuppressLint("DefaultLocale")
+    private void bookRide(View view, Bundle extrasBundle) {
+        String EXTRA_ID = extrasBundle.getString("EXTRA_ID");
+
+        APIClient client = new APIClient(getString(R.string.backend_address));
+
+        APIClient.Request request = new APIClient.Request();
+        request.method = "POST";
+        request.query = "rides/book";
+
+        EditText edText = getActivity().findViewById(R.id.fragment_ride_details_available_seats);
+        request.body = String.format("{\"userID\": \"%s\", \"rideID\": \"%s\", \"seats\": %d}",
+                EXTRA_ID, ride.getRideID(), Integer.parseInt(edText.getText().toString()));
+
+        try {
+            APIClient.Response response = client.execute(request).get();
+
+            if (response.retcode != 200) {
+                Context context = getActivity();
+                CharSequence text = "Error: can't book this ride.";
+                int duration = Toast.LENGTH_SHORT;
+
+                getActivity().runOnUiThread(() -> {
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                });
+            }
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        //FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        //fragmentManager.popBackStack();
+        //fragmentManager.beginTransaction().commit();
     }
 }

@@ -89,6 +89,23 @@
                     android:textSize="20sp" />
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/fragment_profile_my_rides_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+                android:text="@string/my_rides_message"
+                android:textSize="20sp" />
+
+            <LinearLayout
+                android:id="@+id/fragment_profile_result_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                app:cornerRadius="5dp" />
+
             <Button
                 android:id="@+id/fragment_profile_log_out_button"
                 android:layout_width="wrap_content"

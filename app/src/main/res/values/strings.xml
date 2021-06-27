@@ -55,6 +55,7 @@
     <string name="user_profile_image">Profile image</string>
     <string name="log_out_button">LOG OUT</string>
     <string name="profile_message"><b>Profile page</b></string>
+    <string name="my_rides_message"><b>My rides</b></string>
 
     <!-- Notifications Card -->
     <string name="card_text">Card text notification</string>
